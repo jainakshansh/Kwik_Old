@@ -1,12 +1,16 @@
-package me.akshanshjain.kwik;
+package me.akshanshjain.kwik.Activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
+
+import me.akshanshjain.kwik.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,5 +44,13 @@ public class MainActivity extends AppCompatActivity {
         //Setting the typeface on the labels.
         QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
         upcomingLabel.setTypeface(QLight);
+
+        //Starting the creating event activity on FAB click.
+        createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
+            }
+        });
     }
 }

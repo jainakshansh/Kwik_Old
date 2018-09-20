@@ -1,7 +1,9 @@
-package me.akshanshjain.kwik;
+package me.akshanshjain.kwik.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import me.akshanshjain.kwik.R;
 
 public class CreateEventActivity extends AppCompatActivity {
 
