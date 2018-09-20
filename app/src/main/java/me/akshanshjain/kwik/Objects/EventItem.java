@@ -9,19 +9,19 @@ public class EventItem {
     private String eventDate;
     private String eventTime;
     private List<String> eventAttendees;
-    private boolean isHost;
+    private boolean isHostingOrGoing;
 
     //Private Empty constructor to disable parameter less initialization.
     private EventItem() {
     }
 
-    public EventItem(String eventName, String eventDescription, String eventDate, String eventTime, List<String> eventAttendees, boolean isHost) {
+    public EventItem(String eventName, String eventDescription, String eventDate, String eventTime, List<String> eventAttendees, boolean isHostingOrGoing) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.eventAttendees = eventAttendees;
-        this.isHost = isHost;
+        this.isHostingOrGoing = isHostingOrGoing;
     }
 
     public String getEventName() {
@@ -44,7 +44,7 @@ public class EventItem {
         return eventAttendees;
     }
 
-    public boolean isHost() {
-        return isHost;
+    public boolean isHostingOrGoing() {
+        return isHostingOrGoing;
     }
 }
