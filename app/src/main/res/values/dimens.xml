@@ -2,7 +2,11 @@
 <resources>
 
     <dimen name="material_margin">16dp</dimen>
+
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_z_translation">12dp</dimen>
+
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_padding">28dp</dimen>
 
 </resources>
