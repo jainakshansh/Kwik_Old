@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Kwik</string>
-    <string name="upcoming">Upcoming</string>
+    <string name="upcoming_plans">Upcoming plans</string>
 </resources>
