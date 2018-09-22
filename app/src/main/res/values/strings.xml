@@ -4,4 +4,7 @@
     <string name="hosting">Hosting</string>
     <string name="hosting_or_going">Hosting or Going</string>
     <string name="turn_ideas_into_events">Turn ideas into events</string>
+    <string name="full_name">Full Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="login">Login</string>
 </resources>
