@@ -48,14 +48,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initializing the Typeface for the activity.
+        QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
+
         //Setting up the toolbar for the activity.
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         //Setting the app name on the Toolbar.
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getString(R.string.app_name));
+            //Firstly removing the default name that's added to the toolbar automatically.
+            getSupportActionBar().setTitle("");
         }
+        ((TextView) findViewById(R.id.app_name_main)).setTypeface(QLight);
 
         /*
         Initialising and referencing views from the XML.
@@ -65,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         upcomingLabel = findViewById(R.id.upcoming_label_main);
 
         //Setting the typeface on the labels.
-        QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
         upcomingLabel.setTypeface(QLight);
 
         //Starting the creating event activity on FAB click.
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         This centers the child elements w.r.t. the screen on scroll.
-        Makes sure that an item is always fully visible and not partial.
+        Makes sure that an item is always fully visible and never partial.
         */
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(eventsRecycler);
