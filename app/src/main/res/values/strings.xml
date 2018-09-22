@@ -4,7 +4,10 @@
     <string name="hosting">Hosting</string>
     <string name="hosting_or_going">Hosting or Going</string>
     <string name="turn_ideas_into_events">Turn ideas into events</string>
-    <string name="full_name">Full Name</string>
-    <string name="mobile_number">Mobile Number</string>
     <string name="login">Login</string>
+    <string name="hello_there">Hello there!</string>
+    <string name="please_sign_in_to_create_or_view_events">Please sign in to create or view events.</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="new_user_sign_up">New User? Sign Up</string>
 </resources>

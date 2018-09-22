@@ -16,8 +16,8 @@ import me.akshanshjain.kwik.R;
 public class LoginScreen extends AppCompatActivity {
 
     private Typeface QLight;
-    private TextView appName, appDescription;
-    private EditText name, phone;
+    private TextView appGreeting, appDescription, directingToSignIn, signUp;
+    private EditText phone;
     private Button loginButton;
 
     @Override
@@ -37,18 +37,21 @@ public class LoginScreen extends AppCompatActivity {
         QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
 
         //Referencing the views from XML layout.
-        appName = findViewById(R.id.app_name_login);
+        appGreeting = findViewById(R.id.greeting_login);
         appDescription = findViewById(R.id.app_description_login);
-        appName.setTypeface(QLight);
-        appDescription.setTypeface(QLight);
+        directingToSignIn = findViewById(R.id.sign_in_direction_login);
+        signUp = findViewById(R.id.sign_up_text_login);
 
-        name = findViewById(R.id.user_full_name_login);
+        appGreeting.setTypeface(QLight, Typeface.BOLD);
+        appDescription.setTypeface(QLight);
+        directingToSignIn.setTypeface(QLight);
+        signUp.setTypeface(QLight, Typeface.BOLD);
+
         phone = findViewById(R.id.user_phone_number_login);
-        name.setTypeface(QLight);
         phone.setTypeface(QLight);
 
         loginButton = findViewById(R.id.button_login);
-        loginButton.setTypeface(QLight);
+        loginButton.setTypeface(QLight, Typeface.BOLD);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
