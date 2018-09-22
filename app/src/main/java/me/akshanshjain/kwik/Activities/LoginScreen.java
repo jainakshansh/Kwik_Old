@@ -3,18 +3,22 @@ package me.akshanshjain.kwik.Activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import me.akshanshjain.kwik.R;
 
 public class LoginScreen extends AppCompatActivity {
 
-    private TextView appName, appDescription;
     private Typeface QLight;
+    private TextView appName, appDescription;
+    private EditText name, phone;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +42,19 @@ public class LoginScreen extends AppCompatActivity {
         appName.setTypeface(QLight);
         appDescription.setTypeface(QLight);
 
-        new Handler().postDelayed(new Runnable() {
+        name = findViewById(R.id.user_full_name_login);
+        phone = findViewById(R.id.user_phone_number_login);
+        name.setTypeface(QLight);
+        phone.setTypeface(QLight);
+
+        loginButton = findViewById(R.id.button_login);
+        loginButton.setTypeface(QLight);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
-        }, 1500);
+        });
     }
 }
