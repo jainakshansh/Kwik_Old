@@ -12,18 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".Activities.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activities.MainActivity" />
-
         <activity android:name=".Activities.CreateEventActivity" />
-
+        <activity android:name=".Activities.RegisterActivity"></activity>
     </application>
 
 </manifest>

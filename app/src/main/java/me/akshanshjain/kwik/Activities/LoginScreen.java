@@ -11,9 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+
 import me.akshanshjain.kwik.R;
 
 public class LoginScreen extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
 
     private Typeface QLight;
     private TextView appGreeting, appDescription, directingToSignIn, signUp;
@@ -53,11 +61,36 @@ public class LoginScreen extends AppCompatActivity {
         loginButton = findViewById(R.id.button_login);
         loginButton.setTypeface(QLight, Typeface.BOLD);
 
+        //Initializing Auth.
+        firebaseAuth = FirebaseAuth.getInstance();
+        phoneAuthCallback();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Implement the Firebase Phone Authentication here.
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+            }
+        });
+    }
+
+    private void phoneAuthCallback() {
+        callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            }
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                phone.setError("Invalid phone number.");
+            }
+        };
     }
 }
