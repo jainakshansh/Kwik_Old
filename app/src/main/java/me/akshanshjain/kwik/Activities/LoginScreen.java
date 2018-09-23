@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,15 +23,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.concurrent.TimeUnit;
+
 import me.akshanshjain.kwik.R;
 
 public class LoginScreen extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
+    private boolean verificationInProgress = false;
+    private String verificationId;
+    private PhoneAuthProvider.ForceResendingToken resendToken;
 
     private Typeface QLight;
-    private TextView appGreeting, appDescription, directingToSignIn, signUp, otpInformation;
+    private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
     private EditText phone;
     private Button loginButton;
 
@@ -54,13 +60,11 @@ public class LoginScreen extends AppCompatActivity {
         appGreeting = findViewById(R.id.greeting_login);
         appDescription = findViewById(R.id.app_description_login);
         directingToSignIn = findViewById(R.id.sign_in_direction_login);
-        signUp = findViewById(R.id.sign_up_text_login);
         otpInformation = findViewById(R.id.otp_information_login);
 
         appGreeting.setTypeface(QLight, Typeface.BOLD);
         appDescription.setTypeface(QLight);
         directingToSignIn.setTypeface(QLight);
-        signUp.setTypeface(QLight, Typeface.BOLD);
         otpInformation.setTypeface(QLight);
 
         phone = findViewById(R.id.user_phone_number_login);
@@ -79,14 +83,10 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO Implement the Firebase Phone Authentication here.
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
-        });
-
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                if (!validatePhoneNumber()) {
+                    return;
+                }
+                startPhoneNumberVerification(phone.getText().toString());
             }
         });
     }
@@ -95,12 +95,20 @@ public class LoginScreen extends AppCompatActivity {
         callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                verificationInProgress = false;
                 signInWithPhoneAuthCredential(phoneAuthCredential);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                verificationInProgress = false;
                 phone.setError("Invalid phone number or code.");
+            }
+
+            @Override
+            public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                verificationId = s;
+                resendToken = forceResendingToken;
             }
         };
     }
@@ -119,5 +127,39 @@ public class LoginScreen extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void startPhoneNumberVerification(String phoneNumber) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber,
+                60,
+                TimeUnit.SECONDS,
+                this,
+                callbacks
+        );
+
+        verificationInProgress = true;
+    }
+
+    private void verifyPhoneWithCode(String verificationId, String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithPhoneAuthCredential(credential);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (verificationInProgress && validatePhoneNumber()) {
+            startPhoneNumberVerification(phone.getText().toString());
+        }
+    }
+
+    private boolean validatePhoneNumber() {
+        String phoneNumber = phone.getText().toString();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            phone.setError("Invalid phone number.");
+            return false;
+        }
+        return true;
     }
 }
