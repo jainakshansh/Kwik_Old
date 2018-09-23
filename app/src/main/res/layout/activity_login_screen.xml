@@ -71,13 +71,30 @@
         app:layout_constraintLeft_toLeftOf="@id/sign_in_direction_login"
         app:layout_constraintTop_toBottomOf="@id/sign_in_direction_login" />
 
+    <Button
+        android:id="@+id/sending_otp_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_corner_button"
+        android:letterSpacing="0.1"
+        android:padding="8dp"
+        android:text="@string/send_otp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_phone_number_login" />
+
     <EditText
         android:id="@+id/user_verify_otp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_field_bg"
         android:gravity="center"
         android:hint="@string/enter_otp_here"
@@ -87,8 +104,8 @@
         android:padding="16dp"
         android:textColor="@color/materialBlack"
         android:textColorHint="@color/materialBlack"
-        app:layout_constraintLeft_toLeftOf="@id/user_phone_number_login"
-        app:layout_constraintTop_toBottomOf="@id/user_phone_number_login" />
+        app:layout_constraintLeft_toLeftOf="@id/sending_otp_login"
+        app:layout_constraintTop_toBottomOf="@id/sending_otp_login" />
 
     <Button
         android:id="@+id/button_login"
@@ -100,7 +117,7 @@
         android:background="@drawable/rounded_corner_button"
         android:letterSpacing="0.1"
         android:padding="8dp"
-        android:text="@string/send_otp"
+        android:text="@string/login"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -116,7 +133,7 @@
         android:layout_marginStart="32dp"
         android:gravity="center"
         android:letterSpacing="0.1"
-        android:text="@string/we_will_send_you_an_otp_to_verify_the_phone_number"
+        android:text="@string/we_will_send_you_an_otp_to_verify_the_phone_number_standard_sms_rates_may_apply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

@@ -1,11 +1,11 @@
 package me.akshanshjain.kwik.Activities;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,10 +35,12 @@ public class LoginScreen extends AppCompatActivity {
     private String verificationId;
     private PhoneAuthProvider.ForceResendingToken resendToken;
 
+    private static final String VERIFICATION_PROGRESS = "VERIFICATION_IN_PROGRESS";
+
     private Typeface QLight;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
-    private EditText phone;
-    private Button loginButton;
+    private EditText phone, otp;
+    private Button sendOTPButton, loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,12 @@ public class LoginScreen extends AppCompatActivity {
         phone = findViewById(R.id.user_phone_number_login);
         phone.setTypeface(QLight);
 
+        otp = findViewById(R.id.user_verify_otp);
+        otp.setTypeface(QLight);
+
+        sendOTPButton = findViewById(R.id.sending_otp_login);
+        sendOTPButton.setTypeface(QLight, Typeface.BOLD);
+
         loginButton = findViewById(R.id.button_login);
         loginButton.setTypeface(QLight, Typeface.BOLD);
 
@@ -79,14 +87,31 @@ public class LoginScreen extends AppCompatActivity {
         //Initializing callbacks.
         setupCallbacks();
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        sendOTPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Implement the Firebase Phone Authentication here.
+                /*
+                Starting with the phone verification by validating the phone entry field first.
+                */
                 if (!validatePhoneNumber()) {
                     return;
                 }
+
                 startPhoneNumberVerification(phone.getText().toString());
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                This is called when the user has entered OTP and we need to verify that.
+                */
+                if (!validateCode()) {
+                    return;
+                }
+
+                verifyPhoneWithCode(verificationId, otp.getText().toString());
             }
         });
     }
@@ -103,6 +128,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
                 verificationInProgress = false;
                 phone.setError("Invalid phone number or code.");
+                Log.d("ADebug", e + "");
             }
 
             @Override
@@ -121,15 +147,14 @@ public class LoginScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
-
-                            Intent toMain = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(toMain);
                         }
                     }
                 });
     }
 
     private void startPhoneNumberVerification(String phoneNumber) {
+        phoneNumber = "+91" + phoneNumber;
+        Log.d("ADebug", phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,
                 60,
@@ -161,5 +186,31 @@ public class LoginScreen extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    private boolean validateCode() {
+        String code = otp.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            otp.setError("Invalid code.");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(VERIFICATION_PROGRESS, verificationInProgress);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            verificationInProgress = savedInstanceState.getBoolean(VERIFICATION_PROGRESS);
+            if (verificationInProgress) {
+                //Need to call verify Phone number again.
+            }
+        }
     }
 }
