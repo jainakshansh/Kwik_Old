@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Activities;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -58,7 +59,9 @@ public class LoginScreen extends AppCompatActivity {
         //Initializing the typeface.
         QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
 
-        //Referencing the views from XML layout.
+        /*
+        Initializing and referencing the views from the XML layout.
+        */
         appGreeting = findViewById(R.id.greeting_login);
         appDescription = findViewById(R.id.app_description_login);
         directingToSignIn = findViewById(R.id.sign_in_direction_login);
@@ -87,6 +90,10 @@ public class LoginScreen extends AppCompatActivity {
         //Initializing callbacks.
         setupCallbacks();
 
+        /*
+        Setting the listener on the send OTP button which sends an OTP to the user.
+        This is implemented through Firebase.
+        */
         sendOTPButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +108,9 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+        /*
+        Setting the listener on the login button which verifies the pair of OTP and phone number to login the user.
+        */
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +149,9 @@ public class LoginScreen extends AppCompatActivity {
         };
     }
 
+    /*
+    Authenticating the sign in with phone.
+    */
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -147,6 +160,9 @@ public class LoginScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         }
                     }
                 });
@@ -167,7 +183,9 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void verifyPhoneWithCode(String verificationId, String code) {
+        //Starting the code verification.
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        //Phone verification ends.
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -179,15 +197,24 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
+    /*
+    Returns either true or false by checking if the user has entered a valid phone number.
+    */
     private boolean validatePhoneNumber() {
         String phoneNumber = phone.getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) {
+            phone.setError("Invalid phone number.");
+            return false;
+        } else if (phoneNumber.length() != 10) {
             phone.setError("Invalid phone number.");
             return false;
         }
         return true;
     }
 
+    /*
+    Returns either true or false by checking if the user has entered the OTP.
+    */
     private boolean validateCode() {
         String code = otp.getText().toString();
         if (TextUtils.isEmpty(code)) {
@@ -197,12 +224,18 @@ public class LoginScreen extends AppCompatActivity {
         return true;
     }
 
+    /*
+    This method saves instance state variables.
+    */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(VERIFICATION_PROGRESS, verificationInProgress);
     }
 
+    /*
+    This method restores instance state variables.
+    */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
