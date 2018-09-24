@@ -12,9 +12,16 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_create_event"
-            style="@style/ToolbarTheme"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/toolbar_title_create_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:textColor="@color/materialBlack"
+                android:textSize="20sp" />
 
         </android.support.v7.widget.Toolbar>
 

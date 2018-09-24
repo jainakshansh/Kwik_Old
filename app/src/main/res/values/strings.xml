@@ -13,4 +13,5 @@
     <string name="enter_otp_here">Enter OTP here</string>
     <string name="send_otp">Send OTP</string>
     <string name="we_will_send_you_an_otp_to_verify_the_phone_number_standard_sms_rates_may_apply">We will send you an OTP to verify the phone number. Standard SMS rates may apply.</string>
+    <string name="create_event">Create Event</string>
 </resources>

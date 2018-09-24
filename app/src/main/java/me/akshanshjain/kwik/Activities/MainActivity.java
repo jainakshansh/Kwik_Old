@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             //Firstly removing the default name that's added to the toolbar automatically.
             getSupportActionBar().setTitle("");
         }
-        ((TextView) findViewById(R.id.app_name_main)).setTypeface(QLight);
+        ((TextView) findViewById(R.id.app_name_main)).setTypeface(QLight, Typeface.BOLD);
 
         /*
         Initialising and referencing views from the XML.
