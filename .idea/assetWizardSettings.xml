@@ -64,8 +64,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_movie_out" />
-                            <entry key="sourceFile" value="C:\Users\Akshansh\Desktop\movie_out.svg" />
+                            <entry key="outputName" value="ic_next" />
+                            <entry key="sourceFile" value="C:\Users\Akshansh\Desktop\next.svg" />
                           </map>
                         </option>
                       </PersistentState>

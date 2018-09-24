@@ -8,11 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.akshanshjain.kwik.R;
+
 public class WhenPlanFragment extends Fragment {
 
+    /*
+    Mandatory constructor for instantiating the fragment.
+    */
+    public WhenPlanFragment() {
+    }
+
+    /*
+    Inflating the fragment layout and performs the required operations or functions.
+    */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        //Inflating the layout from the XML.
+        View view = inflater.inflate(R.layout.fragment_when_plan, container, false);
+        return view;
     }
 }
