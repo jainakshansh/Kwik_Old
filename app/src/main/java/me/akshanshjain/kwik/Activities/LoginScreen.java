@@ -56,6 +56,17 @@ public class LoginScreen extends AppCompatActivity {
 
         setContentView(R.layout.activity_login_screen);
 
+        /*
+        Checking if the user has already signed in.
+        If yes, direct user to MainActivity directly and finish the login one.
+        Else, we take the user through the authentication process.
+        */
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
         //Initializing the typeface.
         QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
 
@@ -104,6 +115,7 @@ public class LoginScreen extends AppCompatActivity {
                     return;
                 }
 
+                Toast.makeText(LoginScreen.this, "We are sending you an OTP!", Toast.LENGTH_SHORT).show();
                 startPhoneNumberVerification(phone.getText().toString());
             }
         });
