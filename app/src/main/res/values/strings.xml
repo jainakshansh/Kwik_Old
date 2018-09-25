@@ -20,4 +20,11 @@
     <string name="movie">Movie</string>
     <string name="custom_plan">Custom\nPlan</string>
     <string name="next">Next</string>
+    <string name="when">When?</string>
+    <string name="tonight">Tonight</string>
+    <string name="_8_pm">8 PM</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="_6_pm">6 PM</string>
+    <string name="custom_time">Custom\nTime</string>
+    <string name="decide_later">Decide\nLater</string>
 </resources>

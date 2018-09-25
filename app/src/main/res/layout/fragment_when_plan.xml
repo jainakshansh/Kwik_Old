@@ -1,6 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/fragment_background_gradient">
+
+    <TextView
+        android:id="@+id/whens_the_plan_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/when"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@id/tonight_option_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <LinearLayout
+        android:id="@+id/tonight_option_container"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/circular_white_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/custom_time_when"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tomorrow_option_container"
+        app:layout_constraintTop_toBottomOf="@id/whens_the_plan_tv">
+
+        <TextView
+            android:id="@+id/tonight_option_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tonight"
+            android:textAllCaps="true"
+            android:textColor="@color/materialBlack"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tonight_option_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/_8_pm"
+            android:textColor="@color/materialBlack"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tomorrow_option_container"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/circular_white_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/custom_time_when"
+        app:layout_constraintLeft_toRightOf="@id/tonight_option_container"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/whens_the_plan_tv">
+
+        <TextView
+            android:id="@+id/tomorrow_option_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tomorrow"
+            android:textAllCaps="true"
+            android:textColor="@color/materialBlack"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tomorrow_option_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/_6_pm"
+            android:textColor="@color/materialBlack"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/custom_time_when"
+        android:layout_width="156dp"
+        android:layout_height="156dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/circular_white_background"
+        android:gravity="center"
+        android:text="@string/custom_time"
+        android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/decide_later_when"
+        app:layout_constraintTop_toBottomOf="@id/tonight_option_container" />
+
+    <TextView
+        android:id="@+id/decide_later_when"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
+        android:background="@drawable/circular_white_background"
+        android:gravity="center"
+        android:text="@string/decide_later"
+        android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/next_button_when_fragment"
+        app:layout_constraintLeft_toRightOf="@id/custom_time_when"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tomorrow_option_container" />
+
+    <ImageView
+        android:id="@+id/next_button_when_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/next"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/decide_later_when" />
 
 </android.support.constraint.ConstraintLayout>
