@@ -33,4 +33,5 @@
     <string name="choose_later">choose later</string>
     <string name="who_s_invited">Who\'s invited?</string>
     <string name="suggested">Suggested</string>
+    <string name="done">Done</string>
 </resources>
