@@ -27,4 +27,8 @@
     <string name="_6_pm">6 PM</string>
     <string name="custom_time">Custom\nTime</string>
     <string name="decide_later">Decide\nLater</string>
+    <string name="where">Where?</string>
+    <string name="domino_s_pizza">Domino\'s Pizza</string>
+    <string name="or">or ...</string>
+    <string name="choose_later">choose later</string>
 </resources>
