@@ -60,15 +60,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/or_tv_where" />
 
-    <ImageView
-        android:id="@+id/next_button_where_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:contentDescription="@string/next"
-        android:src="@drawable/ic_next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 </android.support.constraint.ConstraintLayout>
