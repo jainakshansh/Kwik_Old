@@ -3,6 +3,7 @@ package me.akshanshjain.kwik.Adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Random;
 
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
@@ -29,6 +31,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public class EventsViewHolder extends RecyclerView.ViewHolder {
 
         private TextView eventName, eventDescription, eventDateTime, eventHostOrGuest;
+        private ConstraintLayout eventParent;
 
         public EventsViewHolder(View itemView) {
             super(itemView);
@@ -37,7 +40,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             eventName = itemView.findViewById(R.id.event_name);
             eventDescription = itemView.findViewById(R.id.event_description);
             eventDateTime = itemView.findViewById(R.id.event_date_time);
-            eventItemList = itemView.findViewById(R.id.event_hosting_going);
+            eventHostOrGuest = itemView.findViewById(R.id.event_hosting_going);
+
+            eventParent = itemView.findViewById(R.id.event_parent);
         }
 
     }
@@ -66,8 +71,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         holder.eventDescription.setText(eventItem.getEventDescription());
 
         holder.eventDateTime.setTypeface(QLight);
+        holder.eventDateTime.setText(eventItem.getEventDate() + "\n" + eventItem.getEventTime());
 
         holder.eventHostOrGuest.setTypeface(QLight);
+
+        //Setting a random background on the card parent.
+        int[] gradients = new int[]{R.drawable.gradient_blue, R.drawable.gradient_gray, R.drawable.gradient_green,
+                R.drawable.gradient_maroon, R.drawable.gradient_orange, R.drawable.gradient_purple};
+        Random random = new Random();
+
+        holder.eventParent.setBackgroundResource(gradients[random.nextInt(gradients.length)]);
     }
 
     @Override

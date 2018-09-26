@@ -43,9 +43,7 @@ public class WhatPlanFragment extends Fragment {
         eatingTv = view.findViewById(R.id.eating_out_tv);
         nightOutTv = view.findViewById(R.id.night_out_tv);
         movieTv = view.findViewById(R.id.movie_tv);
-        customPlanTv = view.findViewById(R.id.custom_plan);
-
-        next = view.findViewById(R.id.next_button_what_fragment);
+        customPlanTv = view.findViewById(R.id.custom_plan_what);
 
         whatsPlanTv.setTypeface(QLight, Typeface.BOLD);
         eatingTv.setTypeface(QLight);

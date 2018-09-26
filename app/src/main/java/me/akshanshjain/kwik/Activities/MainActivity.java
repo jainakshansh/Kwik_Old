@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import me.akshanshjain.kwik.Adapters.EventsAdapter;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //Setting up the Recycler View.
         eventItemList = new ArrayList<>();
         eventsAdapter = new EventsAdapter(this, eventItemList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         eventsRecycler.setLayoutManager(layoutManager);
         eventsRecycler.setItemAnimator(new DefaultItemAnimator());
         eventsRecycler.setAdapter(eventsAdapter);
@@ -105,11 +106,13 @@ public class MainActivity extends AppCompatActivity {
             //Calling the function to get the data.
             getEventsData();
         }
+
+        testData();
     }
 
     /*
     This function gets a reference to the firebase database.
-    Then is called everytime the data changes.
+    Then is called every time the data changes.
     The code for checking network connectivity is included in the onCreate function.
     */
     private void getEventsData() {
@@ -148,5 +151,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error connecting. Please check your internet connection!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void testData() {
+        ArrayList<String> attendees = new ArrayList<>(Arrays.asList("Akshansh", "Adwait", "Tushar", "Tanishq"));
+        EventItem event = new EventItem("Dinner Party", "Small get together", "27/09/2018",
+                "1800", attendees, true);
+
+        EventItem event1 = new EventItem("Birthday Party", "Aadarsh's Bday", "27/09/2018",
+                "1200", attendees, true);
+
+        eventItemList.add(event);
+        eventItemList.add(event1);
+
+        eventsAdapter.notifyDataSetChanged();
     }
 }
