@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Typeface QLight;
 
+    private String userPhoneNumber;
+    private static final String PHONE_KEY = "USER_PHONE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("");
         }
         ((TextView) findViewById(R.id.app_name_main)).setTypeface(QLight, Typeface.BOLD);
+
+        /*
+        Getting the phone number of the user from the intent.
+        This will be stored in the database which will show all the registered numbers.
+        */
+        Intent loginSuccessIntent = getIntent();
+        if (loginSuccessIntent.getExtras() != null) {
+            userPhoneNumber = loginSuccessIntent.getStringExtra(PHONE_KEY);
+        }
 
         /*
         Initialising and referencing views from the XML.
