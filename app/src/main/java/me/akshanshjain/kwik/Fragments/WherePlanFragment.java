@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WherePlanFragment extends Fragment {
@@ -19,15 +21,27 @@ public class WherePlanFragment extends Fragment {
     private TextView wheresPlanTv, orTv, chooseLaterTv;
     private EditText planLocationET;
 
+    private OnFragmentInteractionListener interactionListener;
+
     /*
     Mandatory constructor for instantiating the fragment.
     */
     public WherePlanFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            interactionListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
-    Inflating the fragment layout and performs the required operations or functions.
-    */
+        Inflating the fragment layout and performs the required operations or functions.
+        */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +63,15 @@ public class WherePlanFragment extends Fragment {
         orTv.setTypeface(Lora);
         chooseLaterTv.setTypeface(Lora);
         planLocationET.setTypeface(Lora);
+
+        chooseLaterTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Choose Later");
+                }
+            }
+        });
 
         return view;
     }

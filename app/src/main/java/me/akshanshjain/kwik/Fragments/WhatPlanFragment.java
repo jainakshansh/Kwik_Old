@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {
@@ -19,8 +21,9 @@ public class WhatPlanFragment extends Fragment {
 
     private TextView whatsPlanTv;
     private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
-
     private LinearLayout eatingContainer, nightOutContainer, movieContainer;
+
+    private OnFragmentInteractionListener interactionListener;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -28,9 +31,19 @@ public class WhatPlanFragment extends Fragment {
     public WhatPlanFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            interactionListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
-    Inflating the fragment layout and performs the required operations or functions.
-    */
+        Inflating the fragment layout and performs the required operations or functions.
+        */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,35 +78,36 @@ public class WhatPlanFragment extends Fragment {
         eatingContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Eating Out");
+                }
             }
         });
 
         nightOutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Night Out");
+                }
             }
         });
 
         movieContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Movie");
+                }
             }
         });
 
         customPlanTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Custom Plan");
+                }
             }
         });
 

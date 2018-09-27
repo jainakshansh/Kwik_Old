@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhenPlanFragment extends Fragment {
@@ -21,13 +23,24 @@ public class WhenPlanFragment extends Fragment {
     private TextView customTime, decideLater;
     private TextView tonightDate, tonightTime;
     private TextView tomorrowDate, tomorrowTime;
-
     private LinearLayout tonightContainer, tomorrowContainer;
+
+    private OnFragmentInteractionListener interactionListener;
 
     /*
     Mandatory constructor for instantiating the fragment.
     */
     public WhenPlanFragment() {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            interactionListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -67,24 +80,34 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Tonight 8PM");
+                }
             }
         });
 
         tomorrowContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Tomorrow 6PM");
+                }
             }
         });
 
         customTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Implement the Date Picker dialog.
             }
         });
 
         decideLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (interactionListener != null) {
+                    interactionListener.onFragmentInteraction("Decide Later");
+                }
             }
         });
 

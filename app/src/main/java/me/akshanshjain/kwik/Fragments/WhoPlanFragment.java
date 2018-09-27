@@ -15,7 +15,6 @@ import me.akshanshjain.kwik.R;
 public class WhoPlanFragment extends Fragment {
 
     private Typeface Lora;
-
     private TextView whosPlanTv, suggestedLabel;
 
     /*
