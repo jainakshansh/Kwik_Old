@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {
 
     private Typeface Lora;
+
+    private TextView whosPlanTv, suggestedLabel;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -36,6 +39,11 @@ public class WhoPlanFragment extends Fragment {
         /*
         Referencing the views from the XML layout.
         */
+        whosPlanTv = view.findViewById(R.id.whos_invited_plan_tv);
+        suggestedLabel = view.findViewById(R.id.suggested_label_who);
+
+        whosPlanTv.setTypeface(Lora, Typeface.BOLD);
+        suggestedLabel.setTypeface(Lora);
 
         return view;
     }

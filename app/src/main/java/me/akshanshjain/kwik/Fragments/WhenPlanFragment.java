@@ -64,6 +64,30 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer = view.findViewById(R.id.tonight_option_container);
         tomorrowContainer = view.findViewById(R.id.tomorrow_option_container);
 
+        tonightContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        tomorrowContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        customTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        decideLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
         return view;
     }
 }

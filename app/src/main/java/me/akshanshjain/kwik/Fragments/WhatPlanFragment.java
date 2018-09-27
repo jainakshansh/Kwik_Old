@@ -65,32 +65,28 @@ public class WhatPlanFragment extends Fragment {
         eatingContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whatPlanListener whatPlan = null;
-                whatPlan.whatPlanData("Eating Out");
+
             }
         });
 
         nightOutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whatPlanListener whatPlan = null;
-                whatPlan.whatPlanData("Night Out");
+
             }
         });
 
         movieContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whatPlanListener whatPlan = null;
-                whatPlan.whatPlanData("Movie");
+
             }
         });
 
         customPlanTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                whatPlanListener whatPlan = null;
-                whatPlan.whatPlanData("Custom Plan");
+
             }
         });
 
@@ -102,12 +98,5 @@ public class WhatPlanFragment extends Fragment {
         });
 
         return view;
-    }
-
-    /*
-    This interface passes the selected string to the activity.
-    */
-    public interface whatPlanListener {
-        void whatPlanData(String whatPlan);
     }
 }
