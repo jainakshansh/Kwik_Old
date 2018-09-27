@@ -41,7 +41,7 @@ public class LoginScreen extends AppCompatActivity {
     private static final String USER_KEY = "USER";
     private static final String VERIFICATION_PROGRESS = "VERIFICATION_IN_PROGRESS";
 
-    private Typeface QLight;
+    private Typeface Lora;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
     private EditText phone, otp;
     private Button sendOTPButton, loginButton;
@@ -71,7 +71,7 @@ public class LoginScreen extends AppCompatActivity {
         }
 
         //Initializing the typeface.
-        QLight = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Light.ttf");
+        Lora = Typeface.createFromAsset(getAssets(), "fonts/Lora.ttf");
 
         /*
         Initializing and referencing the views from the XML layout.
@@ -81,22 +81,22 @@ public class LoginScreen extends AppCompatActivity {
         directingToSignIn = findViewById(R.id.sign_in_direction_login);
         otpInformation = findViewById(R.id.otp_information_login);
 
-        appGreeting.setTypeface(QLight, Typeface.BOLD);
-        appDescription.setTypeface(QLight);
-        directingToSignIn.setTypeface(QLight);
-        otpInformation.setTypeface(QLight);
+        appGreeting.setTypeface(Lora, Typeface.BOLD);
+        appDescription.setTypeface(Lora);
+        directingToSignIn.setTypeface(Lora);
+        otpInformation.setTypeface(Lora);
 
         phone = findViewById(R.id.user_phone_number_login);
-        phone.setTypeface(QLight);
+        phone.setTypeface(Lora);
 
         otp = findViewById(R.id.user_verify_otp);
-        otp.setTypeface(QLight);
+        otp.setTypeface(Lora);
 
         sendOTPButton = findViewById(R.id.sending_otp_login);
-        sendOTPButton.setTypeface(QLight, Typeface.BOLD);
+        sendOTPButton.setTypeface(Lora, Typeface.BOLD);
 
         loginButton = findViewById(R.id.button_login);
-        loginButton.setTypeface(QLight, Typeface.BOLD);
+        loginButton.setTypeface(Lora, Typeface.BOLD);
 
         //Initializing Auth.
         firebaseAuth = FirebaseAuth.getInstance();

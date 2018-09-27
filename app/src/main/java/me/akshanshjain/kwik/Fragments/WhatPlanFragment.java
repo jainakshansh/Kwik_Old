@@ -15,7 +15,7 @@ import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {
 
-    private Typeface QLight;
+    private Typeface Lora;
 
     private TextView whatsPlanTv;
     private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
@@ -38,7 +38,7 @@ public class WhatPlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_what_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        QLight = Typeface.createFromAsset(getContext().getAssets(), "fonts/Quicksand-Light.ttf");
+        Lora = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lora.ttf");
 
         /*
         Referencing the views from the XML layout.
@@ -49,11 +49,11 @@ public class WhatPlanFragment extends Fragment {
         movieTv = view.findViewById(R.id.movie_tv);
         customPlanTv = view.findViewById(R.id.custom_plan_what);
 
-        whatsPlanTv.setTypeface(QLight, Typeface.BOLD);
-        eatingTv.setTypeface(QLight);
-        nightOutTv.setTypeface(QLight);
-        movieTv.setTypeface(QLight);
-        customPlanTv.setTypeface(QLight);
+        whatsPlanTv.setTypeface(Lora, Typeface.BOLD);
+        eatingTv.setTypeface(Lora);
+        nightOutTv.setTypeface(Lora);
+        movieTv.setTypeface(Lora);
+        customPlanTv.setTypeface(Lora);
 
         eatingContainer = view.findViewById(R.id.eating_option_container);
         nightOutContainer = view.findViewById(R.id.night_out_container);
@@ -94,9 +94,19 @@ public class WhatPlanFragment extends Fragment {
             }
         });
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return view;
     }
 
+    /*
+    This interface passes the selected string to the activity.
+    */
     public interface whatPlanListener {
         void whatPlanData(String whatPlan);
     }

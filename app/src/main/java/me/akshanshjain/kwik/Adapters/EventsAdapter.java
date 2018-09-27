@@ -20,12 +20,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     private Context context;
     private List<EventItem> eventItemList;
-    private Typeface QLight;
+    private Typeface Lora;
 
     public EventsAdapter(Context context, List<EventItem> eventItemList) {
         this.context = context;
         this.eventItemList = eventItemList;
-        QLight = Typeface.createFromAsset(context.getAssets(), "fonts/Quicksand-Light.ttf");
+        Lora = Typeface.createFromAsset(context.getAssets(), "fonts/Lora.ttf");
     }
 
     public class EventsViewHolder extends RecyclerView.ViewHolder {
@@ -64,16 +64,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         Using the getters to get individual attributes from the object.
         Then setting the attribute values into the views.
         */
-        holder.eventName.setTypeface(QLight);
+        holder.eventName.setTypeface(Lora);
         holder.eventName.setText(eventItem.getEventName());
 
-        holder.eventDescription.setTypeface(QLight);
+        holder.eventDescription.setTypeface(Lora);
         holder.eventDescription.setText(eventItem.getEventDescription());
 
-        holder.eventDateTime.setTypeface(QLight);
+        holder.eventDateTime.setTypeface(Lora);
         holder.eventDateTime.setText(eventItem.getEventDate() + "\n" + eventItem.getEventTime());
 
-        holder.eventHostOrGuest.setTypeface(QLight);
+        holder.eventHostOrGuest.setTypeface(Lora);
 
         //Setting a random background on the card parent.
         int[] gradients = new int[]{R.drawable.gradient_blue, R.drawable.gradient_gray, R.drawable.gradient_green,
