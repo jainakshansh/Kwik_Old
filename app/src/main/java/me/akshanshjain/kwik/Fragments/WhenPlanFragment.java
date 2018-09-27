@@ -48,11 +48,18 @@ public class WhenPlanFragment extends Fragment {
         whensPlanTv = view.findViewById(R.id.whens_the_plan_tv);
         customTime = view.findViewById(R.id.custom_time_when);
         decideLater = view.findViewById(R.id.decide_later_when);
+        whensPlanTv.setTypeface(Lora, Typeface.BOLD);
+        customTime.setTypeface(Lora);
+        decideLater.setTypeface(Lora);
 
         tonightDate = view.findViewById(R.id.tonight_option_date);
         tonightTime = view.findViewById(R.id.tonight_option_time);
         tomorrowDate = view.findViewById(R.id.tomorrow_option_date);
         tomorrowTime = view.findViewById(R.id.tomorrow_option_time);
+        tonightDate.setTypeface(Lora);
+        tonightTime.setTypeface(Lora);
+        tomorrowDate.setTypeface(Lora);
+        tomorrowTime.setTypeface(Lora);
 
         tonightContainer = view.findViewById(R.id.tonight_option_container);
         tomorrowContainer = view.findViewById(R.id.tomorrow_option_container);

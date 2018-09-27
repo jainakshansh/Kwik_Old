@@ -13,7 +13,7 @@ import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {
 
-    private Typeface QLight;
+    private Typeface Lora;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -31,7 +31,11 @@ public class WhoPlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_who_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        QLight = Typeface.createFromAsset(getContext().getAssets(), "fonts/Quicksand-Light.ttf");
+        Lora = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lora.ttf");
+
+        /*
+        Referencing the views from the XML layout.
+        */
 
         return view;
     }
