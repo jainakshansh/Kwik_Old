@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import me.akshanshjain.kwik.R;
@@ -19,7 +19,8 @@ public class WhatPlanFragment extends Fragment {
 
     private TextView whatsPlanTv;
     private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
-    private ImageView next;
+
+    private LinearLayout eatingContainer, nightOutContainer, movieContainer;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -39,6 +40,9 @@ public class WhatPlanFragment extends Fragment {
         //Initializing the typeface for the Fragment.
         QLight = Typeface.createFromAsset(getContext().getAssets(), "fonts/Quicksand-Light.ttf");
 
+        /*
+        Referencing the views from the XML layout.
+        */
         whatsPlanTv = view.findViewById(R.id.whats_the_plan_tv);
         eatingTv = view.findViewById(R.id.eating_out_tv);
         nightOutTv = view.findViewById(R.id.night_out_tv);
@@ -51,6 +55,49 @@ public class WhatPlanFragment extends Fragment {
         movieTv.setTypeface(QLight);
         customPlanTv.setTypeface(QLight);
 
+        eatingContainer = view.findViewById(R.id.eating_option_container);
+        nightOutContainer = view.findViewById(R.id.night_out_container);
+        movieContainer = view.findViewById(R.id.movie_option_container);
+
+        /*
+        Setting the on click listeners on the containers to pass data to the Activity.
+        */
+        eatingContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whatPlanListener whatPlan = null;
+                whatPlan.whatPlanData("Eating Out");
+            }
+        });
+
+        nightOutContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whatPlanListener whatPlan = null;
+                whatPlan.whatPlanData("Night Out");
+            }
+        });
+
+        movieContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whatPlanListener whatPlan = null;
+                whatPlan.whatPlanData("Movie");
+            }
+        });
+
+        customPlanTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                whatPlanListener whatPlan = null;
+                whatPlan.whatPlanData("Custom Plan");
+            }
+        });
+
         return view;
+    }
+
+    public interface whatPlanListener {
+        void whatPlanData(String whatPlan);
     }
 }
