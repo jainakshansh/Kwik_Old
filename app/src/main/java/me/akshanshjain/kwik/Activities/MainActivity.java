@@ -31,6 +31,7 @@ import java.util.List;
 
 import me.akshanshjain.kwik.Adapters.EventsAdapter;
 import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.Objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Typeface QLight;
 
-    private String userPhoneNumber;
-    private static final String PHONE_KEY = "USER_PHONE";
+    private UserDataItem userDataItem;
+    private static final String USER_KEY = "USER";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,12 @@ public class MainActivity extends AppCompatActivity {
         */
         Intent loginSuccessIntent = getIntent();
         if (loginSuccessIntent.getExtras() != null) {
-            userPhoneNumber = loginSuccessIntent.getStringExtra(PHONE_KEY);
+            userDataItem = loginSuccessIntent.getExtras().getParcelable(USER_KEY);
+
+            /*
+            Sending the data about the current user to the Firebase Database.
+            */
+            pushUserDataToFirebase(userDataItem);
         }
 
         /*
@@ -177,5 +183,12 @@ public class MainActivity extends AppCompatActivity {
         eventItemList.add(event1);
 
         eventsAdapter.notifyDataSetChanged();
+    }
+
+    private void pushUserDataToFirebase(UserDataItem userDataItem) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+        databaseReference.child("registered_users").child(userDataItem.getUserID()).setValue(userDataItem);
     }
 }

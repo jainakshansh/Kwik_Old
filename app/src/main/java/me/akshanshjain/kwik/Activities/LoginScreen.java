@@ -26,6 +26,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import me.akshanshjain.kwik.Objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
 public class LoginScreen extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class LoginScreen extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken resendToken;
 
     private String userPhoneNumber;
-    private static final String PHONE_KEY = "USER_PHONE";
+    private static final String USER_KEY = "USER";
     private static final String VERIFICATION_PROGRESS = "VERIFICATION_IN_PROGRESS";
 
     private Typeface QLight;
@@ -140,6 +141,9 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
+    /*
+    Setting up the callbacks for the phone verification.
+    */
     private void setupCallbacks() {
         callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -175,8 +179,11 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
+                            UserDataItem userDataItem = new UserDataItem(user.getUid(), user.getDisplayName(), user.getDisplayName(),
+                                    user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
+
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
-                            logSuccessIntent.putExtra(PHONE_KEY, userPhoneNumber);
+                            logSuccessIntent.putExtra(USER_KEY, userDataItem);
                             startActivity(logSuccessIntent);
                         }
                     }
@@ -259,6 +266,7 @@ public class LoginScreen extends AppCompatActivity {
             verificationInProgress = savedInstanceState.getBoolean(VERIFICATION_PROGRESS);
             if (verificationInProgress) {
                 //Need to call verify Phone number again.
+
             }
         }
     }
