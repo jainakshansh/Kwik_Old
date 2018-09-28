@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {
@@ -17,15 +19,27 @@ public class WhoPlanFragment extends Fragment {
     private Typeface Lato;
     private TextView whosPlanTv, suggestedLabel;
 
+    private OnFragmentInteractionListener interactionListener;
+
     /*
     Mandatory constructor for instantiating the fragment.
     */
     public WhoPlanFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            interactionListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
-    Inflating the fragment layout and performs the required operations or functions.
-    */
+        Inflating the fragment layout and performs the required operations or functions.
+        */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,5 +59,15 @@ public class WhoPlanFragment extends Fragment {
         suggestedLabel.setTypeface(Lato);
 
         return view;
+    }
+
+    /*
+    This function is called when the view items are clicked and thus corresponding data is passed into it.
+    This data will be available in the activity for use.
+    */
+    private void viewOnClick(String data) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentInteraction(data);
+        }
     }
 }

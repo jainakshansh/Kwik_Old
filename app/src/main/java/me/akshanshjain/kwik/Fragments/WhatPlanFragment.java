@@ -78,39 +78,41 @@ public class WhatPlanFragment extends Fragment {
         eatingContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Eating Out");
-                }
+                viewOnClick("Eating Out");
             }
         });
 
         nightOutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Night Out");
-                }
+                viewOnClick("Night Out");
             }
         });
 
         movieContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Movie");
-                }
+                viewOnClick("Movie");
             }
         });
 
         customPlanTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Custom Plan");
-                }
+                viewOnClick("Custom Plan");
             }
         });
 
         return view;
+    }
+
+    /*
+    This function is called when the view items are clicked and thus corresponding data is passed into it.
+    This data will be available in the activity for use.
+    */
+    private void viewOnClick(String data) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentInteraction(data);
+        }
     }
 }

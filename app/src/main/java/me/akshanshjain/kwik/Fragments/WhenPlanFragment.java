@@ -80,18 +80,14 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Tonight 8PM");
-                }
+                viewOnClick("Tonight 8PM");
             }
         });
 
         tomorrowContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Tomorrow 6PM");
-                }
+                viewOnClick("Tomorrow 6PM");
             }
         });
 
@@ -99,18 +95,27 @@ public class WhenPlanFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO Implement the Date Picker dialog.
+                viewOnClick("Custom Time");
             }
         });
 
         decideLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Decide Later");
-                }
+                viewOnClick("Custom Time");
             }
         });
 
         return view;
+    }
+
+    /*
+    This function is called when the view items are clicked and thus corresponding data is passed into it.
+    This data will be available in the activity for use.
+    */
+    private void viewOnClick(String data) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentInteraction(data);
+        }
     }
 }

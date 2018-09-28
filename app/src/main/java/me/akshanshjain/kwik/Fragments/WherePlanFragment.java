@@ -67,12 +67,20 @@ public class WherePlanFragment extends Fragment {
         chooseLaterTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (interactionListener != null) {
-                    interactionListener.onFragmentInteraction("Choose Later");
-                }
+                viewOnClick("Choose Later");
             }
         });
 
         return view;
+    }
+
+    /*
+    This function is called when the view items are clicked and thus corresponding data is passed into it.
+    This data will be available in the activity for use.
+    */
+    private void viewOnClick(String data) {
+        if (interactionListener != null) {
+            interactionListener.onFragmentInteraction(data);
+        }
     }
 }
