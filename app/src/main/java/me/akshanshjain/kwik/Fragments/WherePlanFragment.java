@@ -17,7 +17,7 @@ import me.akshanshjain.kwik.R;
 
 public class WherePlanFragment extends Fragment {
 
-    private Typeface Lora;
+    private Typeface Lato;
     private TextView wheresPlanTv, orTv, chooseLaterTv;
     private EditText planLocationET;
 
@@ -49,7 +49,7 @@ public class WherePlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_where_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        Lora = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
         Referencing the views from the XML layout.
@@ -59,10 +59,10 @@ public class WherePlanFragment extends Fragment {
         chooseLaterTv = view.findViewById(R.id.choose_later_where);
         planLocationET = view.findViewById(R.id.where_plan_location);
 
-        wheresPlanTv.setTypeface(Lora, Typeface.BOLD);
-        orTv.setTypeface(Lora);
-        chooseLaterTv.setTypeface(Lora);
-        planLocationET.setTypeface(Lora);
+        wheresPlanTv.setTypeface(Lato, Typeface.BOLD);
+        orTv.setTypeface(Lato);
+        chooseLaterTv.setTypeface(Lato);
+        planLocationET.setTypeface(Lato);
 
         chooseLaterTv.setOnClickListener(new View.OnClickListener() {
             @Override

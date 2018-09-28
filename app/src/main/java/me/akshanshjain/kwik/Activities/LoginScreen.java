@@ -41,7 +41,7 @@ public class LoginScreen extends AppCompatActivity {
     private static final String USER_KEY = "USER";
     private static final String VERIFICATION_PROGRESS = "VERIFICATION_IN_PROGRESS";
 
-    private Typeface Lora;
+    private Typeface Lato;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
     private EditText phone, otp;
     private Button sendOTPButton, loginButton;
@@ -71,7 +71,7 @@ public class LoginScreen extends AppCompatActivity {
         }
 
         //Initializing the typeface.
-        Lora = Typeface.createFromAsset(getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
 
         /*
         Initializing and referencing the views from the XML layout.
@@ -81,22 +81,22 @@ public class LoginScreen extends AppCompatActivity {
         directingToSignIn = findViewById(R.id.sign_in_direction_login);
         otpInformation = findViewById(R.id.otp_information_login);
 
-        appGreeting.setTypeface(Lora, Typeface.BOLD);
-        appDescription.setTypeface(Lora);
-        directingToSignIn.setTypeface(Lora);
-        otpInformation.setTypeface(Lora);
+        appGreeting.setTypeface(Lato, Typeface.BOLD);
+        appDescription.setTypeface(Lato);
+        directingToSignIn.setTypeface(Lato);
+        otpInformation.setTypeface(Lato);
 
         phone = findViewById(R.id.user_phone_number_login);
-        phone.setTypeface(Lora);
+        phone.setTypeface(Lato);
 
         otp = findViewById(R.id.user_verify_otp);
-        otp.setTypeface(Lora);
+        otp.setTypeface(Lato);
 
         sendOTPButton = findViewById(R.id.sending_otp_login);
-        sendOTPButton.setTypeface(Lora, Typeface.BOLD);
+        sendOTPButton.setTypeface(Lato, Typeface.BOLD);
 
         loginButton = findViewById(R.id.button_login);
-        loginButton.setTypeface(Lora, Typeface.BOLD);
+        loginButton.setTypeface(Lato, Typeface.BOLD);
 
         //Initializing Auth.
         firebaseAuth = FirebaseAuth.getInstance();

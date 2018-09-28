@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private List<EventItem> eventItemList;
     private EventsAdapter eventsAdapter;
 
-    private Typeface Lora;
+    private Typeface Lato;
 
     private UserDataItem userDataItem;
     private static final String USER_KEY = "USER";
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initializing the Typeface for the activity.
-        Lora = Typeface.createFromAsset(getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lora.ttf");
 
         //Setting up the toolbar for the activity.
         Toolbar toolbar = findViewById(R.id.toolbar_main);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             //Firstly removing the default name that's added to the toolbar automatically.
             getSupportActionBar().setTitle("");
         }
-        ((TextView) findViewById(R.id.app_name_main)).setTypeface(Lora, Typeface.BOLD);
+        ((TextView) findViewById(R.id.app_name_main)).setTypeface(Lato, Typeface.BOLD);
 
         /*
         Getting the phone number of the user from the intent.
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         upcomingLabel = findViewById(R.id.upcoming_label_main);
 
         //Setting the typeface on the labels.
-        upcomingLabel.setTypeface(Lora);
+        upcomingLabel.setTypeface(Lato);
 
         //Starting the creating event activity on FAB click.
         createEvent.setOnClickListener(new View.OnClickListener() {

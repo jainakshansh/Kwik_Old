@@ -14,7 +14,7 @@ import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {
 
-    private Typeface Lora;
+    private Typeface Lato;
     private TextView whosPlanTv, suggestedLabel;
 
     /*
@@ -33,7 +33,7 @@ public class WhoPlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_who_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        Lora = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
         Referencing the views from the XML layout.
@@ -41,8 +41,8 @@ public class WhoPlanFragment extends Fragment {
         whosPlanTv = view.findViewById(R.id.whos_invited_plan_tv);
         suggestedLabel = view.findViewById(R.id.suggested_label_who);
 
-        whosPlanTv.setTypeface(Lora, Typeface.BOLD);
-        suggestedLabel.setTypeface(Lora);
+        whosPlanTv.setTypeface(Lato, Typeface.BOLD);
+        suggestedLabel.setTypeface(Lato);
 
         return view;
     }

@@ -17,7 +17,7 @@ import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {
 
-    private Typeface Lora;
+    private Typeface Lato;
 
     private TextView whatsPlanTv;
     private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
@@ -51,7 +51,7 @@ public class WhatPlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_what_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        Lora = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
         Referencing the views from the XML layout.
@@ -62,11 +62,11 @@ public class WhatPlanFragment extends Fragment {
         movieTv = view.findViewById(R.id.movie_tv);
         customPlanTv = view.findViewById(R.id.custom_plan_what);
 
-        whatsPlanTv.setTypeface(Lora, Typeface.BOLD);
-        eatingTv.setTypeface(Lora);
-        nightOutTv.setTypeface(Lora);
-        movieTv.setTypeface(Lora);
-        customPlanTv.setTypeface(Lora);
+        whatsPlanTv.setTypeface(Lato, Typeface.BOLD);
+        eatingTv.setTypeface(Lato);
+        nightOutTv.setTypeface(Lato);
+        movieTv.setTypeface(Lato);
+        customPlanTv.setTypeface(Lato);
 
         eatingContainer = view.findViewById(R.id.eating_option_container);
         nightOutContainer = view.findViewById(R.id.night_out_container);
