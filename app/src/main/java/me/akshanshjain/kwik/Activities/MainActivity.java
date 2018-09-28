@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null) {
             //Calling the function to get the data.
-            getEventsData();
+            //getEventsData();
         }
     }
 
@@ -179,8 +179,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-        databaseReference.child("registered_users").child(userDataItem.getUserID()).setValue(userDataItem);
-
-        databaseReference.child("registered_numbers").child(userDataItem.getUserPhoneNumber());
+        databaseReference.child("registered_users").child(userDataItem.getUserPhoneNumber()).setValue(userDataItem);
     }
 }

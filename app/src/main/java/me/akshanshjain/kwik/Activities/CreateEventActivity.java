@@ -39,9 +39,18 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
     @Override
     public void onFragmentInteraction(String data) {
 
+        /*
+        Incrementing the stack value to replace the current fragment with a new one.
+        This happens on interaction with the fragment views.
+        */
         fragmentStack++;
 
+        /*
+        This helps to replace the fragment based on the interaction and fragment stack value.
+        The click listeners are handled in a way so as to not break the flow of event creation.
+        */
         switch (fragmentStack) {
+
             case 1:
                 WhenPlanFragment whenPlanFragment = new WhenPlanFragment();
                 fragmentManager.beginTransaction()
@@ -49,6 +58,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                         .commit();
                 whatPlan = data;
                 break;
+
             case 2:
                 WherePlanFragment wherePlanFragment = new WherePlanFragment();
                 fragmentManager.beginTransaction()
@@ -56,6 +66,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                         .commit();
                 whenPlan = data;
                 break;
+
             case 3:
                 WhoPlanFragment whoPlanFragment = new WhoPlanFragment();
                 fragmentManager.beginTransaction()
@@ -63,6 +74,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                         .commit();
                 wherePlan = data;
                 break;
+
             case 4:
                 OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
                 fragmentManager.beginTransaction()
@@ -70,7 +82,17 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                         .commit();
                 whoPlan = data;
                 break;
+
             default:
+                /*
+                If there's an error, we start again.
+                This condition won't be switched to most of the times.
+                */
+                fragmentStack = 0;
+                WhatPlanFragment whatPlanFragment = new WhatPlanFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.plan_creation_container, whatPlanFragment)
+                        .commit();
                 break;
         }
     }

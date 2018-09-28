@@ -9,7 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
@@ -18,6 +22,8 @@ public class WhoPlanFragment extends Fragment {
 
     private Typeface Lato;
     private TextView whosPlanTv, suggestedLabel;
+
+    private LinearLayout peopleContainer;
 
     private OnFragmentInteractionListener interactionListener;
 
@@ -38,8 +44,8 @@ public class WhoPlanFragment extends Fragment {
     }
 
     /*
-        Inflating the fragment layout and performs the required operations or functions.
-        */
+    Inflating the fragment layout and performs the required operations or functions.
+    */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +63,10 @@ public class WhoPlanFragment extends Fragment {
 
         whosPlanTv.setTypeface(Lato, Typeface.BOLD);
         suggestedLabel.setTypeface(Lato);
+
+        peopleContainer = view.findViewById(R.id.people_container);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference phNo = databaseReference.child("registered_users");
 
         return view;
     }
