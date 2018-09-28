@@ -30,10 +30,11 @@
         app:layout_constraintTop_toBottomOf="@id/whos_invited_plan_tv" />
 
     <LinearLayout
-        android:id="@+id/people_container"
+        android:id="@+id/invited_contacts_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

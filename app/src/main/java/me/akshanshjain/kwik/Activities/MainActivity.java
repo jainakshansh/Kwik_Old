@@ -278,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PERMISSION_SETTING) {
             if (ActivityCompat.checkSelfPermission(MainActivity.this,
                     Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+
                 startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
             }
         }

@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
@@ -20,6 +22,7 @@ public class WherePlanFragment extends Fragment {
     private Typeface Lato;
     private TextView wheresPlanTv, orTv, chooseLaterTv;
     private EditText planLocationET;
+    private ImageView nextButton;
 
     private OnFragmentInteractionListener interactionListener;
 
@@ -58,6 +61,7 @@ public class WherePlanFragment extends Fragment {
         orTv = view.findViewById(R.id.or_tv_where);
         chooseLaterTv = view.findViewById(R.id.choose_later_where);
         planLocationET = view.findViewById(R.id.where_plan_location);
+        nextButton = view.findViewById(R.id.next_button_where_fragment);
 
         wheresPlanTv.setTypeface(Lato, Typeface.BOLD);
         orTv.setTypeface(Lato);
@@ -68,6 +72,19 @@ public class WherePlanFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewOnClick("Choose Later");
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                Getting the location that the user has entered from the edit text.
+                */
+                String location = planLocationET.getText().toString();
+                if (!TextUtils.isEmpty(location)) {
+                    viewOnClick(location);
+                }
             }
         });
 

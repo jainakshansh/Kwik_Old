@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,7 +29,8 @@ import me.akshanshjain.kwik.Utils.Utils;
 public class WhoPlanFragment extends Fragment {
 
     private TextView whosPlanTv, suggestedLabel;
-    private LinearLayout peopleContainer;
+    private ImageView nextButton;
+    private LinearLayout invitedContactsContainer;
 
     private OnFragmentInteractionListener interactionListener;
 
@@ -71,32 +72,50 @@ public class WhoPlanFragment extends Fragment {
         */
         whosPlanTv = view.findViewById(R.id.whos_invited_plan_tv);
         suggestedLabel = view.findViewById(R.id.suggested_label_who);
+        nextButton = view.findViewById(R.id.next_button_who_fragment);
 
         whosPlanTv.setTypeface(Lato, Typeface.BOLD);
         suggestedLabel.setTypeface(Lato);
 
-        peopleContainer = view.findViewById(R.id.people_container);
+        invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
+        /*
+        Creating the empty list which will contain all contacts and common contacts.
+        */
         allContactsList = new ArrayList<>();
         commonContactsList = new ArrayList<>();
 
+        /*
+        We get all contacts from a Utils class containing common functions.
+        */
         Utils utils = new Utils();
         allContactsList = utils.getAllContactsFromPhone(getContext());
 
-        DatabaseReference registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_users");
+        /*
+        Getting the reference from the Firebase Database and getting all the registered numbers.
+        These are then checked against the contacts.
+        The final contacts are then added to the common contacts list.
+        */
+        registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_users");
         registeredUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot contact : dataSnapshot.getChildren()) {
                     if (allContactsList.contains(contact.getKey())) {
                         commonContactsList.add(contact.getKey());
-                        Log.d("ADebug", commonContactsList.size() + "");
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewOnClick("");
             }
         });
 

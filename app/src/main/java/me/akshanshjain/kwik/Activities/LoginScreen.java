@@ -133,7 +133,6 @@ public class LoginScreen extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
                 verificationInProgress = false;
                 phone.setError("Invalid phone number or code.");
-                Log.d("ADebug", e + "");
             }
 
             @Override
