@@ -12,7 +12,7 @@ public class Utils {
     public Utils() {
     }
 
-    public static ArrayList<String> getAllContactsFromPhone(Context context) {
+    public ArrayList<String> getAllContactsFromPhone(Context context) {
 
         ArrayList<String> allContacts = new ArrayList<>();
 

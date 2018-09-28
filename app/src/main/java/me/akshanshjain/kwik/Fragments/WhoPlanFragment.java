@@ -6,26 +6,37 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
+import me.akshanshjain.kwik.Utils.Utils;
 
 public class WhoPlanFragment extends Fragment {
 
-    private Typeface Lato;
     private TextView whosPlanTv, suggestedLabel;
-
     private LinearLayout peopleContainer;
 
     private OnFragmentInteractionListener interactionListener;
+
+    private DatabaseReference registeredUsers;
+
+    private List<String> allContactsList;
+    private List<String> commonContactsList;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -53,7 +64,7 @@ public class WhoPlanFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_who_plan, container, false);
 
         //Initializing the typeface for the Fragment.
-        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
+        Typeface Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
         Referencing the views from the XML layout.
@@ -65,8 +76,29 @@ public class WhoPlanFragment extends Fragment {
         suggestedLabel.setTypeface(Lato);
 
         peopleContainer = view.findViewById(R.id.people_container);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference phNo = databaseReference.child("registered_users");
+
+        allContactsList = new ArrayList<>();
+        commonContactsList = new ArrayList<>();
+
+        Utils utils = new Utils();
+        allContactsList = utils.getAllContactsFromPhone(getContext());
+
+        DatabaseReference registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_users");
+        registeredUsers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot contact : dataSnapshot.getChildren()) {
+                    if (allContactsList.contains(contact.getKey())) {
+                        commonContactsList.add(contact.getKey());
+                        Log.d("ADebug", commonContactsList.get(0));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         return view;
     }
