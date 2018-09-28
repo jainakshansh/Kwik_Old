@@ -102,7 +102,7 @@ public class WhenPlanFragment extends Fragment {
         decideLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Custom Time");
+                viewOnClick("Decide Later");
             }
         });
 

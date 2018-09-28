@@ -1,6 +1,9 @@
 package me.akshanshjain.kwik.Activities;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     private UserDataItem userDataItem;
     private static final String USER_KEY = "USER";
+
+    private static final int PERMISSION_CONSTANT = 200;
+    private static final int REQUEST_PERMISSION_SETTING = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +102,40 @@ public class MainActivity extends AppCompatActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+                Checking if the users has provided the runtime permission for Reading Contacts.
+                If provided, we allow user to Create Event directly.
+                Else, we request for the permission using the run-time permissions.
+                */
+                if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                    /*
+                    Showing the user why we need the permissions since it's not already granted.
+                    */
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Need Contacts Permission");
+                    builder.setMessage("This app needs contacts to get other registered users.");
+                    builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_CONSTANT);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+                    builder.show();
+                } else {
+                    /*
+                    If the user has permission already, we just go ahead with the work.
+                    */
+                    startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
+                }
             }
         });
 
@@ -179,5 +221,53 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
         databaseReference.child("registered_users").child(userDataItem.getUserPhoneNumber()).setValue(userDataItem);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_CONSTANT) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
+            } else {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_CONTACTS)) {
+                    /*
+                    Showing the user why we need the permissions since it's not already granted.
+                    */
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Need Contacts Permission");
+                    builder.setMessage("This app needs contacts to get other registered users.");
+                    builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_CONSTANT);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Unable to get permission.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PERMISSION_SETTING) {
+            if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
+            }
+        }
     }
 }

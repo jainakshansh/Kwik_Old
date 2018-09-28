@@ -90,7 +90,7 @@ public class WhoPlanFragment extends Fragment {
                 for (DataSnapshot contact : dataSnapshot.getChildren()) {
                     if (allContactsList.contains(contact.getKey())) {
                         commonContactsList.add(contact.getKey());
-                        Log.d("ADebug", commonContactsList.get(0));
+                        Log.d("ADebug", commonContactsList.size() + "");
                     }
                 }
             }
