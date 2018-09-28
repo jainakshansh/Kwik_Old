@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Initializing the Typeface for the activity.
-        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lora.ttf");
+        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
 
         //Setting up the toolbar for the activity.
         Toolbar toolbar = findViewById(R.id.toolbar_main);
@@ -180,5 +180,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
         databaseReference.child("registered_users").child(userDataItem.getUserID()).setValue(userDataItem);
+
+        databaseReference.child("registered_numbers").child(userDataItem.getUserPhoneNumber());
     }
 }

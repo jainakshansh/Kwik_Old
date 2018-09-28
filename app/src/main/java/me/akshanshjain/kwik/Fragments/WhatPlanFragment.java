@@ -42,8 +42,8 @@ public class WhatPlanFragment extends Fragment {
     }
 
     /*
-        Inflating the fragment layout and performs the required operations or functions.
-        */
+    Inflating the fragment layout and performs the required operations or functions.
+    */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

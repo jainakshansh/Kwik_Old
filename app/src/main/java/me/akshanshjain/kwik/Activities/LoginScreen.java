@@ -43,8 +43,8 @@ public class LoginScreen extends AppCompatActivity {
 
     private Typeface Lato;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
-    private EditText phone, otp;
-    private Button sendOTPButton, loginButton;
+    private EditText phone;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +89,6 @@ public class LoginScreen extends AppCompatActivity {
         phone = findViewById(R.id.user_phone_number_login);
         phone.setTypeface(Lato);
 
-        otp = findViewById(R.id.user_verify_otp);
-        otp.setTypeface(Lato);
-
-        sendOTPButton = findViewById(R.id.sending_otp_login);
-        sendOTPButton.setTypeface(Lato, Typeface.BOLD);
-
         loginButton = findViewById(R.id.button_login);
         loginButton.setTypeface(Lato, Typeface.BOLD);
 
@@ -105,12 +99,12 @@ public class LoginScreen extends AppCompatActivity {
         setupCallbacks();
 
         /*
-        Setting the listener on the send OTP button which sends an OTP to the user.
-        This is implemented through Firebase.
+        Setting the listener on the login button which verifies the pair of OTP and phone number to login the user.
         */
-        sendOTPButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 /*
                 Starting with the phone verification by validating the phone entry field first.
                 */
@@ -120,23 +114,6 @@ public class LoginScreen extends AppCompatActivity {
 
                 Toast.makeText(LoginScreen.this, "We are sending you an OTP!", Toast.LENGTH_SHORT).show();
                 startPhoneNumberVerification(phone.getText().toString());
-            }
-        });
-
-        /*
-        Setting the listener on the login button which verifies the pair of OTP and phone number to login the user.
-        */
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*
-                This is called when the user has entered OTP and we need to verify that.
-                */
-                if (!validateCode()) {
-                    return;
-                }
-
-                verifyPhoneWithCode(verificationId, otp.getText().toString());
             }
         });
     }
@@ -230,18 +207,6 @@ public class LoginScreen extends AppCompatActivity {
             return false;
         } else if (phoneNumber.length() != 10) {
             phone.setError("Invalid phone number.");
-            return false;
-        }
-        return true;
-    }
-
-    /*
-    Returns either true or false by checking if the user has entered the OTP.
-    */
-    private boolean validateCode() {
-        String code = otp.getText().toString();
-        if (TextUtils.isEmpty(code)) {
-            otp.setError("Invalid code.");
             return false;
         }
         return true;
