@@ -3,6 +3,7 @@ package me.akshanshjain.kwik.Activities;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CONSTANT = 200;
     private static final int REQUEST_PERMISSION_SETTING = 100;
+    private SharedPreferences permissionStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("");
         }
         ((TextView) findViewById(R.id.app_name_main)).setTypeface(Lato, Typeface.BOLD);
+
+        permissionStatus = getSharedPreferences("PermissionStatus", MODE_PRIVATE);
 
         /*
         Getting the phone number of the user from the intent.
@@ -130,6 +134,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     builder.show();
+
+                    /*
+                    Updating the shared preferences that the permission has been granted.
+                    */
+                    SharedPreferences.Editor editor = permissionStatus.edit();
+                    editor.putBoolean(Manifest.permission.READ_CONTACTS, true);
+                    editor.apply();
+
                 } else {
                     /*
                     If the user has permission already, we just go ahead with the work.
