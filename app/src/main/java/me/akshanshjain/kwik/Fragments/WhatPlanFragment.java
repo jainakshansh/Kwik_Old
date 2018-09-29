@@ -1,6 +1,8 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ public class WhatPlanFragment extends Fragment {
     private TextView whatsPlanTv;
     private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
     private LinearLayout eatingContainer, nightOutContainer, movieContainer;
+    private ImageView nextButton;
 
     private OnFragmentInteractionListener interactionListener;
 
@@ -61,6 +66,7 @@ public class WhatPlanFragment extends Fragment {
         nightOutTv = view.findViewById(R.id.night_out_tv);
         movieTv = view.findViewById(R.id.movie_tv);
         customPlanTv = view.findViewById(R.id.custom_plan_what);
+        nextButton = view.findViewById(R.id.next_button_what_fragment);
 
         whatsPlanTv.setTypeface(Lato, Typeface.BOLD);
         eatingTv.setTypeface(Lato);
@@ -99,7 +105,14 @@ public class WhatPlanFragment extends Fragment {
         customPlanTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Custom Plan");
+                addCustomPlan();
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewOnClick(customPlanTv.getText().toString());
             }
         });
 
@@ -114,5 +127,45 @@ public class WhatPlanFragment extends Fragment {
         if (interactionListener != null) {
             interactionListener.onFragmentInteraction(data);
         }
+    }
+
+    /*
+    This is called when the custom plan text view is clicked.
+    The function builds a pop-up which allows user to enter the custom plan details.
+    */
+    private void addCustomPlan() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Custom Plan");
+
+        //Adding an edit text to the alert window to get the user text.
+        final EditText inputField = new EditText(getActivity());
+        inputField.setMaxWidth(64);
+        builder.setView(inputField);
+
+        /*
+        Called when the user is satisfied with the entry.
+        We then set the user's plan to the view.
+        */
+        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                customPlanTv.setText(inputField.getText().toString());
+            }
+        });
+
+        /*
+        Called when the user no longer likes the idea of a custom plan.
+        */
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                /*
+                The user has cancelled the idea of a custom plan.
+                */
+            }
+        });
+
+        builder.show();
     }
 }

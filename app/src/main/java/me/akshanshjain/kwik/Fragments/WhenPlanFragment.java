@@ -87,6 +87,8 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer = view.findViewById(R.id.tonight_option_container);
         tomorrowContainer = view.findViewById(R.id.tomorrow_option_container);
 
+        nextButton = view.findViewById(R.id.next_button_when_fragment);
+
         tonightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
