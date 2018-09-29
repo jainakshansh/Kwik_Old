@@ -75,5 +75,5 @@ public class UserDataItem implements Parcelable {
     public String getUserPhotoUrl() {
         return userPhotoUrl;
     }
-    
+
 }

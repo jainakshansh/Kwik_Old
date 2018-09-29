@@ -83,20 +83,17 @@ public class WhoPlanFragment extends Fragment {
 
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
-        ImageView inviteContacts = new ImageView(getContext());
+        /*
+        Adding an image dynamically to the linear layout container.
+        This will act as a button to display the common contacts list.
+        */
+        final ImageView inviteContacts = new ImageView(getContext());
         inviteContacts.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_contacts));
         inviteContacts.setMinimumHeight(48);
         inviteContacts.setMinimumWidth(48);
         inviteContacts.setMaxWidth(64);
         inviteContacts.setMaxHeight(64);
         invitedContactsContainer.addView(inviteContacts);
-
-        inviteContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         /*
         Creating the empty list which will contain all contacts and common contacts.
