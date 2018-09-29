@@ -29,7 +29,7 @@
         android:background="@drawable/circular_white_background"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/custom_time_when"
+        app:layout_constraintBottom_toTopOf="@id/custom_date_when"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tomorrow_option_container"
         app:layout_constraintTop_toBottomOf="@id/whens_the_plan_tv">
@@ -65,7 +65,7 @@
         android:background="@drawable/circular_white_background"
         android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/custom_time_when"
+        app:layout_constraintBottom_toTopOf="@id/custom_date_when"
         app:layout_constraintLeft_toRightOf="@id/tonight_option_container"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/whens_the_plan_tv">
@@ -94,13 +94,13 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/custom_time_when"
+        android:id="@+id/custom_date_when"
         android:layout_width="156dp"
         android:layout_height="156dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/circular_white_background"
         android:gravity="center"
-        android:text="@string/custom_time"
+        android:text="@string/custom_date"
         android:textAllCaps="true"
         android:textColor="@color/materialBlack"
         android:textSize="24sp"
@@ -121,7 +121,7 @@
         android:textColor="@color/materialBlack"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/next_button_when_fragment"
-        app:layout_constraintLeft_toRightOf="@id/custom_time_when"
+        app:layout_constraintLeft_toRightOf="@id/custom_date_when"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tomorrow_option_container" />
 

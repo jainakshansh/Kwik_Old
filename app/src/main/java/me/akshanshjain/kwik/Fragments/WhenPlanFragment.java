@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -26,10 +27,11 @@ public class WhenPlanFragment extends Fragment {
     private Typeface Lato;
 
     private TextView whensPlanTv;
-    private TextView customTime, decideLater;
+    private TextView customDate, decideLater;
     private TextView tonightDate, tonightTime;
     private TextView tomorrowDate, tomorrowTime;
     private LinearLayout tonightContainer, tomorrowContainer;
+    private ImageView nextButton;
 
     private OnFragmentInteractionListener interactionListener;
 
@@ -67,10 +69,10 @@ public class WhenPlanFragment extends Fragment {
         Referencing the views from the XML layout.
         */
         whensPlanTv = view.findViewById(R.id.whens_the_plan_tv);
-        customTime = view.findViewById(R.id.custom_time_when);
+        customDate = view.findViewById(R.id.custom_date_when);
         decideLater = view.findViewById(R.id.decide_later_when);
         whensPlanTv.setTypeface(Lato, Typeface.BOLD);
-        customTime.setTypeface(Lato);
+        customDate.setTypeface(Lato);
         decideLater.setTypeface(Lato);
 
         tonightDate = view.findViewById(R.id.tonight_option_date);
@@ -99,10 +101,10 @@ public class WhenPlanFragment extends Fragment {
             }
         });
 
-        customTime.setOnClickListener(new View.OnClickListener() {
+        customDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dateTimePicker();
+                datePicker();
             }
         });
 
@@ -110,6 +112,13 @@ public class WhenPlanFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewOnClick("Decide Later");
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewOnClick(customDate.getText().toString());
             }
         });
 
@@ -129,51 +138,50 @@ public class WhenPlanFragment extends Fragment {
     /*
     This function is called when the user selects a custom date time for the event.
     */
-    private void dateTimePicker() {
+    private void datePicker() {
 
         /*
         Initially we get the calendar instance and we declare the variables.
         */
         Calendar calendar = Calendar.getInstance();
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        /*
-        Asking about the date to the event creator first.
-        We use the in-built date picker dialog.
-        */
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        customDateTime = day + "/" + month + "/" + year;
-                    }
-                }, year, month, day);
-
-        dialog.show();
-
 
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         /*
-        After the date has been decided, we ask for the timings.
-        Again, we use the in-built time picker dialog.
+        Setting up the time picker dialog.
+        This will be called after the date has been selected.
         */
-        TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
+        final TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(),
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        customDateTime = "\n" + hour + " : " + minute;
-                    }
-                }, hour, minute, false);
+                        customDateTime += "\n" + hour + " : " + minute;
 
-        timePickerDialog.show();
+                        //Setting the final date and time to the text view.
+                        customDate.setText(customDateTime);
+                    }
+                }, hour, minute, true);
 
         /*
-        Finally we set the custom date and time to let the user know that their response has been recorded.
+        Asking about the date to the event creator first.
+        We use the in-built date picker dialog.
         */
-        customTime.setText(customDateTime);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        customDateTime = day + "/" + month + "/" + year;
+
+                        //After the date has been selected we call the time picker dialog.
+                        timePickerDialog.show();
+                    }
+                }, year, month, day);
+
+        datePickerDialog.show();
     }
 }
