@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
     private Typeface Lato;
 
     private UserDataItem userDataItem;
+    private String userName;
     private static final String USER_KEY = "USER";
+    private static final String USER_NAME = "USER_NAME";
 
     private static final int PERMISSION_CONSTANT = 200;
     private static final int REQUEST_PERMISSION_SETTING = 100;
@@ -85,11 +87,13 @@ public class MainActivity extends AppCompatActivity {
         Intent loginSuccessIntent = getIntent();
         if (loginSuccessIntent.getExtras() != null) {
             userDataItem = loginSuccessIntent.getExtras().getParcelable(USER_KEY);
+            userName = loginSuccessIntent.getExtras().getString(USER_NAME);
+            userDataItem.setUserName(userName);
 
             /*
             Sending the data about the current user to the Firebase Database.
             */
-            pushUserDataToFirebase(userDataItem);
+            pushUserDataToFirebase(userDataItem, userName);
         }
 
         /*
@@ -228,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
     This function creates a child node if not present and uses the User ID as the unique identifier.
     It then creates a child node with the User data.
     */
-    private void pushUserDataToFirebase(UserDataItem userDataItem) {
+    private void pushUserDataToFirebase(UserDataItem userDataItem, String userName) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
 
