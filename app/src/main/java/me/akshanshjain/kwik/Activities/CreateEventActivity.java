@@ -81,11 +81,15 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 break;
 
             case 4:
+                /*
+                Creating a bundle of strings to be passed to the overview fragment.
+                */
                 Bundle bundle = new Bundle();
                 bundle.putString(WHAT_KEY, whatPlan);
                 bundle.putString(WHEN_KEY, whenPlan);
                 bundle.putString(WHERE_KEY, wherePlan);
 
+                //Passing the bundle as an argument to the fragment.
                 OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
                 overviewPlanFragment.setArguments(bundle);
 
@@ -98,7 +102,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             default:
                 /*
                 If there's an error, we start again.
-                This condition won't be switched to most of the times.
+                This condition won't be switched to majority of the time.
                 */
                 fragmentStack = 0;
                 WhatPlanFragment whatPlanFragment = new WhatPlanFragment();

@@ -28,7 +28,7 @@ import me.akshanshjain.kwik.Utils.Utils;
 
 public class WhoPlanFragment extends Fragment {
 
-    private TextView whosPlanTv, suggestedLabel;
+    private TextView whosPlanTv, invitedLabel;
     private ImageView nextButton;
     private LinearLayout invitedContactsContainer;
 
@@ -74,11 +74,11 @@ public class WhoPlanFragment extends Fragment {
         Referencing the views from the XML layout.
         */
         whosPlanTv = view.findViewById(R.id.whos_invited_plan_tv);
-        suggestedLabel = view.findViewById(R.id.suggested_label_who);
+        invitedLabel = view.findViewById(R.id.invited_label_who);
         nextButton = view.findViewById(R.id.next_button_who_fragment);
 
         whosPlanTv.setTypeface(Lato, Typeface.BOLD);
-        suggestedLabel.setTypeface(Lato);
+        invitedLabel.setTypeface(Lato);
 
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
