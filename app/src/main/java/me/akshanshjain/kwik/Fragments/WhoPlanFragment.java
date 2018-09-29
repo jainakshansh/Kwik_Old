@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,21 @@ public class WhoPlanFragment extends Fragment {
 
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
+        ImageView inviteContacts = new ImageView(getContext());
+        inviteContacts.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_contacts));
+        inviteContacts.setMinimumHeight(48);
+        inviteContacts.setMinimumWidth(48);
+        inviteContacts.setMaxWidth(64);
+        inviteContacts.setMaxHeight(64);
+        invitedContactsContainer.addView(inviteContacts);
+
+        inviteContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         /*
         Creating the empty list which will contain all contacts and common contacts.
         */
@@ -105,6 +121,7 @@ public class WhoPlanFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot contact : dataSnapshot.getChildren()) {
                     if (allContactsList.contains(contact.getKey())) {
+                        //Getting all the common contacts into a different list.
                         commonContactsList.add(contact.getKey());
                     }
                 }

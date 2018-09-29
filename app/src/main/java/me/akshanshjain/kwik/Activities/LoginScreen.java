@@ -34,16 +34,15 @@ public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     private boolean verificationInProgress = false;
-    private String verificationId;
     private PhoneAuthProvider.ForceResendingToken resendToken;
 
     private String userPhoneNumber;
     private static final String USER_KEY = "USER";
-    private static final String VERIFICATION_PROGRESS = "VERIFICATION_IN_PROGRESS";
+    private static final String USER_NAME = "USER_NAME";
 
     private Typeface Lato;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
-    private EditText phone;
+    private EditText name, phone;
     private Button loginButton;
 
     @Override
@@ -86,6 +85,8 @@ public class LoginScreen extends AppCompatActivity {
         directingToSignIn.setTypeface(Lato);
         otpInformation.setTypeface(Lato);
 
+        name = findViewById(R.id.user_full_name_login);
+        name.setTypeface(Lato);
         phone = findViewById(R.id.user_phone_number_login);
         phone.setTypeface(Lato);
 
@@ -110,6 +111,10 @@ public class LoginScreen extends AppCompatActivity {
                 */
                 if (!validatePhoneNumber()) {
                     return;
+                }
+
+                if (TextUtils.isEmpty(name.getText().toString())) {
+                    name.setError("Required");
                 }
 
                 Toast.makeText(LoginScreen.this, "We are sending you an OTP!", Toast.LENGTH_SHORT).show();
@@ -137,7 +142,6 @@ public class LoginScreen extends AppCompatActivity {
 
             @Override
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                verificationId = s;
                 resendToken = forceResendingToken;
             }
         };
@@ -160,6 +164,7 @@ public class LoginScreen extends AppCompatActivity {
 
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
                             logSuccessIntent.putExtra(USER_KEY, userDataItem);
+                            logSuccessIntent.putExtra(USER_NAME, name.getText().toString());
                             startActivity(logSuccessIntent);
                         }
                     }
@@ -168,7 +173,6 @@ public class LoginScreen extends AppCompatActivity {
 
     private void startPhoneNumberVerification(String phoneNumber) {
         phoneNumber = "+91" + phoneNumber;
-        Log.d("ADebug", phoneNumber);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,
                 60,
@@ -178,13 +182,6 @@ public class LoginScreen extends AppCompatActivity {
         );
 
         verificationInProgress = true;
-    }
-
-    private void verifyPhoneWithCode(String verificationId, String code) {
-        //Starting the code verification.
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        //Phone verification ends.
-        signInWithPhoneAuthCredential(credential);
     }
 
     @Override
@@ -209,29 +206,5 @@ public class LoginScreen extends AppCompatActivity {
             return false;
         }
         return true;
-    }
-
-    /*
-    This method saves instance state variables.
-    */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(VERIFICATION_PROGRESS, verificationInProgress);
-    }
-
-    /*
-    This method restores instance state variables.
-    */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState != null) {
-            verificationInProgress = savedInstanceState.getBoolean(VERIFICATION_PROGRESS);
-            if (verificationInProgress) {
-                //Need to call verify Phone number again.
-
-            }
-        }
     }
 }
