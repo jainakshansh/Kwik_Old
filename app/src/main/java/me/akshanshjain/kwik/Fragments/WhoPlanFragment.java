@@ -45,6 +45,9 @@ public class WhoPlanFragment extends Fragment {
     public WhoPlanFragment() {
     }
 
+    /*
+    Attaching the interaction listener to the fragment.
+    */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

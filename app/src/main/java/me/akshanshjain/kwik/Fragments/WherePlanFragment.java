@@ -32,6 +32,9 @@ public class WherePlanFragment extends Fragment {
     public WherePlanFragment() {
     }
 
+    /*
+    Attaching the interaction listener to the fragment.
+    */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -43,8 +46,8 @@ public class WherePlanFragment extends Fragment {
     }
 
     /*
-        Inflating the fragment layout and performs the required operations or functions.
-        */
+    Inflating the fragment layout and performs the required operations or functions.
+    */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
