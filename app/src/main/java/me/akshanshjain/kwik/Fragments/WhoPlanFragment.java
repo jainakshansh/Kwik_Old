@@ -1,12 +1,15 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +42,11 @@ public class WhoPlanFragment extends Fragment {
 
     private List<String> allContactsList;
     private List<String> commonContactsList;
+
+    private String[] commonContactsArray;
+    private boolean[] checkedContacts;
+    private List<Integer> userItems;
+    private List<String> invitedContacts;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -128,6 +136,10 @@ public class WhoPlanFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+        for (int i = 0; i < commonContactsList.size(); i++) {
+            Log.d("ADebug", commonContactsList.get(i));
+        }
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

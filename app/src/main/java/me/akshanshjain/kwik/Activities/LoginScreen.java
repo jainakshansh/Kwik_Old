@@ -35,7 +35,6 @@ public class LoginScreen extends AppCompatActivity {
     private boolean verificationInProgress = false;
     private PhoneAuthProvider.ForceResendingToken resendToken;
 
-    private String userPhoneNumber;
     private static final String USER_KEY = "USER";
 
     private Typeface Lato;
@@ -157,7 +156,7 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                            UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getDisplayName(),
+                            UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getEmail(),
                                     user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
 
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -186,7 +185,6 @@ public class LoginScreen extends AppCompatActivity {
         super.onStart();
         if (verificationInProgress && validatePhoneNumber()) {
             startPhoneNumberVerification(phone.getText().toString());
-            userPhoneNumber = phone.getText().toString();
         }
     }
 

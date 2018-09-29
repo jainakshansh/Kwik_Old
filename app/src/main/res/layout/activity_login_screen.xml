@@ -85,6 +85,7 @@
         android:gravity="center"
         android:hint="@string/enter_your_phone_number"
         android:inputType="phone"
+        android:maxLength="10"
         android:padding="16dp"
         android:textColor="@color/materialBlack"
         android:textColorHint="@color/materialBlack"

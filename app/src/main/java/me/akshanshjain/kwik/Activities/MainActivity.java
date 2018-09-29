@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     private Typeface Lato;
 
     private UserDataItem userDataItem;
-    private String userName;
     private static final String USER_KEY = "USER";
 
     private static final int PERMISSION_CONSTANT = 200;
