@@ -37,7 +37,6 @@ public class LoginScreen extends AppCompatActivity {
 
     private String userPhoneNumber;
     private static final String USER_KEY = "USER";
-    private static final String USER_NAME = "USER_NAME";
 
     private Typeface Lato;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
@@ -158,12 +157,11 @@ public class LoginScreen extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                            UserDataItem userDataItem = new UserDataItem(user.getUid(), user.getDisplayName(), user.getDisplayName(),
+                            UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getDisplayName(),
                                     user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
 
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
                             logSuccessIntent.putExtra(USER_KEY, userDataItem);
-                            logSuccessIntent.putExtra(USER_NAME, name.getText().toString());
                             startActivity(logSuccessIntent);
                         }
                     }
