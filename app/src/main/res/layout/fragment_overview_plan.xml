@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/done_button_overview"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/what_plan_overview">
@@ -107,8 +107,8 @@
         android:id="@+id/done_button_overview"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:contentDescription="@string/done"
         android:src="@drawable/ic_done"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -104,7 +104,7 @@
         android:textAllCaps="true"
         android:textColor="@color/materialBlack"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/next_button_when_fragment"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/decide_later_when"
         app:layout_constraintTop_toBottomOf="@id/tonight_option_container" />
@@ -114,16 +114,26 @@
         android:layout_width="108dp"
         android:layout_height="108dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="36dp"
         android:background="@drawable/circular_white_background"
         android:gravity="center"
         android:text="@string/decide_later"
         android:textAllCaps="true"
         android:textColor="@color/materialBlack"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/next_button_when_fragment"
         app:layout_constraintLeft_toRightOf="@id/custom_time_when"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tomorrow_option_container" />
+
+    <ImageView
+        android:id="@+id/next_button_when_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/next"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
