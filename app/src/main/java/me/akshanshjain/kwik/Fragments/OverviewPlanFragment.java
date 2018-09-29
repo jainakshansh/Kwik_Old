@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class OverviewPlanFragment extends Fragment {
@@ -27,6 +31,9 @@ public class OverviewPlanFragment extends Fragment {
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
     private String what, when, where, who;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -79,7 +86,10 @@ public class OverviewPlanFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Add the event to the list and push it to the Firebase database.
+                /*
+                When user confirms, we push the event data to the backend database.
+                */
+                pushEventToFirebase();
                 Toast.makeText(getContext(), "Event creation successful!", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
@@ -88,9 +98,26 @@ public class OverviewPlanFragment extends Fragment {
         return view;
     }
 
+    /*
+    We've been storing all the details about the event creation in variables in the activity.
+    So, this function helps get all the data passed to this fragment as an argument from the activity.
+    We will then populate this data into the views before user confirms event creation.
+    */
     private void getOverviewData() {
         what = getArguments().getString(WHAT_KEY);
         when = getArguments().getString(WHEN_KEY);
         where = getArguments().getString(WHERE_KEY);
+    }
+
+    /*
+    This function pushes the created event to Firebase Database.
+    The events are saved and can be found under the child node "events_list".
+    */
+    private void pushEventToFirebase() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        EventItem eventItem = new EventItem(what, "", when, where, null, true);
+        databaseReference.child("events_list").setValue(eventItem);
     }
 }
