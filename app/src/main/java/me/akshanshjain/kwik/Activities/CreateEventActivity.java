@@ -19,6 +19,11 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
 
     private int fragmentStack = 0;
 
+    private static final String WHAT_KEY = "WHAT";
+    private static final String WHEN_KEY = "WHEN";
+    private static final String WHERE_KEY = "WHERE";
+    private static final String WHO_KEY = "WHO";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +81,14 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 break;
 
             case 4:
+                Bundle bundle = new Bundle();
+                bundle.putString(WHAT_KEY, whatPlan);
+                bundle.putString(WHEN_KEY, whenPlan);
+                bundle.putString(WHERE_KEY, wherePlan);
+
                 OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
+                overviewPlanFragment.setArguments(bundle);
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.plan_creation_container, overviewPlanFragment)
                         .commit();

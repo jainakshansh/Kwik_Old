@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import me.akshanshjain.kwik.R;
 
@@ -19,8 +20,13 @@ public class OverviewPlanFragment extends Fragment {
 
     private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel;
     private TextView whatPlan, whenPlan, wherePlan, whoPlan;
-
     private ImageView doneButton;
+
+    private static final String WHAT_KEY = "WHAT";
+    private static final String WHEN_KEY = "WHEN";
+    private static final String WHERE_KEY = "WHERE";
+    private static final String WHO_KEY = "WHO";
+    private String what, when, where, who;
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -41,6 +47,14 @@ public class OverviewPlanFragment extends Fragment {
         Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
+        Getting the arguments passed into the fragment from the activity.
+        This will be used to populate the views.
+        */
+        if (getArguments() != null) {
+            getOverviewData();
+        }
+
+        /*
         Referencing all the views from the XML and setting the typeface on them.
         */
         whatPlanLabel = view.findViewById(R.id.what_plan_label_overview);
@@ -57,14 +71,26 @@ public class OverviewPlanFragment extends Fragment {
         whenPlan.setTypeface(Lato);
         wherePlan.setTypeface(Lato);
 
+        whatPlan.setText(what);
+        whenPlan.setText(when);
+        wherePlan.setText(where);
+
         doneButton = view.findViewById(R.id.done_button_overview);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO Add the event to the list and push it to the Firebase database.
+                Toast.makeText(getContext(), "Event creation successful!", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
             }
         });
 
         return view;
+    }
+
+    private void getOverviewData() {
+        what = getArguments().getString(WHAT_KEY);
+        when = getArguments().getString(WHEN_KEY);
+        where = getArguments().getString(WHERE_KEY);
     }
 }

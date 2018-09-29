@@ -25,7 +25,8 @@
 
         <activity
             android:name=".Activities.CreateEventActivity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
