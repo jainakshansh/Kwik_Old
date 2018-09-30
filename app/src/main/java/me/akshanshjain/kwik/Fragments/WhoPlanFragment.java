@@ -96,31 +96,11 @@ public class WhoPlanFragment extends Fragment {
         allContactsList = new ArrayList<>();
         commonContactsList = new ArrayList<>();
 
-        GetNormalizeContactsTask asyncTask = new GetNormalizeContactsTask();
-        asyncTask.execute();
-
         /*
-        Getting the reference from the Firebase Database and getting all the registered numbers.
-        These are then checked against the contacts.
-        The final contacts are then added to the common contacts list.
+        We are performing all the operation of retrieving user contacts using an Async Task.
+        This does not bug the UI or make it unresponsive.
         */
-        registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_numbers");
-        registeredUsers.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot contact : dataSnapshot.getChildren()) {
-                    for (int i = 0; i < allContactsList.size(); i++) {
-                        if (allContactsList.get(i).equals(contact.getKey())) {
-                            commonContactsList.add(contact.getKey());
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+        new GetNormalizeContactsTask().execute();
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,38 +122,62 @@ public class WhoPlanFragment extends Fragment {
         }
     }
 
-    private class GetNormalizeContactsTask extends AsyncTask<Void, Void, List<String>> {
+    private class GetNormalizeContactsTask extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        protected Void doInBackground(Void... params) {
+
             /*
             We get all contacts from a Utils class containing common functions.
             */
             Utils utils = new Utils();
             allContactsList = utils.getAllContactsFromPhone(getContext());
-        }
-
-        @Override
-        protected List<String> doInBackground(Void... params) {
 
             /*
             Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
-            We replace all the spaces with nothing to remove them.
+            We replace all the spaces with nothing to nullify them.
             Then finally, we replace the current value with the new string at the same index to avoid duplication.
             */
+            List<String> normalizedList = new ArrayList<>();
             for (int c = 0; c < allContactsList.size(); c++) {
                 String contact = allContactsList.get(c);
                 contact = contact.replaceAll("\\s+", "");
-                allContactsList.add(c, contact);
+                normalizedList.add(contact);
             }
 
-            for (int i = 0; i < allContactsList.size(); i++) {
-                Log.d("ADebug", allContactsList.get(i));
-            }
+            allContactsList.clear();
+            allContactsList.addAll(normalizedList);
 
-            return allContactsList;
+            return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /*
+            Getting the reference from the Firebase Database and getting all the registered numbers.
+            These are then checked against the contacts.
+            The final contacts are then added to the common contacts list.
+            */
+            registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_numbers");
+            registeredUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot contact : dataSnapshot.getChildren()) {
+                        for (int i = 0; i < allContactsList.size(); i++) {
+                            if (allContactsList.get(i).contains(contact.getKey())) {
+                                commonContactsList.add(contact.getKey());
+                            }
+                        }
+                    }
+                    Log.d("ADebug", commonContactsList.size() + "");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
     }
 }
