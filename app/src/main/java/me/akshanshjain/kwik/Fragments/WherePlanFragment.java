@@ -74,7 +74,7 @@ public class WherePlanFragment extends Fragment {
         chooseLaterTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Choose Later");
+                viewOnClick(getString(R.string.choose_later));
             }
         });
 

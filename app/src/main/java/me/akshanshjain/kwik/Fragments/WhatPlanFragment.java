@@ -1,8 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -88,21 +85,21 @@ public class WhatPlanFragment extends Fragment {
         eatingContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Eating Out");
+                viewOnClick(getString(R.string.eating));
             }
         });
 
         nightOutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Night Out");
+                viewOnClick(getString(R.string.night_out));
             }
         });
 
         movieContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Movie");
+                viewOnClick(getString(R.string.movie));
             }
         });
 
@@ -140,38 +137,5 @@ public class WhatPlanFragment extends Fragment {
     The function builds a pop-up which allows user to enter the custom plan details.
     */
     private void addCustomPlan() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Custom Plan");
-
-        //Adding an edit text to the alert window to get the user text.
-        final EditText inputField = new EditText(getActivity());
-        inputField.setMaxWidth(64);
-        builder.setView(inputField);
-
-        /*
-        Called when the user is satisfied with the entry.
-        We then set the user's plan to the view.
-        */
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                customPlanTv.setText(inputField.getText().toString());
-            }
-        });
-
-        /*
-        Called when the user no longer likes the idea of a custom plan.
-        */
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                /*
-                The user has cancelled the idea of a custom plan.
-                */
-            }
-        });
-
-        builder.show();
     }
 }

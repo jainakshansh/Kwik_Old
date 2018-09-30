@@ -4,6 +4,7 @@
     <dimen name="material_margin">16dp</dimen>
     <dimen name="material_margin_half">8dp</dimen>
 
+    <dimen name="fab_size_material">56dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="fab_z_translation">12dp</dimen>
 

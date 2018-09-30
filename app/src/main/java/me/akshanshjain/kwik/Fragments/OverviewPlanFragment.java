@@ -118,6 +118,6 @@ public class OverviewPlanFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
         EventItem eventItem = new EventItem(what, "", when, where, null, true);
-        databaseReference.child("events_list").setValue(eventItem);
+        databaseReference.child("events_list").push().setValue(eventItem);
     }
 }

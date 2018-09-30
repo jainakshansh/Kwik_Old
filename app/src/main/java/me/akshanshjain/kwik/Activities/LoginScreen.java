@@ -42,6 +42,8 @@ public class LoginScreen extends AppCompatActivity {
     private EditText name, phone;
     private Button loginButton;
 
+    private int loginClickCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,10 +113,11 @@ public class LoginScreen extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(name.getText().toString())) {
-                    name.setError("Required");
+                    name.setError(getString(R.string.required));
                 }
 
-                Toast.makeText(LoginScreen.this, "We are sending you an OTP!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginScreen.this, R.string.we_are_sending_you_an_otp, Toast.LENGTH_SHORT).show();
+                loginButton.setText(getString(R.string.resend_otp));
                 startPhoneNumberVerification(phone.getText().toString());
             }
         });
@@ -134,7 +137,7 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 verificationInProgress = false;
-                phone.setError("Invalid phone number or code.");
+                phone.setError(getString(R.string.invalid_phone_number_or_code));
             }
 
             @Override
@@ -154,7 +157,7 @@ public class LoginScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(LoginScreen.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginScreen.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
 
                             UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getEmail(),
                                     user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
@@ -194,10 +197,10 @@ public class LoginScreen extends AppCompatActivity {
     private boolean validatePhoneNumber() {
         String phoneNumber = phone.getText().toString();
         if (TextUtils.isEmpty(phoneNumber)) {
-            phone.setError("Invalid phone number.");
+            phone.setError(getString(R.string.invalid_phone_number));
             return false;
         } else if (phoneNumber.length() != 10) {
-            phone.setError("Invalid phone number.");
+            phone.setError(getString(R.string.invalid_phone_number));
             return false;
         }
         return true;

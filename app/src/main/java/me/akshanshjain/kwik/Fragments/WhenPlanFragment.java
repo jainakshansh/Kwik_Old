@@ -62,7 +62,7 @@ public class WhenPlanFragment extends Fragment {
     */
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_when_plan, container, false);
 
@@ -96,14 +96,14 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Tonight 8PM");
+                viewOnClick(getString(R.string.tonight) + getString(R.string._8_pm));
             }
         });
 
         tomorrowContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Tomorrow 6PM");
+                viewOnClick(getString(R.string.tomorrow) + getString(R.string._6_pm));
             }
         });
 
@@ -117,7 +117,7 @@ public class WhenPlanFragment extends Fragment {
         decideLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("Decide Later");
+                viewOnClick(getString(R.string.decide_later));
             }
         });
 
