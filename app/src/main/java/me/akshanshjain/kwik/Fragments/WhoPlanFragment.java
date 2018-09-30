@@ -2,10 +2,12 @@ package me.akshanshjain.kwik.Fragments;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,24 +96,8 @@ public class WhoPlanFragment extends Fragment {
         allContactsList = new ArrayList<>();
         commonContactsList = new ArrayList<>();
 
-        /*
-        We get all contacts from a Utils class containing common functions.
-        */
-        Utils utils = new Utils();
-        allContactsList = utils.getAllContactsFromPhone(getContext());
-
-        /*
-        Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
-        We replace all the spaces with nothing to remove them.
-        Then finally, we replace the current value with the new string at the same index to avoid duplication.
-        */
-        /*
-        for (int c = 0; c < allContactsList.size(); c++) {
-            String contact = allContactsList.get(c);
-            contact = contact.replaceAll("\\s+", "");
-            allContactsList.add(c, contact);
-        }
-        */
+        GetNormalizeContactsTask asyncTask = new GetNormalizeContactsTask();
+        asyncTask.execute();
 
         /*
         Getting the reference from the Firebase Database and getting all the registered numbers.
@@ -154,5 +140,40 @@ public class WhoPlanFragment extends Fragment {
         if (interactionListener != null) {
             interactionListener.onFragmentInteraction(data);
         }
+    }
+
+    private class GetNormalizeContactsTask extends AsyncTask<Void, Void, List<String>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            /*
+            We get all contacts from a Utils class containing common functions.
+            */
+            Utils utils = new Utils();
+            allContactsList = utils.getAllContactsFromPhone(getContext());
+        }
+
+        @Override
+        protected List<String> doInBackground(Void... params) {
+
+            /*
+            Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
+            We replace all the spaces with nothing to remove them.
+            Then finally, we replace the current value with the new string at the same index to avoid duplication.
+            */
+            for (int c = 0; c < allContactsList.size(); c++) {
+                String contact = allContactsList.get(c);
+                contact = contact.replaceAll("\\s+", "");
+                allContactsList.add(c, contact);
+            }
+
+            for (int i = 0; i < allContactsList.size(); i++) {
+                Log.d("ADebug", allContactsList.get(i));
+            }
+
+            return allContactsList;
+        }
+
     }
 }
