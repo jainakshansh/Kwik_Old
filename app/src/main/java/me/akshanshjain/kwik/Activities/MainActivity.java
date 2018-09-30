@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Typeface Lato;
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     private UserDataItem userDataItem;
     private static final String USER_KEY = "USER";
 
@@ -211,10 +214,19 @@ public class MainActivity extends AppCompatActivity {
     It then creates a child node with the User data.
     */
     private void pushUserDataToFirebase(UserDataItem userDataItem) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
         databaseReference.child("registered_users").child(userDataItem.getUserPhoneNumber()).setValue(userDataItem);
+        pushRegisteredUsersToFirebase();
+    }
+
+    /*
+    Creating another node with just the registered numbers with a boolean value of true.
+    This will allow us to get the registered numbers faster than compared to retrieving all the data about the users.
+    */
+    private void pushRegisteredUsersToFirebase() {
+        databaseReference.child("registered_numbers").child(userDataItem.getUserPhoneNumber()).setValue(true);
     }
 
     @Override

@@ -73,7 +73,7 @@
         android:id="@+id/account_settings_main"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_margin="@dimen/material_margin"
+        android:layout_marginEnd="@dimen/login_page_margins"
         android:contentDescription="@string/account_settings"
         android:src="@drawable/ic_account_settings"
         app:layout_constraintBottom_toBottomOf="@id/fab_main"
