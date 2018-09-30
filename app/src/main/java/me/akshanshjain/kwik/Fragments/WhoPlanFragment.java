@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +29,7 @@ import me.akshanshjain.kwik.Utils.Utils;
 public class WhoPlanFragment extends Fragment {
 
     private TextView whosPlanTv, invitedLabel;
-    private ImageView nextButton;
+    private ImageView nextButton, addInvitees;
     private LinearLayout invitedContactsContainer;
 
     private OnFragmentInteractionListener interactionListener;
@@ -87,19 +85,8 @@ public class WhoPlanFragment extends Fragment {
         whosPlanTv.setTypeface(Lato, Typeface.BOLD);
         invitedLabel.setTypeface(Lato);
 
+        addInvitees = view.findViewById(R.id.add_contacts_invite);
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
-
-        /*
-        Adding an image dynamically to the linear layout container.
-        This will act as a button to display the common contacts list.
-        */
-        final ImageView inviteContacts = new ImageView(getContext());
-        inviteContacts.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_contacts));
-        inviteContacts.setMinimumHeight(48);
-        inviteContacts.setMinimumWidth(48);
-        inviteContacts.setMaxWidth(64);
-        inviteContacts.setMaxHeight(64);
-        invitedContactsContainer.addView(inviteContacts);
 
         /*
         Creating the empty list which will contain all contacts and common contacts.
@@ -114,18 +101,32 @@ public class WhoPlanFragment extends Fragment {
         allContactsList = utils.getAllContactsFromPhone(getContext());
 
         /*
+        Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
+        We replace all the spaces with nothing to remove them.
+        Then finally, we replace the current value with the new string at the same index to avoid duplication.
+        */
+        /*
+        for (int c = 0; c < allContactsList.size(); c++) {
+            String contact = allContactsList.get(c);
+            contact = contact.replaceAll("\\s+", "");
+            allContactsList.add(c, contact);
+        }
+        */
+
+        /*
         Getting the reference from the Firebase Database and getting all the registered numbers.
         These are then checked against the contacts.
         The final contacts are then added to the common contacts list.
         */
-        registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_users");
+        registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_numbers");
         registeredUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot contact : dataSnapshot.getChildren()) {
-                    if (allContactsList.contains(contact.getKey())) {
-                        //Getting all the common contacts into a different list.
-                        commonContactsList.add(contact.getKey());
+                    for (int i = 0; i < allContactsList.size(); i++) {
+                        if (allContactsList.get(i).equals(contact.getKey())) {
+                            commonContactsList.add(contact.getKey());
+                        }
                     }
                 }
             }
@@ -134,10 +135,6 @@ public class WhoPlanFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-        for (int i = 0; i < commonContactsList.size(); i++) {
-            Log.d("ADebug", commonContactsList.get(i));
-        }
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

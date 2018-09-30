@@ -31,17 +31,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/whos_invited_plan_tv" />
 
+    <ImageView
+        android:id="@+id/add_contacts_invite"
+        android:layout_width="@dimen/fab_size_material"
+        android:layout_height="@dimen/fab_size_material"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/circular_white_background"
+        android:contentDescription="@string/add_invitees"
+        android:padding="@dimen/material_margin_half"
+        android:src="@drawable/ic_add_contacts"
+        android:tint="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/invited_label_who" />
+
     <LinearLayout
         android:id="@+id/invited_contacts_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/material_margin"
         android:gravity="start|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/next_button_who_fragment"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/invited_label_who" />
+        app:layout_constraintLeft_toLeftOf="@id/add_contacts_invite"
+        app:layout_constraintTop_toBottomOf="@id/add_contacts_invite" />
 
     <ImageView
         android:id="@+id/next_button_who_fragment"

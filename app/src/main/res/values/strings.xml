@@ -44,4 +44,5 @@
     <string name="invalid_phone_number">Invalid phone number.</string>
     <string name="error_connecting_please_check_internet_connection">Error connecting. Please check your internet connection!</string>
     <string name="resend_otp">Resend OTP</string>
+    <string name="add_invitees">Add Invitees</string>
 </resources>
