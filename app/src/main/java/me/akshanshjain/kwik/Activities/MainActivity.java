@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView eventsRecycler;
     private FloatingActionButton createEvent;
     private TextView upcomingLabel;
+    private ImageView accountSettings;
 
     private List<EventItem> eventItemList;
     private EventsAdapter eventsAdapter;
@@ -99,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
         eventsRecycler = findViewById(R.id.recycler_view_main);
         createEvent = findViewById(R.id.fab_main);
         upcomingLabel = findViewById(R.id.upcoming_label_main);
+        accountSettings = findViewById(R.id.account_settings_main);
+
+        accountSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AccountSettingsActivity.class));
+            }
+        });
 
         //Setting the typeface on the labels.
         upcomingLabel.setTypeface(Lato);

@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.AccountSettingsActivity">
 
+    <ImageView
+        android:id="@+id/background_account_settings"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:contentDescription="@string/background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/celebration"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image_account_settings"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:elevation="@dimen/material_margin"
+        android:scaleType="centerCrop"
+        android:src="@drawable/selfie"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/background_account_settings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/background_account_settings" />
+
+    <TextView
+        android:id="@+id/profile_name_account_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/login_page_margins"
+        android:layout_marginTop="@dimen/login_page_margins"
+        android:layout_marginEnd="@dimen/login_page_margins"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image_account_settings"
+        tools:text="Akshansh Jain" />
+
+    <TextView
+        android:id="@+id/organized_label_account_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_page_margins"
+        android:textColor="@color/materialBlack"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/attended_label_account_settings"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings"
+        tools:text="Events Organized" />
+
+    <TextView
+        android:id="@+id/attended_label_account_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_page_margins"
+        android:textColor="@color/materialBlack"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/organized_label_account_settings"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings"
+        tools:text="Events Attended" />
 
 </android.support.constraint.ConstraintLayout>
