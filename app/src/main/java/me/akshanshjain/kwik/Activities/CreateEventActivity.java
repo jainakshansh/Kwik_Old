@@ -39,6 +39,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
     private ArrayList<String> allContactsList;
     private ArrayList<String> registeredList;
     private DatabaseReference registeredUsers;
+    private ArrayList<String> commonContactsList;
 
     private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
     private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
@@ -61,6 +62,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
 
         allContactsList = new ArrayList<>();
         registeredList = new ArrayList<>();
+        commonContactsList = new ArrayList<>();
 
         /*
         We are performing all the operation of retrieving user contacts using an Async Task.
@@ -184,13 +186,6 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             allContactsList.clear();
             allContactsList.addAll(normalizedList);
 
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
             /*
             Getting the reference from the Firebase Database and getting all the registered numbers.
             These are then checked against the contacts.
@@ -209,6 +204,8 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
+
+            return null;
         }
     }
 }

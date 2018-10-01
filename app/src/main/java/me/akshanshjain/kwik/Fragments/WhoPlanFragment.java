@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,21 @@ public class WhoPlanFragment extends Fragment {
     private void getContactsLists() {
         allContactsList = getArguments().getStringArrayList(ALL_CONTACTS_KEY);
         registeredList = getArguments().getStringArrayList(REGISTERED_CONTACTS_KEY);
+
+        getCommonContacts();
     }
 
+    private void getCommonContacts() {
+        for (int i = 0; i < allContactsList.size(); i++) {
+            for (int j = 0; j < registeredList.size(); j++) {
+                String phone1 = registeredList.get(j);
+                String phone2 = allContactsList.get(i);
+                if (PhoneNumberUtils.compare(phone1, phone2)) {
+                    if (!commonContactsList.contains(phone2)) {
+                        commonContactsList.add(phone2);
+                    }
+                }
+            }
+        }
+    }
 }
