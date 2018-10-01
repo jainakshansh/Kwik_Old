@@ -1,8 +1,19 @@
 package me.akshanshjain.kwik.Activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.akshanshjain.kwik.Fragments.OverviewPlanFragment;
 import me.akshanshjain.kwik.Fragments.WhatPlanFragment;
@@ -11,6 +22,7 @@ import me.akshanshjain.kwik.Fragments.WherePlanFragment;
 import me.akshanshjain.kwik.Fragments.WhoPlanFragment;
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
+import me.akshanshjain.kwik.Utils.Utils;
 
 public class CreateEventActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
@@ -23,6 +35,13 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
     private static final String WHEN_KEY = "WHEN";
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
+
+    private ArrayList<String> allContactsList;
+    private ArrayList<String> registeredList;
+    private DatabaseReference registeredUsers;
+
+    private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
+    private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +58,15 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
         fragmentManager.beginTransaction()
                 .add(R.id.plan_creation_container, whatPlanFragment)
                 .commit();
+
+        allContactsList = new ArrayList<>();
+        registeredList = new ArrayList<>();
+
+        /*
+        We are performing all the operation of retrieving user contacts using an Async Task.
+        This does not bug the UI or make it unresponsive.
+        */
+        new GetNormalizeContactsTask().execute();
     }
 
     @Override
@@ -73,7 +101,18 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 break;
 
             case 3:
+                /*
+                Creating a bundle of contacts lists to be passed to the WhoFragment.
+                Getting the data early on already so that there is no delay.
+                */
+                Bundle listBundle = new Bundle();
+                listBundle.putStringArrayList(ALL_CONTACTS_KEY, allContactsList);
+                listBundle.putStringArrayList(REGISTERED_CONTACTS_KEY, registeredList);
+
+                //Passing the bundle with lists as an argument to the fragment.
                 WhoPlanFragment whoPlanFragment = new WhoPlanFragment();
+                whoPlanFragment.setArguments(listBundle);
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.plan_creation_container, whoPlanFragment)
                         .commit();
@@ -110,6 +149,66 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                         .replace(R.id.plan_creation_container, whatPlanFragment)
                         .commit();
                 break;
+        }
+    }
+
+    /*
+    Running an AsyncTask in the background to get all the contacts list.
+    Also getting all the registered users from the Firebase Database.
+    All these information will be passed to the WhoFragment.
+    Carrying the operation out in the activity directly so that there is no delay when the fragment is instantiated.
+    */
+    private class GetNormalizeContactsTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            /*
+            We get all contacts from a Utils class containing common functions.
+            */
+            Utils utils = new Utils();
+            allContactsList = utils.getAllContactsFromPhone(CreateEventActivity.this);
+
+            /*
+            Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
+            We replace all the spaces with nothing to nullify them.
+            Then finally, we replace the current value with the new string at the same index to avoid duplication.
+            */
+            List<String> normalizedList = new ArrayList<>();
+            for (int c = 0; c < allContactsList.size(); c++) {
+                String contact = allContactsList.get(c);
+                contact = contact.replaceAll("\\s+", "");
+                normalizedList.add(contact);
+            }
+
+            allContactsList.clear();
+            allContactsList.addAll(normalizedList);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            /*
+            Getting the reference from the Firebase Database and getting all the registered numbers.
+            These are then checked against the contacts.
+            The final contacts are then added to the common contacts list.
+            */
+            registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_numbers");
+            registeredUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot post : dataSnapshot.getChildren()) {
+                        registeredList.add(post.getKey());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         }
     }
 }

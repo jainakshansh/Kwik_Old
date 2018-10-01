@@ -2,12 +2,10 @@ package me.akshanshjain.kwik.Fragments;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
-import me.akshanshjain.kwik.Utils.Utils;
 
 public class WhoPlanFragment extends Fragment {
 
@@ -36,15 +27,12 @@ public class WhoPlanFragment extends Fragment {
 
     private OnFragmentInteractionListener interactionListener;
 
-    private DatabaseReference registeredUsers;
-
     private List<String> allContactsList;
     private List<String> commonContactsList;
+    private List<String> registeredList;
 
-    private String[] commonContactsArray;
-    private boolean[] checkedContacts;
-    private List<Integer> userItems;
-    private List<String> invitedContacts;
+    private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
+    private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -78,6 +66,21 @@ public class WhoPlanFragment extends Fragment {
         Typeface Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
 
         /*
+        Creating the empty list which will compare all contacts and get common contacts.
+        */
+        allContactsList = new ArrayList<>();
+        commonContactsList = new ArrayList<>();
+        registeredList = new ArrayList<>();
+
+        /*
+        Getting the arguments passed into the fragment from the activity.
+        This will be used to get all the contacts retrieved from the backend database and users contacts.
+        */
+        if (getArguments() != null) {
+            getContactsLists();
+        }
+
+        /*
         Referencing the views from the XML layout.
         */
         whosPlanTv = view.findViewById(R.id.whos_invited_plan_tv);
@@ -90,17 +93,11 @@ public class WhoPlanFragment extends Fragment {
         addInvitees = view.findViewById(R.id.add_contacts_invite);
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
-        /*
-        Creating the empty list which will contain all contacts and common contacts.
-        */
-        allContactsList = new ArrayList<>();
-        commonContactsList = new ArrayList<>();
-
-        /*
-        We are performing all the operation of retrieving user contacts using an Async Task.
-        This does not bug the UI or make it unresponsive.
-        */
-        new GetNormalizeContactsTask().execute();
+        addInvitees.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,62 +119,9 @@ public class WhoPlanFragment extends Fragment {
         }
     }
 
-    private class GetNormalizeContactsTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            /*
-            We get all contacts from a Utils class containing common functions.
-            */
-            Utils utils = new Utils();
-            allContactsList = utils.getAllContactsFromPhone(getContext());
-
-            /*
-            Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
-            We replace all the spaces with nothing to nullify them.
-            Then finally, we replace the current value with the new string at the same index to avoid duplication.
-            */
-            List<String> normalizedList = new ArrayList<>();
-            for (int c = 0; c < allContactsList.size(); c++) {
-                String contact = allContactsList.get(c);
-                contact = contact.replaceAll("\\s+", "");
-                normalizedList.add(contact);
-            }
-
-            allContactsList.clear();
-            allContactsList.addAll(normalizedList);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            /*
-            Getting the reference from the Firebase Database and getting all the registered numbers.
-            These are then checked against the contacts.
-            The final contacts are then added to the common contacts list.
-            */
-            registeredUsers = FirebaseDatabase.getInstance().getReference().child("registered_numbers");
-            registeredUsers.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot contact : dataSnapshot.getChildren()) {
-                        for (int i = 0; i < allContactsList.size(); i++) {
-                            if (allContactsList.get(i).contains(contact.getKey())) {
-                                commonContactsList.add(contact.getKey());
-                            }
-                        }
-                    }
-                    Log.d("ADebug", commonContactsList.size() + "");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
+    private void getContactsLists() {
+        allContactsList = getArguments().getStringArrayList(ALL_CONTACTS_KEY);
+        registeredList = getArguments().getStringArrayList(REGISTERED_CONTACTS_KEY);
     }
+
 }
