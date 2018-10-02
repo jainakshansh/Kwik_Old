@@ -32,6 +32,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.AccountSettingsActivity" />
 
+        <activity
+            android:name=".EventDetailsActivity"
+            android:parentActivityName=".Activities.MainActivity" />
+
         <receiver android:name=".Widget.KwikWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -41,8 +45,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/kwik_widget_info" />
         </receiver>
-
-        <activity android:name=".EventDetailsActivity"></activity>
     </application>
 
 </manifest>
