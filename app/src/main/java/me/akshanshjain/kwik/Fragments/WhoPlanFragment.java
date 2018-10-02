@@ -1,12 +1,15 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,10 @@ public class WhoPlanFragment extends Fragment {
 
     private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
     private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
+
+    private String[] contactsToShow;
+    private boolean[] checkedContacts;
+    private ArrayList<Integer> userSelected = new ArrayList<>();
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -70,8 +77,8 @@ public class WhoPlanFragment extends Fragment {
         Creating the empty list which will compare all contacts and get common contacts.
         */
         allContactsList = new ArrayList<>();
-        commonContactsList = new ArrayList<>();
         registeredList = new ArrayList<>();
+        commonContactsList = new ArrayList<>();
 
         /*
         Getting the arguments passed into the fragment from the activity.
@@ -94,9 +101,55 @@ public class WhoPlanFragment extends Fragment {
         addInvitees = view.findViewById(R.id.add_contacts_invite);
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
+        contactsToShow = commonContactsList.toArray(new String[commonContactsList.size()]);
+        checkedContacts = new boolean[contactsToShow.length];
+
+
         addInvitees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Select contacts to invite.");
+
+                builder.setMultiChoiceItems(contactsToShow, checkedContacts,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+                                if (isChecked) {
+                                    if (!userSelected.contains(position)) {
+                                        userSelected.add(position);
+                                    }
+                                } else if (userSelected.contains(position)) {
+                                    userSelected.remove(position);
+                                }
+                            }
+                        });
+
+                builder.setCancelable(false);
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String item = "";
+                        for (int i = 0; i < userSelected.size(); i++) {
+                            item += contactsToShow[userSelected.get(i)];
+                            if (i != userSelected.size() - 1) {
+                                item += "\t";
+                            }
+                        }
+                        Log.d("ADebug", item);
+                    }
+                });
+
+                builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -120,6 +173,9 @@ public class WhoPlanFragment extends Fragment {
         }
     }
 
+    /*
+    Getting both the list of contacts from the activity as arguments.
+    */
     private void getContactsLists() {
         allContactsList = getArguments().getStringArrayList(ALL_CONTACTS_KEY);
         registeredList = getArguments().getStringArrayList(REGISTERED_CONTACTS_KEY);
@@ -127,6 +183,10 @@ public class WhoPlanFragment extends Fragment {
         getCommonContacts();
     }
 
+    /*
+    Finding out the intersection of the common contacts from both the lists,
+    and creating a common list of these.
+    */
     private void getCommonContacts() {
         for (int i = 0; i < allContactsList.size(); i++) {
             for (int j = 0; j < registeredList.size(); j++) {
