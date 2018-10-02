@@ -4,9 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -35,6 +39,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 7;
     private String[] permissionsRequired;
     private SharedPreferences accountPermissions;
+
+    private static final int IMAGE_PICK = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +98,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+                Initially checking if the user has provided required permissions.
+                */
                 checkPermissions();
             }
         });
@@ -99,6 +108,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private void checkPermissions() {
 
+        /*
+        Checking if the permissions have been granted.
+        If no, we request for the permissions.
+        Else, we move forward to the next steps.
+        */
         if (ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED) {
@@ -111,6 +125,10 @@ public class AccountSettingsActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    This function runs a loop to check if all the permissions have been granted,
+    in the case of multiple permissions being requested from the user.
+    */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -138,6 +156,10 @@ public class AccountSettingsActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    This method looks at the type of intent coming in.
+    Based on the type, it classifies as permission or image picking and then performs required operations.
+    */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -148,10 +170,43 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
                 proceedAfterPermission();
             }
+        } else if (requestCode == IMAGE_PICK && resultCode == RESULT_OK && data != null) {
+
+            pickImage(data);
         }
     }
 
+    /*
+    This function is called if we know that the user has granted the app all the required permissions.
+    In this, we direct the user to the image picker apps
+    */
     private void proceedAfterPermission() {
-        Toast.makeText(this, "All permissions granted!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK);
     }
+
+    /*
+    Asking the user to pick the image they want to use.
+    After choosing, we set the image as their profile picture.
+    */
+    private void pickImage(Intent data) {
+        try {
+            Uri uri = data.getData();
+            String[] file = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContentResolver().query(uri, file, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(file[0]);
+            String image = cursor.getString(columnIndex);
+            cursor.close();
+
+            Bitmap bitmap = BitmapFactory.decodeFile(image);
+            profileImage.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
