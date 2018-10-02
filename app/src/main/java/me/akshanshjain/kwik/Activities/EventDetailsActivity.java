@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import me.akshanshjain.kwik.Adapters.ViewPagerAdapter;
+import me.akshanshjain.kwik.Fragments.EventDetailFragment;
 import me.akshanshjain.kwik.R;
 
 public class EventDetailsActivity extends AppCompatActivity {
@@ -26,5 +28,15 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager_details);
         tabLayout = findViewById(R.id.tab_layout_details);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new EventDetailFragment(), "Details");
+        viewPager.setAdapter(adapter);
+    }
+
 }
