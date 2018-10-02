@@ -47,4 +47,6 @@
     <string name="add_invitees">Add Invitees</string>
     <string name="background">Background</string>
     <string name="user_profile_image">User Profile Image</string>
+    <string name="events_organized">Events Organized</string>
+    <string name="events_attended">Events Attended</string>
 </resources>

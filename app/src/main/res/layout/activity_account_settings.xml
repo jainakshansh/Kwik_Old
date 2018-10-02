@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".Activities.AccountSettingsActivity">
 
     <ImageView
@@ -23,9 +24,10 @@
         android:layout_height="180dp"
         android:elevation="@dimen/material_margin"
         android:scaleType="centerCrop"
-        android:src="@drawable/selfie"
+        android:src="@drawable/ic_profile_picture"
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="4dp"
+        app:civ_circle_background_color="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@id/background_account_settings"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -36,12 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/login_page_margins"
-        android:layout_marginTop="@dimen/login_page_margins"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="@dimen/login_page_margins"
         android:gravity="center"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_image_account_settings"
@@ -52,26 +54,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/login_page_margins"
+        android:text="@string/events_organized"
         android:textColor="@color/materialBlack"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/attended_label_account_settings"
-        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings"
-        tools:text="Events Organized" />
+        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings" />
 
     <TextView
         android:id="@+id/attended_label_account_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/login_page_margins"
+        android:text="@string/events_attended"
         android:textColor="@color/materialBlack"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/organized_label_account_settings"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings"
-        tools:text="Events Attended" />
+        app:layout_constraintTop_toBottomOf="@id/profile_name_account_settings" />
 
     <TextView
+        android:id="@+id/number_organized_account_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_margin"
@@ -83,6 +86,7 @@
         tools:text="17" />
 
     <TextView
+        android:id="@+id/number_attended_account_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_margin"
