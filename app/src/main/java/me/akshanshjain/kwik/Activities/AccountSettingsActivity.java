@@ -1,12 +1,20 @@
 package me.akshanshjain.kwik.Activities;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -22,6 +30,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private TextView eventsAttended, eventsOrganized;
 
     private Typeface Lato;
+
+    private static final int PERMISSION_CALLBACK_CONSTANT = 9;
+    private static final int REQUEST_PERMISSION = 7;
+    private String[] permissionsRequired;
+    private SharedPreferences accountPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +53,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 ContextCompat.getDrawable(this, R.drawable.eating_together),
                 ContextCompat.getDrawable(this, R.drawable.group_selfie),
                 ContextCompat.getDrawable(this, R.drawable.hang_out),
-                ContextCompat.getDrawable(this, R.drawable.refreshing),
-                ContextCompat.getDrawable(this, R.drawable.selfie)};
+                ContextCompat.getDrawable(this, R.drawable.refreshing)};
 
         backgroundView = findViewById(R.id.background_account_settings);
 
@@ -71,5 +83,75 @@ public class AccountSettingsActivity extends AppCompatActivity {
         eventsOrganized.setTypeface(Lato);
         eventsAttended.setTypeface(Lato);
 
+        permissionsRequired = new String[]{Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        /*
+        Allowing users to customize their profile images.
+        */
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkPermissions();
+            }
+        });
+    }
+
+    private void checkPermissions() {
+
+        if (ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[0]) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[1]) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(AccountSettingsActivity.this, permissionsRequired[2]) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(AccountSettingsActivity.this, permissionsRequired, PERMISSION_CALLBACK_CONSTANT);
+
+        } else {
+
+            proceedAfterPermission();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_CALLBACK_CONSTANT) {
+            boolean allGranted = false;
+            for (int i = 0; i < grantResults.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    allGranted = true;
+                } else {
+                    allGranted = false;
+                    break;
+                }
+            }
+
+            if (allGranted) {
+                proceedAfterPermission();
+
+            } else if (ActivityCompat.shouldShowRequestPermissionRationale(AccountSettingsActivity.this, permissionsRequired[0])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(AccountSettingsActivity.this, permissionsRequired[1])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(AccountSettingsActivity.this, permissionsRequired[2])) {
+
+                ActivityCompat.requestPermissions(AccountSettingsActivity.this, permissionsRequired, PERMISSION_CALLBACK_CONSTANT);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_PERMISSION) {
+            if (ActivityCompat.checkSelfPermission(AccountSettingsActivity.this,
+                    permissionsRequired[0]) == PackageManager.PERMISSION_GRANTED) {
+
+                proceedAfterPermission();
+            }
+        }
+    }
+
+    private void proceedAfterPermission() {
+        Toast.makeText(this, "All permissions granted!", Toast.LENGTH_SHORT).show();
     }
 }
