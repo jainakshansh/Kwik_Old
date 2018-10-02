@@ -25,12 +25,7 @@ import me.akshanshjain.kwik.R;
 
 public class WhenPlanFragment extends Fragment {
 
-    private Typeface Lato;
-
-    private TextView whensPlanTv;
     private TextView customDate, decideLater;
-    private TextView tonightDate, tonightTime;
-    private TextView tomorrowDate, tomorrowTime;
     private LinearLayout tonightContainer, tomorrowContainer;
     private ImageView nextButton;
 
@@ -66,27 +61,11 @@ public class WhenPlanFragment extends Fragment {
         //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_when_plan, container, false);
 
-        //Initializing the typeface for the Fragment.
-        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
-
         /*
         Referencing the views from the XML layout.
         */
-        whensPlanTv = view.findViewById(R.id.whens_the_plan_tv);
         customDate = view.findViewById(R.id.custom_date_when);
         decideLater = view.findViewById(R.id.decide_later_when);
-        whensPlanTv.setTypeface(Lato, Typeface.BOLD);
-        customDate.setTypeface(Lato);
-        decideLater.setTypeface(Lato);
-
-        tonightDate = view.findViewById(R.id.tonight_option_date);
-        tonightTime = view.findViewById(R.id.tonight_option_time);
-        tomorrowDate = view.findViewById(R.id.tomorrow_option_date);
-        tomorrowTime = view.findViewById(R.id.tomorrow_option_time);
-        tonightDate.setTypeface(Lato);
-        tonightTime.setTypeface(Lato);
-        tomorrowDate.setTypeface(Lato);
-        tomorrowTime.setTypeface(Lato);
 
         tonightContainer = view.findViewById(R.id.tonight_option_container);
         tomorrowContainer = view.findViewById(R.id.tomorrow_option_container);

@@ -1,7 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,8 +18,7 @@ import me.akshanshjain.kwik.R;
 
 public class WherePlanFragment extends Fragment {
 
-    private Typeface Lato;
-    private TextView wheresPlanTv, orTv, chooseLaterTv;
+    private TextView chooseLaterTv;
     private EditText planLocationET;
     private ImageView nextButton;
 
@@ -54,22 +52,12 @@ public class WherePlanFragment extends Fragment {
         //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_where_plan, container, false);
 
-        //Initializing the typeface for the Fragment.
-        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
-
         /*
         Referencing the views from the XML layout.
         */
-        wheresPlanTv = view.findViewById(R.id.wheres_the_plan_tv);
-        orTv = view.findViewById(R.id.or_tv_where);
         chooseLaterTv = view.findViewById(R.id.choose_later_where);
         planLocationET = view.findViewById(R.id.where_plan_location);
         nextButton = view.findViewById(R.id.next_button_where_fragment);
-
-        wheresPlanTv.setTypeface(Lato, Typeface.BOLD);
-        orTv.setTypeface(Lato);
-        chooseLaterTv.setTypeface(Lato);
-        planLocationET.setTypeface(Lato);
 
         chooseLaterTv.setOnClickListener(new View.OnClickListener() {
             @Override

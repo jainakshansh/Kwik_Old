@@ -20,12 +20,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     private Context context;
     private List<EventItem> eventItemList;
-    private Typeface Lato;
 
     public EventsAdapter(Context context, List<EventItem> eventItemList) {
         this.context = context;
         this.eventItemList = eventItemList;
-        Lato = Typeface.createFromAsset(context.getAssets(), "fonts/Lato.ttf");
     }
 
     public class EventsViewHolder extends RecyclerView.ViewHolder {
@@ -64,16 +62,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         Using the getters to get individual attributes from the object.
         Then setting the attribute values into the views.
         */
-        holder.eventName.setTypeface(Lato);
         holder.eventName.setText(eventItem.getEventName());
 
-        holder.eventDescription.setTypeface(Lato);
         holder.eventDescription.setText(eventItem.getEventDescription());
 
-        holder.eventDateTime.setTypeface(Lato);
         holder.eventDateTime.setText(eventItem.getEventDate() + "\n" + eventItem.getEventTime());
 
-        holder.isEventHost.setTypeface(Lato);
         if (eventItem.isHosting()) {
             holder.isEventHost.setText(context.getString(R.string.hosting));
         } else {

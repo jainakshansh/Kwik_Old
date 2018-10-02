@@ -14,6 +14,7 @@
         android:text="@string/where"
         android:textColor="@android:color/white"
         android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/where_plan_location"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

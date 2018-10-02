@@ -1,6 +1,5 @@
 package me.akshanshjain.kwik.Fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,8 +24,6 @@ import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class OverviewPlanFragment extends Fragment {
-
-    private Typeface Lato;
 
     private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel, descriptionPlanLabel;
     private TextView whatPlan, whenPlan, wherePlan;
@@ -59,9 +56,6 @@ public class OverviewPlanFragment extends Fragment {
         //Inflating the layout from the XML.
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_overview_plan, container, false);
 
-        //Initializing the typeface for the Fragment.
-        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
-
         /*
         Getting the arguments passed into the fragment from the activity.
         This will be used to populate the views.
@@ -73,25 +67,10 @@ public class OverviewPlanFragment extends Fragment {
         /*
         Referencing all the views from the XML and setting the typeface on them.
         */
-        whatPlanLabel = view.findViewById(R.id.what_plan_label_overview);
-        whenPlanLabel = view.findViewById(R.id.when_plan_label_overview);
-        wherePlanLabel = view.findViewById(R.id.where_plan_label_overview);
-        whoPlanLabel = view.findViewById(R.id.who_plan_label_overview);
-        descriptionPlanLabel = view.findViewById(R.id.description_label_overview);
-        whatPlanLabel.setTypeface(Lato);
-        whenPlanLabel.setTypeface(Lato);
-        wherePlanLabel.setTypeface(Lato);
-        whoPlanLabel.setTypeface(Lato);
-        descriptionPlanLabel.setTypeface(Lato);
-
         whatPlan = view.findViewById(R.id.what_plan_overview);
         whenPlan = view.findViewById(R.id.when_plan_overview);
         wherePlan = view.findViewById(R.id.where_plan_overview);
         descriptionPlan = view.findViewById(R.id.description_overview);
-        whatPlan.setTypeface(Lato);
-        whenPlan.setTypeface(Lato);
-        wherePlan.setTypeface(Lato);
-        descriptionPlan.setTypeface(Lato);
 
         whoContainer = view.findViewById(R.id.who_container_overview);
 

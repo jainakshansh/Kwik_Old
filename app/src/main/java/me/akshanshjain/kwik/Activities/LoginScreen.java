@@ -37,12 +37,9 @@ public class LoginScreen extends AppCompatActivity {
 
     private static final String USER_KEY = "USER";
 
-    private Typeface Lato;
     private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
     private EditText name, phone;
     private Button loginButton;
-
-    private int loginClickCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +65,6 @@ public class LoginScreen extends AppCompatActivity {
             finish();
         }
 
-        //Initializing the typeface.
-        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
-
         /*
         Initializing and referencing the views from the XML layout.
         */
@@ -79,18 +73,10 @@ public class LoginScreen extends AppCompatActivity {
         directingToSignIn = findViewById(R.id.sign_in_direction_login);
         otpInformation = findViewById(R.id.otp_information_login);
 
-        appGreeting.setTypeface(Lato, Typeface.BOLD);
-        appDescription.setTypeface(Lato);
-        directingToSignIn.setTypeface(Lato);
-        otpInformation.setTypeface(Lato);
-
         name = findViewById(R.id.user_full_name_login);
-        name.setTypeface(Lato);
         phone = findViewById(R.id.user_phone_number_login);
-        phone.setTypeface(Lato);
 
         loginButton = findViewById(R.id.button_login);
-        loginButton.setTypeface(Lato, Typeface.BOLD);
 
         //Initializing Auth.
         firebaseAuth = FirebaseAuth.getInstance();

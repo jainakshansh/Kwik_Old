@@ -70,9 +70,6 @@ public class WhoPlanFragment extends Fragment {
         //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_who_plan, container, false);
 
-        //Initializing the typeface for the Fragment.
-        Typeface Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
-
         /*
         Creating the empty list which will compare all contacts and get common contacts.
         */

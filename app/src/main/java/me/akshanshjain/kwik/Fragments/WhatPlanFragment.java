@@ -1,7 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,10 +18,8 @@ import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {
 
-    private Typeface Lato;
-
     private TextView whatsPlanTv;
-    private TextView eatingTv, nightOutTv, movieTv, customPlanTv;
+    private TextView customPlanTv;
     private LinearLayout eatingContainer, nightOutContainer, movieContainer;
     private ImageView nextButton;
 
@@ -56,24 +53,12 @@ public class WhatPlanFragment extends Fragment {
         //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_what_plan, container, false);
 
-        //Initializing the typeface for the Fragment.
-        Lato = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato.ttf");
-
         /*
         Referencing the views from the XML layout.
         */
         whatsPlanTv = view.findViewById(R.id.whats_the_plan_tv);
-        eatingTv = view.findViewById(R.id.eating_out_tv);
-        nightOutTv = view.findViewById(R.id.night_out_tv);
-        movieTv = view.findViewById(R.id.movie_tv);
         customPlanTv = view.findViewById(R.id.custom_plan_what);
         nextButton = view.findViewById(R.id.next_button_what_fragment);
-
-        whatsPlanTv.setTypeface(Lato, Typeface.BOLD);
-        eatingTv.setTypeface(Lato);
-        nightOutTv.setTypeface(Lato);
-        movieTv.setTypeface(Lato);
-        customPlanTv.setTypeface(Lato);
 
         eatingContainer = view.findViewById(R.id.eating_option_container);
         nightOutContainer = view.findViewById(R.id.night_out_container);

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,8 +32,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private TextView eventsAttendedLabel, eventsOrganizedLabel;
     private TextView eventsAttended, eventsOrganized;
 
-    private Typeface Lato;
-
     private static final int PERMISSION_CALLBACK_CONSTANT = 9;
     private static final int REQUEST_PERMISSION = 7;
     private String[] permissionsRequired;
@@ -47,9 +44,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
-
-        //Setting up the typeface for the activity.
-        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
 
         /*
         Getting all the drawables into an array to set as dynamic background for account page.
@@ -75,15 +69,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
         eventsAttendedLabel = findViewById(R.id.attended_label_account_settings);
         eventsOrganized = findViewById(R.id.number_organized_account_settings);
         eventsAttended = findViewById(R.id.number_attended_account_settings);
-
-        /*
-        Applying the typeface to all the possible views.
-        */
-        userName.setTypeface(Lato, Typeface.BOLD);
-        eventsOrganizedLabel.setTypeface(Lato);
-        eventsAttendedLabel.setTypeface(Lato);
-        eventsOrganized.setTypeface(Lato);
-        eventsAttended.setTypeface(Lato);
 
         /*
         Getting user's profile image from preferences, if any, and setting it into the image view.

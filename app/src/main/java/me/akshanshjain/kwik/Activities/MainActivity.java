@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private List<EventItem> eventItemList;
     private EventsAdapter eventsAdapter;
 
-    private Typeface Lato;
-
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
@@ -67,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initializing the Typeface for the activity.
-        Lato = Typeface.createFromAsset(getAssets(), "fonts/Lato.ttf");
-
         //Setting up the toolbar for the activity.
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -79,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             //Firstly removing the default name that's added to the toolbar automatically.
             getSupportActionBar().setTitle("");
         }
-        ((TextView) findViewById(R.id.app_name_main)).setTypeface(Lato, Typeface.BOLD);
 
         permissionStatus = getSharedPreferences("PermissionStatus", MODE_PRIVATE);
 
@@ -116,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Setting the typeface on the labels.
-        upcomingLabel.setTypeface(Lato);
 
         //Starting the creating event activity on FAB click.
         createEvent.setOnClickListener(new View.OnClickListener() {
