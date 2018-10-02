@@ -1,21 +1,94 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#09C"
-    android:padding="@dimen/widget_margin">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/material_margin">
 
     <TextView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/event_name_widget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/materialBlack"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@id/event_location_widget"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/event_starts_in_label"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dinner Party" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/event_location_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/event_date_time_widget"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_name_widget"
+        tools:text="Domino's Pizza" />
+
+    <TextView
+        android:id="@+id/event_date_time_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin_half"
+        android:maxLines="1"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/hosted_by_widget"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_location_widget"
+        tools:text="Tomorrow : 8 PM" />
+
+    <TextView
+        android:id="@+id/hosted_by_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin_half"
+        android:maxLines="1"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_date_time_widget"
+        tools:text="Hosted By : You" />
+
+    <TextView
+        android:id="@+id/event_starts_in_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/material_margin"
+        android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
+        app:layout_constraintBottom_toBottomOf="@id/event_name_widget"
+        app:layout_constraintLeft_toRightOf="@id/event_name_widget"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/event_name_widget"
+        tools:text="Event starts in" />
+
+    <TextView
+        android:id="@+id/eta_widget"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="@dimen/material_margin_half"
+        android:layout_marginEnd="@dimen/material_margin_half"
+        android:background="@drawable/circular_view_widget"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@id/event_date_time_widget"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_starts_in_label"
+        tools:text="31\nHours" />
+
+</android.support.constraint.ConstraintLayout>
