@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.1"
                 android:text="@string/app_name"
+                android:fontFamily="@font/lato"
                 android:textAllCaps="true"
                 android:textColor="@color/materialBlack"
                 android:textSize="20sp" />
@@ -37,6 +38,7 @@
         android:id="@+id/upcoming_label_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
         android:layout_margin="@dimen/material_margin"
         android:text="@string/upcoming_plans"
         android:textColor="@color/materialBlack"

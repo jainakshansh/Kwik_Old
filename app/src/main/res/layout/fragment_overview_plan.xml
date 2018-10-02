@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_margin"
+        android:fontFamily="@font/lato"
         android:text="@string/what_s_the_plan"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin"
         android:layout_marginEnd="@dimen/material_margin"
+        android:fontFamily="@font/lato"
         android:layout_marginBottom="@dimen/material_margin"
         android:textColor="@color/maroon"
         android:textSize="32sp"
@@ -43,6 +45,7 @@
         android:layout_marginTop="@dimen/login_page_margins"
         android:layout_marginEnd="@dimen/material_margin"
         android:text="@string/description"
+        android:fontFamily="@font/lato"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/description_overview"
@@ -56,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin"
         android:layout_marginTop="@dimen/material_margin"
+        android:fontFamily="@font/lato"
         android:layout_marginEnd="@dimen/material_margin"
         android:layout_marginBottom="@dimen/login_page_margins"
         android:backgroundTint="@android:color/white"
@@ -92,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/when"
+                android:fontFamily="@font/lato"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
@@ -101,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/maroon"
                 android:textSize="20sp"
+                android:fontFamily="@font/lato"
                 tools:text="Tommorrow, 6PM" />
 
         </LinearLayout>
@@ -119,6 +125,7 @@
                 android:text="@string/where"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
+                android:fontFamily="@font/lato"
                 app:layout_constraintBottom_toTopOf="@id/where_plan_overview"
                 app:layout_constraintLeft_toRightOf="@id/when_plan_label_overview"
                 app:layout_constraintRight_toRightOf="parent"
@@ -129,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/maroon"
+                android:fontFamily="@font/lato"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/where_plan_label_overview"
@@ -145,6 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/material_margin"
         android:text="@string/who_s_invited"
+        android:fontFamily="@font/lato"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/who_container_overview"
