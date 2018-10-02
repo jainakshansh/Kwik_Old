@@ -1,9 +1,11 @@
-package me.akshanshjain.kwik;
+package me.akshanshjain.kwik.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
+
+import me.akshanshjain.kwik.R;
 
 /**
  * Implementation of App Widget functionality.
@@ -13,10 +15,10 @@ public class KwikWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+        CharSequence widgetText = "Dinner Party";
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.kwik_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setTextViewText(R.id.event_name_widget, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

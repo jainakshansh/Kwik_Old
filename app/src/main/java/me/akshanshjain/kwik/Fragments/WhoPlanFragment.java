@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
+import me.akshanshjain.kwik.Interfaces.WhoFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {
@@ -29,7 +28,7 @@ public class WhoPlanFragment extends Fragment {
     private ImageView nextButton, addInvitees;
     private LinearLayout invitedContactsContainer;
 
-    private OnFragmentInteractionListener interactionListener;
+    private WhoFragmentInteractionListener interactionListener;
 
     private List<String> allContactsList;
     private List<String> commonContactsList;
@@ -41,6 +40,7 @@ public class WhoPlanFragment extends Fragment {
     private String[] contactsToShow;
     private boolean[] checkedContacts;
     private ArrayList<Integer> userSelected = new ArrayList<>();
+    private ArrayList<String> selectedContacts = new ArrayList<>();
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -55,7 +55,7 @@ public class WhoPlanFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            interactionListener = (OnFragmentInteractionListener) context;
+            interactionListener = (WhoFragmentInteractionListener) context;
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
@@ -132,12 +132,8 @@ public class WhoPlanFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int which) {
                         String item = "";
                         for (int i = 0; i < userSelected.size(); i++) {
-                            item += contactsToShow[userSelected.get(i)];
-                            if (i != userSelected.size() - 1) {
-                                item += "\t";
-                            }
+                            selectedContacts.add(contactsToShow[userSelected.get(i)]);
                         }
-                        Log.d("ADebug", item);
                     }
                 });
 
@@ -165,21 +161,11 @@ public class WhoPlanFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick("");
+                viewOnClick(selectedContacts);
             }
         });
 
         return view;
-    }
-
-    /*
-    This function is called when the view items are clicked and thus corresponding data is passed into it.
-    This data will be available in the activity for use.
-    */
-    private void viewOnClick(String data) {
-        if (interactionListener != null) {
-            interactionListener.onFragmentInteraction(data);
-        }
     }
 
     /*
@@ -207,6 +193,12 @@ public class WhoPlanFragment extends Fragment {
                     }
                 }
             }
+        }
+    }
+
+    private void viewOnClick(ArrayList<String> data) {
+        if (interactionListener != null) {
+            interactionListener.onContactsSelection(data);
         }
     }
 }

@@ -32,7 +32,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.AccountSettingsActivity" />
 
-        <receiver android:name=".KwikWidget">
+        <receiver android:name=".Widget.KwikWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
