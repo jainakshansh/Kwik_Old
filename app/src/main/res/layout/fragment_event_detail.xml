@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/material_margin">
+
+    <TextView
+        android:id="@+id/event_name_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/materialBlack"
+        android:textSize="32sp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/event_date_time_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dinner Party" />
+
+    <TextView
+        android:id="@+id/event_date_time_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin_half"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/event_description_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_name_details"
+        tools:text="Thursday, Jan 5 * 8PM" />
+
+    <TextView
+        android:id="@+id/event_description_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_page_margins"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/attendees_label_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_date_time_details"
+        tools:text="A small get-together with family for a cheesy afternoon." />
+
+    <TextView
+        android:id="@+id/attendees_label_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_page_margins"
+        android:textColor="@color/materialBlack"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/attendees_container_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_description_details"
+        tools:text="Attendees" />
+
+    <LinearLayout
+        android:id="@+id/attendees_container_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/event_location_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attendees_label_details" />
+
+    <TextView
+        android:id="@+id/event_location_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_page_margins"
+        android:textColor="@color/materialBlack"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attendees_container_details"
+        tools:text="88/102, Poonam Complex, Shanti Park, Mira Road (East)" />
+
+</android.support.constraint.ConstraintLayout>
