@@ -146,38 +146,50 @@ public class OverviewPlanFragment extends Fragment {
     This function populates the who's attending container with a few names from the list.
     */
     private void populateWhoContainer() {
-        for (int i = 0; i < selectedContacts.size(); i++) {
-            LinearLayout linearLayout = new LinearLayout(getContext());
-            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            linearLayout.setGravity(Gravity.CENTER);
 
-            ImageView imageView = new ImageView(getContext());
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            imageView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circular_white_background));
-            imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_user));
-            imageView.setPadding(16, 16, 16, 16);
+        if (selectedContacts.size() > 3) {
 
+            for (int i = 0; i < selectedContacts.size(); i++) {
+                addingViewsToContainer(i);
+            }
+
+            int remaining = selectedContacts.size() - 3;
             TextView textView = new TextView(getContext());
             textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
-            textView.setText(selectedContacts.get(i));
+            textView.setText("+ " + remaining);
 
-            linearLayout.addView(imageView);
-            linearLayout.addView(textView);
-            whoContainer.addView(linearLayout);
+        } else {
+
+            for (int i = 0; i < selectedContacts.size(); i++) {
+                addingViewsToContainer(i);
+            }
         }
+    }
 
-        /*
-        int remaining = selectedContacts.size() - 3;
+    private void addingViewsToContainer(int position) {
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setGravity(Gravity.CENTER);
+
+        ImageView imageView = new ImageView(getContext());
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        imageView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circular_white_background));
+        imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_user));
+        imageView.setPadding(16, 16, 16, 16);
+
         TextView textView = new TextView(getContext());
         textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
-        textView.setText("+ " + remaining);
-        */
+        textView.setText(selectedContacts.get(position));
+
+        linearLayout.addView(imageView);
+        linearLayout.addView(textView);
+        whoContainer.addView(linearLayout);
     }
 }
