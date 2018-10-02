@@ -38,9 +38,10 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private static final int PERMISSION_CALLBACK_CONSTANT = 9;
     private static final int REQUEST_PERMISSION = 7;
     private String[] permissionsRequired;
-    private SharedPreferences accountPermissions;
 
     private static final int IMAGE_PICK = 5;
+
+    private SharedPreferences display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
         eventsAttendedLabel.setTypeface(Lato);
         eventsOrganized.setTypeface(Lato);
         eventsAttended.setTypeface(Lato);
+
+        /*
+        Getting user's profile image from preferences, if any, and setting it into the image view.
+        */
+        getImageFromPref();
 
         permissionsRequired = new String[]{Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -202,11 +208,39 @@ public class AccountSettingsActivity extends AppCompatActivity {
             String image = cursor.getString(columnIndex);
             cursor.close();
 
+            //Storing the path of the selected image in Shared Preferences.
+            storeImageInPref(image);
+
+            //Setting the selected image as the profile image.
             Bitmap bitmap = BitmapFactory.decodeFile(image);
             profileImage.setImageBitmap(bitmap);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /*
+    Storing the path of the user selected image in the Shared Preferences to retrieve it later.
+    */
+    private void storeImageInPref(String imagePath) {
+        SharedPreferences.Editor editor = getSharedPreferences("IMAGE", MODE_PRIVATE).edit();
+        editor.putString("imagepath", imagePath);
+        editor.apply();
+    }
+
+    /*
+    Retrieving the path of the user selected image from Shared Preferences.
+    We then set the image as the profile image.
+    */
+    private void getImageFromPref() {
+        String imagePath = "";
+        display = getSharedPreferences("IMAGE", MODE_PRIVATE);
+        if (display.contains("imagepath")) {
+            imagePath = display.getString("imagepath", null);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            profileImage.setImageBitmap(bitmap);
+        }
+    }
 }

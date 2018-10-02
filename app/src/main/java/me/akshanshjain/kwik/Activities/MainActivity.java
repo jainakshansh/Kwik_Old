@@ -106,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
         accountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AccountSettingsActivity.class));
+                Intent toAccountIntent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
+                toAccountIntent.putExtra(USER_KEY, userDataItem);
+                startActivity(toAccountIntent);
             }
         });
 
