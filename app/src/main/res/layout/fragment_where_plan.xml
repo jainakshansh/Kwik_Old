@@ -24,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:backgroundTint="@android:color/white"
+        android:foregroundTint="@android:color/white"
         android:hint="@string/domino_s_pizza"
         android:inputType="text"
         android:maxLines="2"

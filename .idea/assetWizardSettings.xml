@@ -64,8 +64,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_profile_picture" />
-                            <entry key="sourceFile" value="C:\Users\Akshansh\Desktop\profile_picture.svg" />
+                            <entry key="outputName" value="ic_user" />
+                            <entry key="sourceFile" value="C:\Users\Akshansh\Desktop\user.svg" />
                           </map>
                         </option>
                       </PersistentState>

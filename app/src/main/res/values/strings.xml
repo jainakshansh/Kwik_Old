@@ -51,4 +51,5 @@
     <string name="events_attended">Events Attended</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="description">Description</string>
 </resources>

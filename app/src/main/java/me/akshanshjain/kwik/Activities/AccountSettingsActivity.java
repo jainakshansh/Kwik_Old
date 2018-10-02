@@ -54,12 +54,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         /*
         Getting all the drawables into an array to set as dynamic background for account page.
         */
-        backgroundDrawables = new Drawable[]{ContextCompat.getDrawable(this, R.drawable.beer_celebration),
-                ContextCompat.getDrawable(this, R.drawable.celebration),
-                ContextCompat.getDrawable(this, R.drawable.chilling),
-                ContextCompat.getDrawable(this, R.drawable.eating_together),
-                ContextCompat.getDrawable(this, R.drawable.group_selfie),
-                ContextCompat.getDrawable(this, R.drawable.hang_out),
+        backgroundDrawables = new Drawable[]{ContextCompat.getDrawable(this, R.drawable.celebration),
                 ContextCompat.getDrawable(this, R.drawable.refreshing)};
 
         backgroundView = findViewById(R.id.background_account_settings);

@@ -30,7 +30,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     public class EventsViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView eventName, eventDescription, eventDateTime, eventHostOrGuest;
+        private TextView eventName, eventDescription, eventDateTime, isEventHost;
         private ConstraintLayout eventParent;
 
         public EventsViewHolder(View itemView) {
@@ -40,7 +40,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             eventName = itemView.findViewById(R.id.event_name);
             eventDescription = itemView.findViewById(R.id.event_description);
             eventDateTime = itemView.findViewById(R.id.event_date_time);
-            eventHostOrGuest = itemView.findViewById(R.id.event_hosting_going);
+            isEventHost = itemView.findViewById(R.id.event_hosting);
 
             eventParent = itemView.findViewById(R.id.event_parent);
         }
@@ -73,7 +73,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         holder.eventDateTime.setTypeface(Lato);
         holder.eventDateTime.setText(eventItem.getEventDate() + "\n" + eventItem.getEventTime());
 
-        holder.eventHostOrGuest.setTypeface(Lato);
+        holder.isEventHost.setTypeface(Lato);
+        if (eventItem.isHosting()) {
+            holder.isEventHost.setText(context.getString(R.string.hosting));
+        } else {
+            holder.isEventHost.setText(context.getString(R.string.invited));
+        }
 
         //Setting a random background on the card parent.
         int[] gradients = new int[]{R.drawable.gradient_blue, R.drawable.gradient_gray, R.drawable.gradient_green,

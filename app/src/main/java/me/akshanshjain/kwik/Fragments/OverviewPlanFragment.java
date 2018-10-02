@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,9 +28,10 @@ public class OverviewPlanFragment extends Fragment {
 
     private Typeface Lato;
 
-    private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel;
+    private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel, descriptionPlanLabel;
     private TextView whatPlan, whenPlan, wherePlan;
     private ImageView doneButton;
+    private EditText descriptionPlan;
     private LinearLayout whoContainer;
 
     private static final String WHAT_KEY = "WHAT";
@@ -73,17 +77,21 @@ public class OverviewPlanFragment extends Fragment {
         whenPlanLabel = view.findViewById(R.id.when_plan_label_overview);
         wherePlanLabel = view.findViewById(R.id.where_plan_label_overview);
         whoPlanLabel = view.findViewById(R.id.who_plan_label_overview);
+        descriptionPlanLabel = view.findViewById(R.id.description_label_overview);
         whatPlanLabel.setTypeface(Lato);
         whenPlanLabel.setTypeface(Lato);
         wherePlanLabel.setTypeface(Lato);
         whoPlanLabel.setTypeface(Lato);
+        descriptionPlanLabel.setTypeface(Lato);
 
         whatPlan = view.findViewById(R.id.what_plan_overview);
         whenPlan = view.findViewById(R.id.when_plan_overview);
         wherePlan = view.findViewById(R.id.where_plan_overview);
+        descriptionPlan = view.findViewById(R.id.description_overview);
         whatPlan.setTypeface(Lato);
         whenPlan.setTypeface(Lato);
         wherePlan.setTypeface(Lato);
+        descriptionPlan.setTypeface(Lato);
 
         whoContainer = view.findViewById(R.id.who_container_overview);
 
@@ -129,15 +137,47 @@ public class OverviewPlanFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        EventItem eventItem = new EventItem(what, "", when, where, selectedContacts, true);
+        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString().trim(), when, where, selectedContacts, true);
         databaseReference.child("events_list").push().setValue(eventItem);
     }
 
+    /*
+    Presenting the list of people who are attending the event.
+    This function populates the who's attending container with a few names from the list.
+    */
     private void populateWhoContainer() {
         for (int i = 0; i < selectedContacts.size(); i++) {
+            LinearLayout linearLayout = new LinearLayout(getContext());
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setGravity(Gravity.CENTER);
+
+            ImageView imageView = new ImageView(getContext());
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            imageView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circular_white_background));
+            imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_user));
+            imageView.setPadding(16, 16, 16, 16);
+
             TextView textView = new TextView(getContext());
+            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
             textView.setText(selectedContacts.get(i));
-            whoContainer.addView(textView);
+
+            linearLayout.addView(imageView);
+            linearLayout.addView(textView);
+            whoContainer.addView(linearLayout);
         }
+
+        /*
+        int remaining = selectedContacts.size() - 3;
+        TextView textView = new TextView(getContext());
+        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        textView.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
+        textView.setText("+ " + remaining);
+        */
     }
 }

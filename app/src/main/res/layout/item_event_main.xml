@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/event_date_time"
             app:layout_constraintLeft_toLeftOf="@id/event_name"
             app:layout_constraintTop_toBottomOf="@id/event_name"
@@ -49,13 +49,13 @@
             android:layout_marginTop="@dimen/card_padding"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/event_hosting_going_parent"
+            app:layout_constraintBottom_toTopOf="@id/event_hosting_parent"
             app:layout_constraintLeft_toLeftOf="@id/event_description"
             app:layout_constraintTop_toBottomOf="@id/event_description"
             tools:text="Fri, Jan 5  6PM" />
 
         <LinearLayout
-            android:id="@+id/event_hosting_going_parent"
+            android:id="@+id/event_hosting_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -71,7 +71,7 @@
                 android:src="@drawable/ic_check" />
 
             <TextView
-                android:id="@+id/event_hosting_going"
+                android:id="@+id/event_hosting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
