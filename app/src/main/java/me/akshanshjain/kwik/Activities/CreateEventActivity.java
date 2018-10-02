@@ -197,8 +197,10 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
 
     @Override
     public void onContactsSelection(ArrayList<String> selectedContacts) {
-        selectedContacts.clear();
+        selectedContactsList.clear();
         selectedContactsList.addAll(selectedContacts);
+
+        fragmentStack++;
 
         if (fragmentStack == 4) {
             /*

@@ -239,8 +239,10 @@ public class AccountSettingsActivity extends AppCompatActivity {
         if (display.contains("imagepath")) {
             imagePath = display.getString("imagepath", null);
 
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            profileImage.setImageBitmap(bitmap);
+            if (!imagePath.isEmpty()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                profileImage.setImageBitmap(bitmap);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class OverviewPlanFragment extends Fragment {
     private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel;
     private TextView whatPlan, whenPlan, wherePlan;
     private ImageView doneButton;
+    private LinearLayout whoContainer;
 
     private static final String WHAT_KEY = "WHAT";
     private static final String WHEN_KEY = "WHEN";
@@ -70,9 +72,11 @@ public class OverviewPlanFragment extends Fragment {
         whatPlanLabel = view.findViewById(R.id.what_plan_label_overview);
         whenPlanLabel = view.findViewById(R.id.when_plan_label_overview);
         wherePlanLabel = view.findViewById(R.id.where_plan_label_overview);
+        whoPlanLabel = view.findViewById(R.id.who_plan_label_overview);
         whatPlanLabel.setTypeface(Lato);
         whenPlanLabel.setTypeface(Lato);
         wherePlanLabel.setTypeface(Lato);
+        whoPlanLabel.setTypeface(Lato);
 
         whatPlan = view.findViewById(R.id.what_plan_overview);
         whenPlan = view.findViewById(R.id.when_plan_overview);
@@ -81,9 +85,13 @@ public class OverviewPlanFragment extends Fragment {
         whenPlan.setTypeface(Lato);
         wherePlan.setTypeface(Lato);
 
+        whoContainer = view.findViewById(R.id.who_container_overview);
+
         whatPlan.setText(what);
         whenPlan.setText(when);
         wherePlan.setText(where);
+
+        populateWhoContainer();
 
         doneButton = view.findViewById(R.id.done_button_overview);
         doneButton.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +129,15 @@ public class OverviewPlanFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        EventItem eventItem = new EventItem(what, "", when, where, null, true);
+        EventItem eventItem = new EventItem(what, "", when, where, selectedContacts, true);
         databaseReference.child("events_list").push().setValue(eventItem);
+    }
+
+    private void populateWhoContainer() {
+        for (int i = 0; i < selectedContacts.size(); i++) {
+            TextView textView = new TextView(getContext());
+            textView.setText(selectedContacts.get(i));
+            whoContainer.addView(textView);
+        }
     }
 }

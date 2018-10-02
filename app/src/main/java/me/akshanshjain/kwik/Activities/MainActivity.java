@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_CONSTANT = 200;
     private static final int REQUEST_PERMISSION_SETTING = 100;
-    private SharedPreferences permissionStatus;
+    private SharedPreferences permissionStatus, display;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         createEvent = findViewById(R.id.fab_main);
         upcomingLabel = findViewById(R.id.upcoming_label_main);
         accountSettings = findViewById(R.id.account_settings_main);
+
+        getImageFromPref();
 
         accountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null) {
             //Calling the function to get the data.
-            //getEventsData();
+            getEventsData();
         }
     }
 
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Loading the data from the database whenever any value changes.
         */
-        databaseReference.addChildEventListener(new ChildEventListener() {
+        databaseReference.child("events_list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 EventItem eventItem = dataSnapshot.getValue(EventItem.class);
@@ -270,6 +274,23 @@ public class MainActivity extends AppCompatActivity {
                     Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
 
                 startActivity(new Intent(getApplicationContext(), CreateEventActivity.class));
+            }
+        }
+    }
+
+    /*
+    Retrieving the path of the user selected image from Shared Preferences.
+    We then set the image as the profile image.
+    */
+    private void getImageFromPref() {
+        String imagePath;
+        display = getSharedPreferences("IMAGE", MODE_PRIVATE);
+        if (display.contains("imagepath")) {
+            imagePath = display.getString("imagepath", null);
+
+            if (!imagePath.isEmpty()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                accountSettings.setImageBitmap(bitmap);
             }
         }
     }
