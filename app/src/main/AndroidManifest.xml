@@ -33,7 +33,7 @@
         <activity android:name=".Activities.AccountSettingsActivity" />
 
         <activity
-            android:name=".EventDetailsActivity"
+            android:name=".Activities.EventDetailsActivity"
             android:parentActivityName=".Activities.MainActivity" />
 
         <receiver android:name=".Widget.KwikWidget">
