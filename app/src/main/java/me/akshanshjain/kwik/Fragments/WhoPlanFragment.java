@@ -148,8 +148,17 @@ public class WhoPlanFragment extends Fragment {
                     }
                 });
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < checkedContacts.length; i++) {
+                            checkedContacts[i] = false;
+                            userSelected.clear();
+                        }
+                    }
+                });
+
+                builder.create().show();
             }
         });
 
