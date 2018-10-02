@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
 
@@ -23,14 +25,15 @@ public class OverviewPlanFragment extends Fragment {
     private Typeface Lato;
 
     private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel;
-    private TextView whatPlan, whenPlan, wherePlan, whoPlan;
+    private TextView whatPlan, whenPlan, wherePlan;
     private ImageView doneButton;
 
     private static final String WHAT_KEY = "WHAT";
     private static final String WHEN_KEY = "WHEN";
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
-    private String what, when, where, who;
+    private String what, when, where;
+    private ArrayList<String> selectedContacts;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -107,6 +110,7 @@ public class OverviewPlanFragment extends Fragment {
         what = getArguments().getString(WHAT_KEY);
         when = getArguments().getString(WHEN_KEY);
         where = getArguments().getString(WHERE_KEY);
+        selectedContacts = getArguments().getStringArrayList(WHO_KEY);
     }
 
     /*

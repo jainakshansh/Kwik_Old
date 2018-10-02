@@ -21,12 +21,13 @@ import me.akshanshjain.kwik.Fragments.WhenPlanFragment;
 import me.akshanshjain.kwik.Fragments.WherePlanFragment;
 import me.akshanshjain.kwik.Fragments.WhoPlanFragment;
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
+import me.akshanshjain.kwik.Interfaces.WhoFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 import me.akshanshjain.kwik.Utils.Utils;
 
-public class CreateEventActivity extends AppCompatActivity implements OnFragmentInteractionListener {
+public class CreateEventActivity extends AppCompatActivity implements OnFragmentInteractionListener, WhoFragmentInteractionListener {
 
-    private String whatPlan, whenPlan, wherePlan, whoPlan;
+    private String whatPlan, whenPlan, wherePlan;
     private FragmentManager fragmentManager;
 
     private int fragmentStack = 0;
@@ -39,7 +40,8 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
     private ArrayList<String> allContactsList;
     private ArrayList<String> registeredList;
     private DatabaseReference registeredUsers;
-    private ArrayList<String> commonContactsList;
+
+    private ArrayList<String> selectedContactsList;
 
     private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
     private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
@@ -62,7 +64,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
 
         allContactsList = new ArrayList<>();
         registeredList = new ArrayList<>();
-        commonContactsList = new ArrayList<>();
+        selectedContactsList = new ArrayList<>();
 
         /*
         We are performing all the operation of retrieving user contacts using an Async Task.
@@ -122,22 +124,6 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 break;
 
             case 4:
-                /*
-                Creating a bundle of strings to be passed to the overview fragment.
-                */
-                Bundle bundle = new Bundle();
-                bundle.putString(WHAT_KEY, whatPlan);
-                bundle.putString(WHEN_KEY, whenPlan);
-                bundle.putString(WHERE_KEY, wherePlan);
-
-                //Passing the bundle as an argument to the fragment.
-                OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
-                overviewPlanFragment.setArguments(bundle);
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.plan_creation_container, overviewPlanFragment)
-                        .commit();
-                whoPlan = data;
                 break;
 
             default:
@@ -206,6 +192,31 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             });
 
             return null;
+        }
+    }
+
+    @Override
+    public void onContactsSelection(ArrayList<String> selectedContacts) {
+        selectedContacts.clear();
+        selectedContactsList.addAll(selectedContacts);
+
+        if (fragmentStack == 4) {
+            /*
+            Creating a bundle of strings to be passed to the overview fragment.
+            */
+            Bundle bundle = new Bundle();
+            bundle.putString(WHAT_KEY, whatPlan);
+            bundle.putString(WHEN_KEY, whenPlan);
+            bundle.putString(WHERE_KEY, wherePlan);
+            bundle.putStringArrayList(WHO_KEY, selectedContacts);
+
+            //Passing the bundle as an argument to the fragment.
+            OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
+            overviewPlanFragment.setArguments(bundle);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.plan_creation_container, overviewPlanFragment)
+                    .commit();
         }
     }
 }

@@ -196,6 +196,10 @@ public class WhoPlanFragment extends Fragment {
         }
     }
 
+    /*
+    This function will be called when the next button is clicked.
+    So that we can send the list of invited contacts to the activity.
+    */
     private void viewOnClick(ArrayList<String> data) {
         if (interactionListener != null) {
             interactionListener.onContactsSelection(data);
