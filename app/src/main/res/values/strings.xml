@@ -49,4 +49,6 @@
     <string name="user_profile_image">User Profile Image</string>
     <string name="events_organized">Events Organized</string>
     <string name="events_attended">Events Attended</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

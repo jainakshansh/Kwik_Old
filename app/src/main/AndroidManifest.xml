@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -19,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity android:name=".Activities.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,16 +25,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activities.MainActivity" />
-
         <activity
             android:name=".Activities.CreateEventActivity"
             android:parentActivityName=".Activities.MainActivity"
             android:screenOrientation="portrait" />
-
         <activity android:name=".Activities.AccountSettingsActivity" />
 
+        <receiver android:name=".KwikWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/kwik_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
