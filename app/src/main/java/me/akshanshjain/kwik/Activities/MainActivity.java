@@ -30,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
     private UserDataItem userDataItem;
     private static final String USER_KEY = "USER";
+    private static final String EVENT_KEY = "EVENT";
 
     private static final int PERMISSION_CONSTANT = 200;
     private static final int REQUEST_PERMISSION_SETTING = 100;
@@ -233,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
     This will allow us to get the registered numbers faster than compared to retrieving all the data about the users.
     */
     private void pushRegisteredUsersToFirebase() {
-        databaseReference.child("registered_numbers").child(userDataItem.getUserPhoneNumber()).setValue(true);
+        databaseReference.child("registered_numbers").child(userDataItem.getUserPhoneNumber()).setValue(userDataItem.getUserName());
     }
 
     @Override
@@ -286,8 +288,27 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
         }
     }
 
+    /*
+    Getting the clicked item position from the recycler view.
+    */
     @Override
-    public void onItemClickListener(int clickedItemIndex) {
-        Toast.makeText(this, "" + clickedItemIndex, Toast.LENGTH_SHORT).show();
+    public void onItemClickListener(String key) {
+        DatabaseReference eventReference = databaseReference.child("events_list").child(key);
+        eventReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Getting the complete event and sending it to the details activity.
+                EventItem clickedEvent = dataSnapshot.getValue(EventItem.class);
+                
+                Intent detailedIntent = new Intent(getApplicationContext(), EventDetailsActivity.class);
+                detailedIntent.putExtra(EVENT_KEY, clickedEvent);
+                startActivity(detailedIntent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MainActivity.this, getString(R.string.error_connecting_please_check_internet_connection), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

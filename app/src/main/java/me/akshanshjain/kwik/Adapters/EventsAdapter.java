@@ -50,7 +50,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         @Override
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
-            clickListener.onItemClickListener(clickedPosition);
+            String key = eventItemList.get(clickedPosition).getEventKey();
+            clickListener.onItemClickListener(key);
         }
     }
 
@@ -99,6 +100,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     public interface ItemClickListener {
 
-        void onItemClickListener(int clickedItemIndex);
+        void onItemClickListener(String key);
     }
 }

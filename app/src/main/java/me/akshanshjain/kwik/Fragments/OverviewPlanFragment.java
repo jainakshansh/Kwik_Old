@@ -116,8 +116,9 @@ public class OverviewPlanFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString().trim(), when, where, selectedContacts, true);
-        databaseReference.child("events_list").push().setValue(eventItem);
+        String key = databaseReference.child("events_list").push().getKey();
+        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString(), where, "", selectedContacts, true, key);
+        databaseReference.child("events_list").child(key).setValue(eventItem);
     }
 
     /*
