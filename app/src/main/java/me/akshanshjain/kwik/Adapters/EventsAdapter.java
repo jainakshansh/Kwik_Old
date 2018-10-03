@@ -1,7 +1,6 @@
 package me.akshanshjain.kwik.Adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +19,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
     private Context context;
     private List<EventItem> eventItemList;
+    private ItemClickListener clickListener;
 
-    public EventsAdapter(Context context, List<EventItem> eventItemList) {
+    public EventsAdapter(Context context, List<EventItem> eventItemList, ItemClickListener clickListener) {
         this.context = context;
         this.eventItemList = eventItemList;
+        this.clickListener = clickListener;
     }
 
-    public class EventsViewHolder extends RecyclerView.ViewHolder {
+    public class EventsViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private TextView eventName, eventDescription, eventDateTime, isEventHost;
         private ConstraintLayout eventParent;
@@ -41,8 +43,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             isEventHost = itemView.findViewById(R.id.event_hosting);
 
             eventParent = itemView.findViewById(R.id.event_parent);
+
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            clickListener.onItemClickListener(clickedPosition);
+        }
     }
 
     @NonNull
@@ -86,5 +95,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public int getItemCount() {
         //Returns the total count of event objects in the list.
         return eventItemList.size();
+    }
+
+    public interface ItemClickListener {
+
+        void onItemClickListener(int clickedItemIndex);
     }
 }

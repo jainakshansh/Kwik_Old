@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -40,7 +39,7 @@ import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.Objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EventsAdapter.ItemClickListener {
 
     private RecyclerView eventsRecycler;
     private FloatingActionButton createEvent;
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting up the Recycler View.
         eventItemList = new ArrayList<>();
-        eventsAdapter = new EventsAdapter(this, eventItemList);
+        eventsAdapter = new EventsAdapter(this, eventItemList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         eventsRecycler.setLayoutManager(layoutManager);
         eventsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -285,5 +284,10 @@ public class MainActivity extends AppCompatActivity {
                 accountSettings.setImageBitmap(bitmap);
             }
         }
+    }
+
+    @Override
+    public void onItemClickListener(int clickedItemIndex) {
+        Toast.makeText(this, "" + clickedItemIndex, Toast.LENGTH_SHORT).show();
     }
 }

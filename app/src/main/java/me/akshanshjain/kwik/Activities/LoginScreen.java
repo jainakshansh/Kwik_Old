@@ -1,7 +1,6 @@
 package me.akshanshjain.kwik.Activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -151,6 +150,7 @@ public class LoginScreen extends AppCompatActivity {
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
                             logSuccessIntent.putExtra(USER_KEY, userDataItem);
                             startActivity(logSuccessIntent);
+                            finish();
                         }
                     }
                 });

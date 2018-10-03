@@ -92,9 +92,6 @@ public class WhoPlanFragment extends Fragment {
         invitedLabel = view.findViewById(R.id.invited_label_who);
         nextButton = view.findViewById(R.id.next_button_who_fragment);
 
-        whosPlanTv.setTypeface(Lato, Typeface.BOLD);
-        invitedLabel.setTypeface(Lato);
-
         addInvitees = view.findViewById(R.id.add_contacts_invite);
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
