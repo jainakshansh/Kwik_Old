@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Getting the complete event and sending it to the details activity.
                 EventItem clickedEvent = dataSnapshot.getValue(EventItem.class);
-                
+
                 Intent detailedIntent = new Intent(getApplicationContext(), EventDetailsActivity.class);
                 detailedIntent.putExtra(EVENT_KEY, clickedEvent);
                 startActivity(detailedIntent);
