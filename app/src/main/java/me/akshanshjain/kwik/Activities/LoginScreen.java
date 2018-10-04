@@ -10,7 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +35,6 @@ public class LoginScreen extends AppCompatActivity {
 
     private static final String USER_KEY = "USER";
 
-    private TextView appGreeting, appDescription, directingToSignIn, otpInformation;
     private EditText name, phone;
     private Button loginButton;
 
@@ -67,11 +65,6 @@ public class LoginScreen extends AppCompatActivity {
         /*
         Initializing and referencing the views from the XML layout.
         */
-        appGreeting = findViewById(R.id.greeting_login);
-        appDescription = findViewById(R.id.app_description_login);
-        directingToSignIn = findViewById(R.id.sign_in_direction_login);
-        otpInformation = findViewById(R.id.otp_information_login);
-
         name = findViewById(R.id.user_full_name_login);
         phone = findViewById(R.id.user_phone_number_login);
 

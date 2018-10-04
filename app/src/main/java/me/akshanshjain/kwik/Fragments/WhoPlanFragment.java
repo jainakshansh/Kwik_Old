@@ -3,12 +3,12 @@ package me.akshanshjain.kwik.Fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,14 +33,17 @@ public class WhoPlanFragment extends Fragment {
     private List<String> allContactsList;
     private List<String> commonContactsList;
     private List<String> registeredList;
+    private List<String> contactsNamesList;
 
     private static final String ALL_CONTACTS_KEY = "ALL_CONTACTS";
     private static final String REGISTERED_CONTACTS_KEY = "REGISTERED_CONTACTS";
+    private static final String WHO_NAMES_KEY = "NAMES";
 
     private String[] contactsToShow;
     private boolean[] checkedContacts;
     private ArrayList<Integer> userSelected = new ArrayList<>();
     private ArrayList<String> selectedContacts = new ArrayList<>();
+    private ArrayList<String> commonContactNamesList = new ArrayList<>();
 
     /*
     Mandatory constructor for instantiating the fragment.
@@ -76,6 +79,7 @@ public class WhoPlanFragment extends Fragment {
         allContactsList = new ArrayList<>();
         registeredList = new ArrayList<>();
         commonContactsList = new ArrayList<>();
+        contactsNamesList = new ArrayList<>();
 
         /*
         Getting the arguments passed into the fragment from the activity.
@@ -95,7 +99,7 @@ public class WhoPlanFragment extends Fragment {
         addInvitees = view.findViewById(R.id.add_contacts_invite);
         invitedContactsContainer = view.findViewById(R.id.invited_contacts_container);
 
-        contactsToShow = commonContactsList.toArray(new String[commonContactsList.size()]);
+        contactsToShow = commonContactNamesList.toArray(new String[commonContactNamesList.size()]);
         checkedContacts = new boolean[contactsToShow.length];
 
 
@@ -124,7 +128,6 @@ public class WhoPlanFragment extends Fragment {
                 builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        String item = "";
                         for (int i = 0; i < userSelected.size(); i++) {
                             selectedContacts.add(contactsToShow[userSelected.get(i)]);
                         }
@@ -168,6 +171,7 @@ public class WhoPlanFragment extends Fragment {
     private void getContactsLists() {
         allContactsList = getArguments().getStringArrayList(ALL_CONTACTS_KEY);
         registeredList = getArguments().getStringArrayList(REGISTERED_CONTACTS_KEY);
+        contactsNamesList = getArguments().getStringArrayList(WHO_NAMES_KEY);
 
         getCommonContacts();
     }
@@ -182,8 +186,13 @@ public class WhoPlanFragment extends Fragment {
                 String phone1 = registeredList.get(j);
                 String phone2 = allContactsList.get(i);
                 if (PhoneNumberUtils.compare(phone1, phone2)) {
+                    String name = contactsNamesList.get(i);
                     if (!commonContactsList.contains(phone2)) {
                         commonContactsList.add(phone2);
+                    }
+                    if (!commonContactNamesList.contains(name)) {
+                        commonContactNamesList.add(name);
+                        Log.d("ADebug", name);
                     }
                 }
             }

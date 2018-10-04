@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -29,7 +30,6 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private ImageView backgroundView, profileImage;
 
     private TextView userName;
-    private TextView eventsAttendedLabel, eventsOrganizedLabel;
     private TextView eventsAttended, eventsOrganized;
 
     private static final int PERMISSION_CALLBACK_CONSTANT = 9;
@@ -65,10 +65,14 @@ public class AccountSettingsActivity extends AppCompatActivity {
         */
         profileImage = findViewById(R.id.profile_image_account_settings);
         userName = findViewById(R.id.profile_name_account_settings);
-        eventsOrganizedLabel = findViewById(R.id.organized_label_account_settings);
-        eventsAttendedLabel = findViewById(R.id.attended_label_account_settings);
         eventsOrganized = findViewById(R.id.number_organized_account_settings);
         eventsAttended = findViewById(R.id.number_attended_account_settings);
+
+        /*
+        Getting basic values from the Shared Preferences.
+        */
+        SharedPreferences basicData = PreferenceManager.getDefaultSharedPreferences(this);
+        userName.setText(basicData.getString("name", null));
 
         /*
         Getting user's profile image from preferences, if any, and setting it into the image view.

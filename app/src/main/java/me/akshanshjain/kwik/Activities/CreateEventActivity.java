@@ -1,7 +1,10 @@
 package me.akshanshjain.kwik.Activities;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +26,6 @@ import me.akshanshjain.kwik.Fragments.WhoPlanFragment;
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.Interfaces.WhoFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
-import me.akshanshjain.kwik.Utils.Utils;
 
 public class CreateEventActivity extends AppCompatActivity implements OnFragmentInteractionListener, WhoFragmentInteractionListener {
 
@@ -36,10 +38,12 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
     private static final String WHEN_KEY = "WHEN";
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
+    private static final String WHO_NAMES_KEY = "NAMES";
 
     private ArrayList<String> allContactsList;
     private ArrayList<String> registeredList;
     private DatabaseReference registeredUsers;
+    private ArrayList<String> contactNamesList;
 
     private ArrayList<String> selectedContactsList;
 
@@ -112,6 +116,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 Bundle listBundle = new Bundle();
                 listBundle.putStringArrayList(ALL_CONTACTS_KEY, allContactsList);
                 listBundle.putStringArrayList(REGISTERED_CONTACTS_KEY, registeredList);
+                listBundle.putStringArrayList(WHO_NAMES_KEY, contactNamesList);
 
                 //Passing the bundle with lists as an argument to the fragment.
                 WhoPlanFragment whoPlanFragment = new WhoPlanFragment();
@@ -140,6 +145,34 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
         }
     }
 
+    @Override
+    public void onContactsSelection(ArrayList<String> selectedContacts) {
+        selectedContactsList.clear();
+        selectedContactsList.addAll(selectedContacts);
+
+        fragmentStack++;
+
+        if (fragmentStack == 4) {
+            /*
+            Creating a bundle of strings to be passed to the overview fragment.
+            */
+            Bundle bundle = new Bundle();
+            bundle.putString(WHAT_KEY, whatPlan);
+            bundle.putString(WHEN_KEY, whenPlan);
+            bundle.putString(WHERE_KEY, wherePlan);
+            bundle.putStringArrayList(WHO_KEY, selectedContacts);
+            bundle.putStringArrayList(WHO_NAMES_KEY, contactNamesList);
+
+            //Passing the bundle as an argument to the fragment.
+            OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
+            overviewPlanFragment.setArguments(bundle);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.plan_creation_container, overviewPlanFragment)
+                    .commit();
+        }
+    }
+
     /*
     Running an AsyncTask in the background to get all the contacts list.
     Also getting all the registered users from the Firebase Database.
@@ -154,8 +187,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             /*
             We get all contacts from a Utils class containing common functions.
             */
-            Utils utils = new Utils();
-            allContactsList = utils.getAllContactsFromPhone(CreateEventActivity.this);
+            allContactsList = getAllContactsFromPhone();
 
             /*
             Normalizing all the strings by removing any extra spaces that might pop up during contact entries.
@@ -195,30 +227,41 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
         }
     }
 
-    @Override
-    public void onContactsSelection(ArrayList<String> selectedContacts) {
-        selectedContactsList.clear();
-        selectedContactsList.addAll(selectedContacts);
 
-        fragmentStack++;
+    /*
+    This function gets all the contacts from the user's directory along with their names.
+    We just return the list of numbers, but names are passed to the Fragment as required.
+    */
+    public ArrayList<String> getAllContactsFromPhone() {
 
-        if (fragmentStack == 4) {
-            /*
-            Creating a bundle of strings to be passed to the overview fragment.
-            */
-            Bundle bundle = new Bundle();
-            bundle.putString(WHAT_KEY, whatPlan);
-            bundle.putString(WHEN_KEY, whenPlan);
-            bundle.putString(WHERE_KEY, wherePlan);
-            bundle.putStringArrayList(WHO_KEY, selectedContacts);
+        ArrayList<String> allContacts = new ArrayList<>();
+        contactNamesList = new ArrayList<>();
 
-            //Passing the bundle as an argument to the fragment.
-            OverviewPlanFragment overviewPlanFragment = new OverviewPlanFragment();
-            overviewPlanFragment.setArguments(bundle);
+        ContentResolver contentResolver = getContentResolver();
 
-            fragmentManager.beginTransaction()
-                    .replace(R.id.plan_creation_container, overviewPlanFragment)
-                    .commit();
+        Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+
+                if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+
+                    Cursor pCur = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
+                    while (pCur.moveToNext()) {
+                        String contactNum = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        String contactName = pCur.getString(pCur.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+
+                        allContacts.add(contactNum);
+                        contactNamesList.add(contactName);
+                    }
+                    pCur.close();
+                }
+
+            } while (cursor.moveToNext());
         }
+
+        return allContacts;
     }
 }

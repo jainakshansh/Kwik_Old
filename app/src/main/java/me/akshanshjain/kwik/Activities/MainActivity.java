@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
     private static final int PERMISSION_CONSTANT = 200;
     private static final int REQUEST_PERMISSION_SETTING = 100;
     private SharedPreferences permissionStatus, display;
+    private SharedPreferences basicData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,15 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             Sending the data about the current user to the Firebase Database.
             */
             pushUserDataToFirebase(userDataItem);
+
+            /*
+            Also adding basic data to the Shared Preferences.
+            */
+            basicData = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = basicData.edit();
+            editor.putString("name", userDataItem.getUserName());
+            editor.putString("phone", userDataItem.getUserPhoneNumber());
+            editor.apply();
         }
 
         /*
