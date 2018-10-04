@@ -25,7 +25,6 @@ import me.akshanshjain.kwik.R;
 
 public class OverviewPlanFragment extends Fragment {
 
-    private TextView whatPlanLabel, whenPlanLabel, wherePlanLabel, whoPlanLabel, descriptionPlanLabel;
     private TextView whatPlan, whenPlan, wherePlan;
     private ImageView doneButton;
     private EditText descriptionPlan;
@@ -36,6 +35,7 @@ public class OverviewPlanFragment extends Fragment {
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
     private String what, when, where;
+    private String[] dateTimeSplit;
     private ArrayList<String> selectedContacts;
 
     private FirebaseDatabase firebaseDatabase;
@@ -74,8 +74,11 @@ public class OverviewPlanFragment extends Fragment {
 
         whoContainer = view.findViewById(R.id.who_container_overview);
 
+        dateTimeSplit = when.split("\n");
+        String dateTime = dateTimeSplit[0] + " ● " + dateTimeSplit[1];
+
         whatPlan.setText(what);
-        whenPlan.setText(when);
+        whenPlan.setText(dateTime);
         wherePlan.setText(where);
 
         populateWhoContainer();
@@ -117,7 +120,8 @@ public class OverviewPlanFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
         String key = databaseReference.child("events_list").push().getKey();
-        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString(), when, when, where, selectedContacts, true, key);
+        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString(), dateTimeSplit[0], dateTimeSplit[1],
+                where, selectedContacts, true, key);
         databaseReference.child("events_list").child(key).setValue(eventItem);
     }
 

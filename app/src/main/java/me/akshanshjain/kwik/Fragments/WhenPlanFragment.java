@@ -3,7 +3,6 @@ package me.akshanshjain.kwik.Fragments;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -147,7 +146,8 @@ public class WhenPlanFragment extends Fragment {
                 new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                        customDateTime += "\n" + hour + " : " + minute;
+                        String time = String.format("%02d:%02d", hour, minute);
+                        customDateTime += "\n" + time;
 
                         //Setting the final date and time to the text view.
                         customDate.setText(customDateTime);
@@ -162,7 +162,7 @@ public class WhenPlanFragment extends Fragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        customDateTime = day + "/" + month + "/" + year;
+                        customDateTime = String.format("%02d-%02d-%02d", day, month, year);
 
                         //After the date has been selected we call the time picker dialog.
                         timePickerDialog.show();

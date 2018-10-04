@@ -37,7 +37,6 @@ public class EventUpdatesFragment extends Fragment {
     private ImageView addButton;
 
     private List<String> updatesList;
-    private List<String> addUpdatesList;
     private RecyclerView updatesRecycler;
     private UpdatesAdapter adapter;
 
@@ -82,7 +81,6 @@ public class EventUpdatesFragment extends Fragment {
         updatesRecycler.setItemAnimator(new DefaultItemAnimator());
         updatesRecycler.setAdapter(adapter);
 
-        addUpdatesList = new ArrayList<>();
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,8 +122,8 @@ public class EventUpdatesFragment extends Fragment {
     }
 
     private void pushUpdateToFirebase(String update) {
-        addUpdatesList.add(update);
-        databaseReference.child("events_list").child(eventKey).child("updates").setValue(addUpdatesList);
+        updatesList.add(update);
+        databaseReference.child("events_list").child(eventKey).child("updates").setValue(updatesList);
     }
 
     private void populateUpdatesList() {
