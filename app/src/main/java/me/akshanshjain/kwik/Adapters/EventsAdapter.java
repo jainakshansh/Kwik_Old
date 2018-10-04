@@ -30,7 +30,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
     public class EventsViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private TextView eventName, eventDescription, eventDateTime, isEventHost;
+        private TextView eventName, eventDescription, eventDateTime, isEventHost, eventLocation;
         private ConstraintLayout eventParent;
 
         public EventsViewHolder(View itemView) {
@@ -41,6 +41,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
             eventDescription = itemView.findViewById(R.id.event_description);
             eventDateTime = itemView.findViewById(R.id.event_date_time);
             isEventHost = itemView.findViewById(R.id.event_hosting);
+            eventLocation = itemView.findViewById(R.id.event_location);
 
             eventParent = itemView.findViewById(R.id.event_parent);
 
@@ -77,6 +78,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
         holder.eventDescription.setText(eventItem.getEventDescription());
 
         holder.eventDateTime.setText(eventItem.getEventDate() + "\n" + eventItem.getEventTime());
+
+        holder.eventLocation.setText(eventItem.getEventLocation());
 
         if (eventItem.isHosting()) {
             holder.isEventHost.setText(context.getString(R.string.hosting));

@@ -117,7 +117,7 @@ public class OverviewPlanFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
         String key = databaseReference.child("events_list").push().getKey();
-        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString(), where, "", selectedContacts, true, key);
+        EventItem eventItem = new EventItem(what, descriptionPlan.getText().toString(), when, when, where, selectedContacts, true, key);
         databaseReference.child("events_list").child(key).setValue(eventItem);
     }
 
@@ -150,8 +150,10 @@ public class OverviewPlanFragment extends Fragment {
 
     private void addingViewsToContainer(int position) {
         LinearLayout linearLayout = new LinearLayout(getContext());
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(8, 8, 8, 8);
+        linearLayout.setLayoutParams(layoutParams);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setGravity(Gravity.CENTER);
 

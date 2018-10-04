@@ -52,10 +52,23 @@
             android:fontFamily="@font/lato"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/event_hosting_parent"
+            app:layout_constraintBottom_toTopOf="@id/event_location"
             app:layout_constraintLeft_toLeftOf="@id/event_description"
             app:layout_constraintTop_toBottomOf="@id/event_description"
             tools:text="Fri, Jan 5  6PM" />
+
+        <TextView
+            android:id="@+id/event_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_margin_half"
+            android:layout_marginBottom="@dimen/material_margin"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/event_hosting_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/event_date_time" />
 
         <LinearLayout
             android:id="@+id/event_hosting_parent"
@@ -64,7 +77,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_date_time">
+            app:layout_constraintTop_toBottomOf="@id/event_location">
 
             <ImageView
                 android:layout_width="56dp"

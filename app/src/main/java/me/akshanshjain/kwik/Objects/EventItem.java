@@ -11,6 +11,7 @@ public class EventItem implements Parcelable {
     private String eventDescription;
     private String eventDate;
     private String eventTime;
+    private String eventLocation;
     private List<String> eventAttendees;
     private boolean isHosting;
     private String eventKey;
@@ -19,11 +20,13 @@ public class EventItem implements Parcelable {
     private EventItem() {
     }
 
-    public EventItem(String eventName, String eventDescription, String eventDate, String eventTime, List<String> eventAttendees, boolean isHosting, String eventKey) {
+    public EventItem(String eventName, String eventDescription, String eventDate, String eventTime, String eventLocation,
+                     List<String> eventAttendees, boolean isHosting, String eventKey) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
+        this.eventLocation = eventLocation;
         this.eventAttendees = eventAttendees;
         this.isHosting = isHosting;
         this.eventKey = eventKey;
@@ -34,6 +37,7 @@ public class EventItem implements Parcelable {
         eventDescription = in.readString();
         eventDate = in.readString();
         eventTime = in.readString();
+        eventLocation = in.readString();
         eventAttendees = in.createStringArrayList();
         isHosting = in.readByte() != 0;
         eventKey = in.readString();
@@ -45,6 +49,7 @@ public class EventItem implements Parcelable {
         dest.writeString(eventDescription);
         dest.writeString(eventDate);
         dest.writeString(eventTime);
+        dest.writeString(eventLocation);
         dest.writeStringList(eventAttendees);
         dest.writeByte((byte) (isHosting ? 1 : 0));
         dest.writeString(eventKey);
@@ -81,6 +86,10 @@ public class EventItem implements Parcelable {
 
     public String getEventTime() {
         return eventTime;
+    }
+
+    public String getEventLocation() {
+        return eventLocation;
     }
 
     public List<String> getEventAttendees() {
