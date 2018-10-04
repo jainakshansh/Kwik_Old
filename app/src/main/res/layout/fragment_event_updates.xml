@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/event_starts_label_updates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_page_margins"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="@string/event_starts_in"
+        android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/eta_updates"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_margin="@dimen/material_margin"
+        android:layout_marginTop="@dimen/material_margin_half"
+        android:layout_marginEnd="@dimen/material_margin_half"
+        android:background="@drawable/circular_view_widget"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="32sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_starts_label_updates"
+        tools:text="31\nHours" />
+
+    <TextView
+        android:id="@+id/updates_label_updates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/material_margin"
+        android:fontFamily="@font/lato"
+        android:text="@string/updates"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eta_updates" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_updates"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/material_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/updates_label_updates" />
+
+</android.support.constraint.ConstraintLayout>

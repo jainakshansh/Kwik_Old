@@ -53,4 +53,6 @@
     <string name="add_widget">Add widget</string>
     <string name="description">Description</string>
     <string name="attendees">Attendees</string>
+    <string name="event_starts_in">Event starts in</string>
+    <string name="updates">Updates</string>
 </resources>

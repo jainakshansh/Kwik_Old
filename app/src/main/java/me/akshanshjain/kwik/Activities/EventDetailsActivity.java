@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import me.akshanshjain.kwik.Adapters.ViewPagerAdapter;
 import me.akshanshjain.kwik.Fragments.EventDetailFragment;
+import me.akshanshjain.kwik.Fragments.EventUpdatesFragment;
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
 
@@ -19,6 +20,8 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private EventItem eventItem;
     private static final String EVENT_KEY = "EVENT";
+
+    private EventListener eventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +46,30 @@ public class EventDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(eventItem.getEventName());
         }
 
+        /*
+        Creating a bundle to pass to the Fragment.
+        */
         Bundle bundle = new Bundle();
         bundle.putParcelable(EVENT_KEY, eventItem);
 
-        EventDetailFragment eventDetailFragment = new EventDetailFragment();
-        eventDetailFragment.setArguments(bundle);
+        eventListener.onFragmentInstantiated(bundle);
     }
 
+    /*
+    Adding the fragments to the view pager.
+    */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new EventDetailFragment(), "Details");
+        adapter.addFragment(new EventUpdatesFragment(), "Updates");
         viewPager.setAdapter(adapter);
     }
 
+    /*
+    Created a listener to pass the data from the activity to the fragment.
+    */
+    public interface EventListener {
+
+        void onFragmentInstantiated(Bundle bundle);
+    }
 }

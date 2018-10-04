@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_updates_tv"
+    tools:text="Let's meet at 8 PM sharp!"
+    android:padding="@dimen/material_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/materialBlack"
+    android:textSize="16sp" />
