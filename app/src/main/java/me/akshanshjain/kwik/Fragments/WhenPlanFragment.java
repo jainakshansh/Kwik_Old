@@ -162,7 +162,7 @@ public class WhenPlanFragment extends Fragment {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        customDateTime = String.format("%02d-%02d-%02d", day, month, year);
+                        customDateTime = String.format("%02d-%02d-%02d", day, month + 1, year);
 
                         //After the date has been selected we call the time picker dialog.
                         timePickerDialog.show();

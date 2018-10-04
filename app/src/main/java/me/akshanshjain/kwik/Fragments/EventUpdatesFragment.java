@@ -2,6 +2,7 @@ package me.akshanshjain.kwik.Fragments;
 
 
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -25,8 +27,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import me.akshanshjain.kwik.Adapters.UpdatesAdapter;
 import me.akshanshjain.kwik.Objects.EventItem;
@@ -34,11 +40,13 @@ import me.akshanshjain.kwik.R;
 
 public class EventUpdatesFragment extends Fragment {
 
+    private TextView etaUpdates;
     private ImageView addButton;
 
     private List<String> updatesList;
     private RecyclerView updatesRecycler;
     private UpdatesAdapter adapter;
+    private Typeface Lato;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -70,7 +78,11 @@ public class EventUpdatesFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        etaUpdates = view.findViewById(R.id.eta_updates);
         addButton = view.findViewById(R.id.add_updates_button);
+
+        String eta = calcTimeDifference() + "\nHours";
+        etaUpdates.setText(eta);
 
         updatesList = new ArrayList<>();
         updatesRecycler = view.findViewById(R.id.recycler_view_updates);
@@ -155,5 +167,26 @@ public class EventUpdatesFragment extends Fragment {
                 Toast.makeText(getActivity(), getString(R.string.error_connecting_please_check_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String calcTimeDifference() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        Date now = new Date();
+        String currentDateFormat = sdf.format(now);
+        String eventDateFormat = eventItem.getEventDate() + " " + eventItem.getEventTime();
+
+        Date currentDate = null, eventDate = null;
+
+        try {
+            currentDate = sdf.parse(currentDateFormat);
+            eventDate = sdf.parse(eventDateFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
+        long diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+
+        return String.valueOf(diff);
     }
 }
