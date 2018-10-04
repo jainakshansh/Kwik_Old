@@ -1,17 +1,22 @@
 package me.akshanshjain.kwik.Fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +37,7 @@ public class EventUpdatesFragment extends Fragment {
     private ImageView addButton;
 
     private List<String> updatesList;
+    private List<String> addUpdatesList;
     private RecyclerView updatesRecycler;
     private UpdatesAdapter adapter;
 
@@ -39,14 +45,28 @@ public class EventUpdatesFragment extends Fragment {
     private DatabaseReference databaseReference;
 
     private EventItem eventItem;
+    private String eventKey;
+    private static final String EVENT_KEY = "EVENT";
 
+    /*
+    Mandatory constructor for instantiating the fragment.
+    */
     public EventUpdatesFragment() {
     }
 
+    /*
+    Inflating the fragment layout and performs the required operations or functions.
+    */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //Inflating the layout from the XML.
         View view = inflater.inflate(R.layout.fragment_event_updates, container, false);
+
+        if (getArguments() != null) {
+            eventItem = getArguments().getParcelable(EVENT_KEY);
+            eventKey = eventItem.getEventKey();
+        }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -62,27 +82,74 @@ public class EventUpdatesFragment extends Fragment {
         updatesRecycler.setItemAnimator(new DefaultItemAnimator());
         updatesRecycler.setAdapter(adapter);
 
+        addUpdatesList = new ArrayList<>();
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
+                builder.setTitle("What's the update?");
+
+                final EditText input = new EditText(getContext());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                lp.setMargins(16, 8, 16, 8);
+                input.setLayoutParams(lp);
+                builder.setView(input);
+
+                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String update = input.getText().toString();
+                        pushUpdateToFirebase(update);
+                    }
+                });
+                builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                builder.setCancelable(false);
+
+                builder.create().show();
+            }
+        });
+
         populateUpdatesList();
 
         return view;
     }
 
-    private void addUpdate() {
-        databaseReference.child("events_list").child(/*Add key here*/"").child("event_updates").addChildEventListener(new ChildEventListener() {
+    private void pushUpdateToFirebase(String update) {
+        addUpdatesList.add(update);
+        databaseReference.child("events_list").child(eventKey).child("updates").setValue(addUpdatesList);
+    }
+
+    private void populateUpdatesList() {
+        databaseReference.child("events_list").child(eventKey).child("updates").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String update = dataSnapshot.getValue(String.class);
+                updatesList.add(update);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -90,11 +157,5 @@ public class EventUpdatesFragment extends Fragment {
                 Toast.makeText(getActivity(), getString(R.string.error_connecting_please_check_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    /*
-    TODO Retrieve data from Firebase and update the list.
-    */
-    private void populateUpdatesList() {
     }
 }

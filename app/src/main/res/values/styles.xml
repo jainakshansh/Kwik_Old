@@ -23,4 +23,10 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:colorAccent">@color/materialBlack</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textColor">@color/materialBlack</item>
+    </style>
+
 </resources>

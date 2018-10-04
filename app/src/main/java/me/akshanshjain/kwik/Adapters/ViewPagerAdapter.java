@@ -28,15 +28,20 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+
         switch (position) {
             case 0:
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(EVENT_KEY, eventItem);
+                Bundle detailBundle = new Bundle();
+                detailBundle.putParcelable(EVENT_KEY, eventItem);
                 EventDetailFragment eventDetailFragment = new EventDetailFragment();
-                eventDetailFragment.setArguments(bundle);
+                eventDetailFragment.setArguments(detailBundle);
                 return eventDetailFragment;
             case 1:
-                return new EventUpdatesFragment();
+                Bundle updateBundle = new Bundle();
+                updateBundle.putParcelable(EVENT_KEY, eventItem);
+                EventUpdatesFragment eventUpdatesFragment = new EventUpdatesFragment();
+                eventUpdatesFragment.setArguments(updateBundle);
+                return eventUpdatesFragment;
         }
         return new EventUpdatesFragment();
     }
