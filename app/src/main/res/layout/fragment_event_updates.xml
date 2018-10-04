@@ -39,14 +39,29 @@
 
     <TextView
         android:id="@+id/updates_label_updates"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/material_margin"
+        android:layout_margin="24dp"
         android:fontFamily="@font/lato"
+        android:gravity="center_vertical"
         android:text="@string/updates"
         android:textAllCaps="true"
+        android:textColor="@color/materialBlack"
         android:textSize="16sp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/add_updates_button"
+        app:layout_constraintTop_toBottomOf="@id/eta_updates" />
+
+    <ImageView
+        android:id="@+id/add_updates_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/updates"
+        android:src="@drawable/ic_add"
+        android:tint="@color/materialBlack"
+        app:layout_constraintLeft_toRightOf="@id/updates_label_updates"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eta_updates" />
 
@@ -54,7 +69,10 @@
         android:id="@+id/recycler_view_updates"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/material_margin"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="@dimen/material_margin"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="@dimen/material_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

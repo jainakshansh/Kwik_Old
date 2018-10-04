@@ -21,8 +21,6 @@ public class EventDetailsActivity extends AppCompatActivity {
     private EventItem eventItem;
     private static final String EVENT_KEY = "EVENT";
 
-    private EventListener eventListener;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,42 +32,32 @@ public class EventDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        viewPager = findViewById(R.id.view_pager_details);
-        tabLayout = findViewById(R.id.tab_layout_details);
-
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-
         Intent fromMainIntent = getIntent();
         if (fromMainIntent.getExtras() != null) {
             eventItem = fromMainIntent.getExtras().getParcelable(EVENT_KEY);
             getSupportActionBar().setTitle(eventItem.getEventName());
         }
 
-        /*
-        Creating a bundle to pass to the Fragment.
-        */
+        viewPager = findViewById(R.id.view_pager_details);
+        tabLayout = findViewById(R.id.tab_layout_details);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
         Bundle bundle = new Bundle();
         bundle.putParcelable(EVENT_KEY, eventItem);
 
-        eventListener.onFragmentInstantiated(bundle);
+        EventDetailFragment eventDetailFragment = new EventDetailFragment();
+        eventDetailFragment.setArguments(bundle);
     }
 
     /*
     Adding the fragments to the view pager.
     */
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), eventItem);
         adapter.addFragment(new EventDetailFragment(), "Details");
         adapter.addFragment(new EventUpdatesFragment(), "Updates");
         viewPager.setAdapter(adapter);
-    }
-
-    /*
-    Created a listener to pass the data from the activity to the fragment.
-    */
-    public interface EventListener {
-
-        void onFragmentInstantiated(Bundle bundle);
     }
 }

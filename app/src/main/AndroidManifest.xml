@@ -18,13 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.LoginScreen">
+        <activity
+            android:name=".Activities.LoginScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.CreateEventActivity"
             android:parentActivityName=".Activities.MainActivity"
@@ -33,7 +37,8 @@
 
         <activity
             android:name=".Activities.EventDetailsActivity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".Widget.KwikWidget">
             <intent-filter>

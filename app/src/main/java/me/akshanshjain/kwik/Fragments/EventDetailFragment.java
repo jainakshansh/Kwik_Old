@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import me.akshanshjain.kwik.Activities.EventDetailsActivity;
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
 
-public class EventDetailFragment extends Fragment implements EventDetailsActivity.EventListener {
+public class EventDetailFragment extends Fragment {
 
     private TextView eventName;
 
@@ -36,15 +35,13 @@ public class EventDetailFragment extends Fragment implements EventDetailsActivit
         //Inflating the layout from the XML.
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_event_detail, container, false);
 
-        return view;
-    }
-
-    @Override
-    public void onFragmentInstantiated(Bundle bundle) {
-        if (bundle != null) {
-            eventItem = bundle.getParcelable(EVENT_KEY);
-
-            Log.d("ADebug", eventItem.getEventName());
+        if (getArguments() != null) {
+            eventItem = getArguments().getParcelable(EVENT_KEY);
+            Toast.makeText(getActivity(), eventItem.getEventName(), Toast.LENGTH_SHORT).show();
         }
+
+        eventName = view.findViewById(R.id.event_name_details);
+
+        return view;
     }
 }
