@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
         permissionStatus = getSharedPreferences("PermissionStatus", MODE_PRIVATE);
 
+        //Getting an instance of the database.
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
         /*
         Getting the phone number of the user from the intent.
         This will be stored in the database which will show all the registered numbers.
@@ -178,9 +182,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
     The code for checking network connectivity is included in the onCreate function.
     */
     private void getEventsData() {
-        //Getting an instance of the database.
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference();
 
         /*
         Loading the data from the database whenever any value changes.
@@ -223,8 +224,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
     It then creates a child node with the User data.
     */
     private void pushUserDataToFirebase(UserDataItem userDataItem) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
 
         databaseReference.child("registered_users").child(userDataItem.getUserPhoneNumber()).setValue(userDataItem);
         pushRegisteredUsersToFirebase();

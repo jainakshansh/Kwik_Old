@@ -27,11 +27,12 @@
         android:layout_marginTop="@dimen/material_margin_half"
         android:fontFamily="@font/lato"
         android:textColor="@color/materialBlack"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/event_description_details"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/event_name_details" />
+        app:layout_constraintTop_toBottomOf="@id/event_name_details"
+        tools:text="Tonight * 6PM" />
 
     <TextView
         android:id="@+id/event_description_details"
@@ -40,7 +41,7 @@
         android:layout_marginTop="@dimen/login_page_margins"
         android:fontFamily="@font/lato"
         android:textColor="@color/materialBlack"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/attendees_label_details"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -53,13 +54,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/login_page_margins"
         android:fontFamily="@font/lato"
+        android:text="@string/attendees"
         android:textColor="@color/materialBlack"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/attendees_container_details"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/event_description_details"
-        tools:text="Attendees" />
+        app:layout_constraintTop_toBottomOf="@id/event_description_details" />
 
     <LinearLayout
         android:id="@+id/attendees_container_details"
@@ -79,7 +80,7 @@
         android:layout_marginTop="@dimen/login_page_margins"
         android:fontFamily="@font/lato"
         android:textColor="@color/materialBlack"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
