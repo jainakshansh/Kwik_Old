@@ -89,10 +89,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsView
 
         //Setting a random background on the card parent.
         int[] gradients = new int[]{R.drawable.gradient_blue, R.drawable.gradient_gray, R.drawable.gradient_green,
-                R.drawable.gradient_maroon, R.drawable.gradient_orange, R.drawable.gradient_purple};
-        Random random = new Random();
+                R.drawable.gradient_maroon, R.drawable.gradient_yellow, R.drawable.gradient_purple,
+                R.drawable.gradient_dark_blue, R.drawable.gradient_violet};
 
-        holder.eventParent.setBackgroundResource(gradients[random.nextInt(gradients.length)]);
+        Random random = new Random();
+        int r = random.nextInt(gradients.length);
+        holder.eventParent.setBackgroundResource(gradients[r]);
     }
 
     @Override

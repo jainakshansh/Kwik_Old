@@ -70,24 +70,25 @@ public class EventDetailFragment extends Fragment {
     }
 
     private void addAttendeesToContainer() {
+        if (eventAttendeesList != null) {
+            if (eventAttendeesList.size() > 3) {
 
-        if (eventAttendeesList.size() > 3) {
+                for (int i = 0; i < eventAttendeesList.size(); i++) {
+                    addingViewsToContainer(i);
+                }
 
-            for (int i = 0; i < eventAttendeesList.size(); i++) {
-                addingViewsToContainer(i);
-            }
+                int remaining = eventAttendeesList.size() - 3;
+                TextView textView = new TextView(getContext());
+                textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.materialBlack));
+                textView.setText("+ " + remaining);
 
-            int remaining = eventAttendeesList.size() - 3;
-            TextView textView = new TextView(getContext());
-            textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            textView.setTextColor(ContextCompat.getColor(getContext(), R.color.materialBlack));
-            textView.setText("+ " + remaining);
+            } else {
 
-        } else {
-
-            for (int i = 0; i < eventAttendeesList.size(); i++) {
-                addingViewsToContainer(i);
+                for (int i = 0; i < eventAttendeesList.size(); i++) {
+                    addingViewsToContainer(i);
+                }
             }
         }
     }

@@ -74,8 +74,11 @@ public class OverviewPlanFragment extends Fragment {
 
         whoContainer = view.findViewById(R.id.who_container_overview);
 
-        dateTimeSplit = when.split("\n");
-        String dateTime = dateTimeSplit[0] + " ● " + dateTimeSplit[1];
+        String dateTime = "";
+        if (!when.equals(getString(R.string.decide_later))) {
+            dateTimeSplit = when.split("\n");
+            dateTime = dateTimeSplit[0] + " ● " + dateTimeSplit[1];
+        }
 
         whatPlan.setText(what);
         whenPlan.setText(dateTime);

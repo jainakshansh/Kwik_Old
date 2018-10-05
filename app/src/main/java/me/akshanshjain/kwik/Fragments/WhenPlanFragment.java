@@ -17,7 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
@@ -74,14 +77,26 @@ public class WhenPlanFragment extends Fragment {
         tonightContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick(getString(R.string.tonight) + getString(R.string._8_pm));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                String date = simpleDateFormat.format(new Date());
+
+                viewOnClick(date + "\n" + "20:00");
             }
         });
 
         tomorrowContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewOnClick(getString(R.string.tomorrow) + getString(R.string._6_pm));
+                Date dt = new Date();
+                Calendar c = Calendar.getInstance();
+                c.setTime(dt);
+                c.add(Calendar.DATE, 1);
+                dt = c.getTime();
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                String tomorrow = simpleDateFormat.format(dt);
+
+                viewOnClick(tomorrow + "\n" + "18:00");
             }
         });
 

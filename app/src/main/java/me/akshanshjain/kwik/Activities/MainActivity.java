@@ -22,8 +22,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -36,6 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.akshanshjain.kwik.Adapters.EventsAdapter;
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.Objects.UserDataItem;
@@ -45,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
     private RecyclerView eventsRecycler;
     private FloatingActionButton createEvent;
-    private TextView upcomingLabel;
-    private ImageView accountSettings;
+    private CircleImageView accountSettings;
 
     private List<EventItem> eventItemList;
     private EventsAdapter eventsAdapter;
@@ -112,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
         */
         eventsRecycler = findViewById(R.id.recycler_view_main);
         createEvent = findViewById(R.id.fab_main);
-        upcomingLabel = findViewById(R.id.upcoming_label_main);
         accountSettings = findViewById(R.id.account_settings_main);
 
         getImageFromPref();
@@ -163,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
         //Setting up the Recycler View.
         eventItemList = new ArrayList<>();
         eventsAdapter = new EventsAdapter(this, eventItemList, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, true);
         eventsRecycler.setLayoutManager(layoutManager);
         eventsRecycler.setItemAnimator(new DefaultItemAnimator());
         eventsRecycler.setAdapter(eventsAdapter);
@@ -185,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             //Calling the function to get the data.
             getEventsData();
         }
+
+        eventsRecycler.scrollToPosition(eventItemList.size() - 1);
     }
 
     /*

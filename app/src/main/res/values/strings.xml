@@ -55,4 +55,6 @@
     <string name="attendees">Attendees</string>
     <string name="event_starts_in">Event starts in</string>
     <string name="updates">Updates</string>
+    <string name="whats_the_update">What\'s the update?</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

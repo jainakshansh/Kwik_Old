@@ -97,25 +97,29 @@ public class EventUpdatesFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                /*
+                Creating an Alert Dialog to take in user input for the
+                */
                 AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
-                builder.setTitle("What's the update?");
+                builder.setTitle(getString(R.string.whats_the_update));
 
                 final EditText input = new EditText(getContext());
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.MATCH_PARENT);
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
                 lp.setMargins(16, 8, 16, 8);
                 input.setLayoutParams(lp);
                 builder.setView(input);
 
-                builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.done), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String update = input.getText().toString();
                         pushUpdateToFirebase(update);
                     }
                 });
-                builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+
+                builder.setNegativeButton(getString(R.string.dismiss), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -123,7 +127,6 @@ public class EventUpdatesFragment extends Fragment {
                 });
 
                 builder.setCancelable(false);
-
                 builder.create().show();
             }
         });
@@ -133,11 +136,17 @@ public class EventUpdatesFragment extends Fragment {
         return view;
     }
 
+    /*
+    Pushing the newly added update to the firebase so that consequent container can be updated.
+    */
     private void pushUpdateToFirebase(String update) {
         updatesList.add(update);
         databaseReference.child("events_list").child(eventKey).child("updates").setValue(updatesList);
     }
 
+    /*
+    Retrieving the data from the Updates node inside the particular event node from the Firebase Database.
+    */
     private void populateUpdatesList() {
         databaseReference.child("events_list").child(eventKey).child("updates").addChildEventListener(new ChildEventListener() {
             @Override
@@ -169,6 +178,11 @@ public class EventUpdatesFragment extends Fragment {
         });
     }
 
+    /*
+    Calculating the ETA in hours to be displayed in the TextView.
+    Here we find the different between the event date and the current date.
+    This way we get approximate number of hours as ETA.
+    */
     private String calcTimeDifference() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date now = new Date();
