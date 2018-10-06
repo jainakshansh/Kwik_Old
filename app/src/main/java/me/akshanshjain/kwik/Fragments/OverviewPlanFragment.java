@@ -98,7 +98,7 @@ public class OverviewPlanFragment extends Fragment {
                 When user confirms, we push the event data to the backend database.
                 */
                 pushEventToFirebase();
-                Toast.makeText(getContext(), "Event creation successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.event_creation_successful, Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
         });

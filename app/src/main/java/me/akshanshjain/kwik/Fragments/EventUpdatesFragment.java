@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import me.akshanshjain.kwik.Adapters.UpdatesAdapter;
@@ -83,7 +84,7 @@ public class EventUpdatesFragment extends Fragment {
         etaUpdates = view.findViewById(R.id.eta_updates);
         addButton = view.findViewById(R.id.add_updates_button);
 
-        String eta = calcTimeDifference() + "\nHours";
+        String eta = calcTimeDifference() + getString(R.string.hours);
         etaUpdates.setText(eta);
 
         updatesList = new ArrayList<>();
@@ -117,8 +118,10 @@ public class EventUpdatesFragment extends Fragment {
                 builder.setPositiveButton(getString(R.string.done), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String update = input.getText().toString();
-                        pushUpdateToFirebase(update);
+                        if (!input.getText().toString().isEmpty()) {
+                            String update = input.getText().toString();
+                            pushUpdateToFirebase(update);
+                        }
                     }
                 });
 
@@ -187,7 +190,7 @@ public class EventUpdatesFragment extends Fragment {
     This way we get approximate number of hours as ETA.
     */
     private String calcTimeDifference() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.US);
         Date now = new Date();
         String currentDateFormat = sdf.format(now);
         String eventDateFormat = eventItem.getEventDate() + " " + eventItem.getEventTime();
@@ -203,7 +206,9 @@ public class EventUpdatesFragment extends Fragment {
 
         long diff = 0;
         if (!TextUtils.isEmpty(eventItem.getEventDate())) {
-            if (!eventItem.getEventDate().equals("Not set") && !eventItem.getEventTime().equals("Not set")) {
+            if (!eventItem.getEventDate().equals(getString(R.string.not_set)) &&
+                    !eventItem.getEventTime().equals(getString(R.string.not_set))) {
+
                 long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
                 diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
             }

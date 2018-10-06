@@ -58,4 +58,10 @@
     <string name="whats_the_update">What\'s the update?</string>
     <string name="dismiss">Dismiss</string>
     <string name="not_set">Not set</string>
+    <string name="details">Details</string>
+    <string name="unable_to_get_permission">Unable to get permission.</string>
+    <string name="hours">\nHours</string>
+    <string name="event_creation_successful">Event creation successful!</string>
+    <string name="_2000_hours">20:00</string>
+    <string name="_1800_hours">18:00</string>
 </resources>

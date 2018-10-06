@@ -21,7 +21,6 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -235,11 +234,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
         /*
 
-        */
+         */
         databaseReference.child("events_list").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("ADebug", "Got all data");
                 eventsRecycler.scrollToPosition(eventItemList.size() - 1);
                 saveToSharedPref();
             }
@@ -284,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
                     ActivityCompat.requestPermissions(MainActivity.this,
                             new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_CONSTANT);
                 } else {
-                    Toast.makeText(getBaseContext(), "Unable to get permission.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.unable_to_get_permission, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -357,7 +355,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             editor.putString(EVENT_DATE_TIME, eventItemList.get(last).getEventDate() + "\n" + eventItemList.get(last).getEventTime());
             editor.putString(EVENT_LOCATION, eventItemList.get(last).getEventLocation());
             editor.apply();
-            Log.d("ADebug", eventItemList.get(last).getEventDate() + "\n" + eventItemList.get(last).getEventTime());
         }
     }
 }

@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import me.akshanshjain.kwik.R;
@@ -98,7 +99,7 @@ public class KwikWidget extends AppWidgetProvider {
     This way we get approximate number of hours as ETA.
     */
     private String calcTimeDifference(String date, String time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.US);
         Date now = new Date();
         String currentDateFormat = sdf.format(now);
         String eventDateFormat = date + " " + time;
@@ -123,4 +124,3 @@ public class KwikWidget extends AppWidgetProvider {
         return String.valueOf(diff);
     }
 }
-

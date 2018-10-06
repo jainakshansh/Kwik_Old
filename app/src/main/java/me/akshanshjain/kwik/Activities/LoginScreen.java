@@ -31,7 +31,6 @@ public class LoginScreen extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
     private boolean verificationInProgress = false;
-    private PhoneAuthProvider.ForceResendingToken resendToken;
 
     private static final String USER_KEY = "USER";
 
@@ -120,7 +119,6 @@ public class LoginScreen extends AppCompatActivity {
 
             @Override
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                resendToken = forceResendingToken;
             }
         };
     }

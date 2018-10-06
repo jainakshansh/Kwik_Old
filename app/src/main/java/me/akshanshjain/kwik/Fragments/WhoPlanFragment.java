@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,7 +108,7 @@ public class WhoPlanFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
                 builder.setTitle("Select contacts to invite.");
 
                 builder.setMultiChoiceItems(contactsToShow, checkedContacts,
@@ -119,7 +120,7 @@ public class WhoPlanFragment extends Fragment {
                                         userSelected.add(position);
                                     }
                                 } else if (userSelected.contains(position)) {
-                                    userSelected.remove(position);
+                                    userSelected.remove(Integer.valueOf(position));
                                 }
                             }
                         });

@@ -56,8 +56,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), eventItem);
-        adapter.addFragment(new EventDetailFragment(), "Details");
-        adapter.addFragment(new EventUpdatesFragment(), "Updates");
+        adapter.addFragment(new EventDetailFragment(), getString(R.string.details));
+        adapter.addFragment(new EventUpdatesFragment(), getString(R.string.updates));
         viewPager.setAdapter(adapter);
     }
 }

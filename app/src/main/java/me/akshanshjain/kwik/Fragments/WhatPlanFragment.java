@@ -23,7 +23,6 @@ import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {
 
-    private TextView whatsPlanTv;
     private TextView customPlanTv;
     private LinearLayout eatingContainer, nightOutContainer, movieContainer;
     private ImageView nextButton;
@@ -61,7 +60,6 @@ public class WhatPlanFragment extends Fragment {
         /*
         Referencing the views from the XML layout.
         */
-        whatsPlanTv = view.findViewById(R.id.whats_the_plan_tv);
         customPlanTv = view.findViewById(R.id.custom_plan_what);
         nextButton = view.findViewById(R.id.next_button_what_fragment);
 

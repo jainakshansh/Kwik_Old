@@ -80,7 +80,7 @@ public class WhenPlanFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
                 String date = simpleDateFormat.format(new Date());
 
-                viewOnClick(date + "\n" + "20:00");
+                viewOnClick(date + getString(R.string._2000_hours));
             }
         });
 
@@ -96,7 +96,7 @@ public class WhenPlanFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
                 String tomorrow = simpleDateFormat.format(dt);
 
-                viewOnClick(tomorrow + "\n" + "18:00");
+                viewOnClick(tomorrow + "\n" + getString(R.string._1800_hours));
             }
         });
 
