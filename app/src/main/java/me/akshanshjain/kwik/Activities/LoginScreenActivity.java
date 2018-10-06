@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import me.akshanshjain.kwik.Objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginScreenActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
@@ -93,7 +93,7 @@ public class LoginScreen extends AppCompatActivity {
                     name.setError(getString(R.string.required));
                 }
 
-                Toast.makeText(LoginScreen.this, R.string.we_are_sending_you_an_otp, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginScreenActivity.this, R.string.we_are_sending_you_an_otp, Toast.LENGTH_SHORT).show();
                 loginButton.setText(getString(R.string.resend_otp));
                 startPhoneNumberVerification(phone.getText().toString());
             }
@@ -133,7 +133,7 @@ public class LoginScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
-                            Toast.makeText(LoginScreen.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginScreenActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
 
                             UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getEmail(),
                                     user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
@@ -141,6 +141,9 @@ public class LoginScreen extends AppCompatActivity {
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
                             logSuccessIntent.putExtra(USER_KEY, userDataItem);
                             startActivity(logSuccessIntent);
+
+                            //Adding transition from the Login Activity to the Main Activity screen.
+                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                             finish();
                         }
                     }

@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '123456'
-            storeFile file('C:/Users/Akshansh/AndroidStudioProjects/Kwik/kwik_akshansh.jks')
+            storeFile file('kwik_akshansh.jks')
             storePassword '123456'
         }
     }
