@@ -127,7 +127,7 @@ public class WhatPlanFragment extends Fragment {
     private String addCustomPlan() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
-        builder.setTitle(getString(R.string.whats_the_update));
+        builder.setTitle(getString(R.string.what_s_the_plan));
 
         final EditText input = new EditText(getContext());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(

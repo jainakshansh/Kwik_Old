@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -64,7 +64,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -72,7 +72,6 @@
             android:id="@+id/event_starts_in_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/material_margin"
             android:fontFamily="@font/lato"
             android:text="@string/event_starts_in"
             android:textAllCaps="true"

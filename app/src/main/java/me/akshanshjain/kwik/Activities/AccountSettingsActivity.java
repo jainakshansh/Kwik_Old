@@ -195,12 +195,12 @@ public class AccountSettingsActivity extends AppCompatActivity {
             String image = cursor.getString(columnIndex);
             cursor.close();
 
-            //Storing the path of the selected image in Shared Preferences.
-            storeImageInPref(image);
-
             //Setting the selected image as the profile image.
             Bitmap bitmap = BitmapFactory.decodeFile(image);
             profileImage.setImageBitmap(bitmap);
+
+            //Storing the path of the selected image in Shared Preferences.
+            storeImageInPref(image);
 
         } catch (Exception e) {
             e.printStackTrace();
