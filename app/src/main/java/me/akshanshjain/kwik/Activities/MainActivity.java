@@ -21,6 +21,7 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -60,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
     private static final int REQUEST_PERMISSION_SETTING = 100;
     private SharedPreferences permissionStatus, display;
     private SharedPreferences basicData;
+
+    private SharedPreferences latestEvent;
+    private static final String LATEST_EVENT_SHARED_PREF = "latestevent";
+    private static final String EVENT_NAME = "EVENT_NAME";
+    private static final String EVENT_DATE_TIME = "EVENT_DATE_TIME";
+    private static final String EVENT_LOCATION = "EVENT_LOCATION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,5 +326,21 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
                 Toast.makeText(MainActivity.this, getString(R.string.error_connecting_please_check_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (eventItemList != null && !eventItemList.isEmpty()) {
+            /*
+            Setting the latest event in the shared preference.
+            This data will be retrieved in the widget.
+            The widget will have the information about the latest event.
+            */
+            int last = eventItemList.size() - 1;
+            latestEvent = getSharedPreferences(LATEST_EVENT_SHARED_PREF, MODE_PRIVATE);
+            SharedPreferences.Editor editor = latestEvent.edit();
+            editor.putString(EVENT_NAME, eventItemList.get(last).getEventName());
+            editor.putString(EVENT_DATE_TIME, eventItemList.get(last).getEventDate() + "\n" + eventItemList.get(last).getEventTime());
+            editor.putString(EVENT_LOCATION, eventItemList.get(last).getEventLocation());
+            editor.apply();
+            Log.d("ADebug", eventItemList.get(last).getEventDate() + "\n" + eventItemList.get(last).getEventTime());
+        }
     }
 }

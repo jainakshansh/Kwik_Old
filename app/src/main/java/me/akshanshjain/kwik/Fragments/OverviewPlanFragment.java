@@ -78,6 +78,8 @@ public class OverviewPlanFragment extends Fragment {
         if (!when.equals(getString(R.string.decide_later))) {
             dateTimeSplit = when.split("\n");
             dateTime = dateTimeSplit[0] + " ● " + dateTimeSplit[1];
+        } else {
+            dateTime = getString(R.string.decide_later);
         }
 
         whatPlan.setText(what);

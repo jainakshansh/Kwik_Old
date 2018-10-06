@@ -118,7 +118,11 @@ public class WhenPlanFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(customDate.getText().toString())) {
-                    viewOnClick(customDate.getText().toString());
+                    if (!customDate.getText().toString().equals(getString(R.string.custom_date))) {
+                        viewOnClick(customDate.getText().toString());
+                    } else {
+                        viewOnClick(getString(R.string.decide_later));
+                    }
                 }
             }
         });

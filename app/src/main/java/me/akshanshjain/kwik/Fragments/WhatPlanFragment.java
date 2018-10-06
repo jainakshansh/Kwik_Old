@@ -1,14 +1,19 @@
 package me.akshanshjain.kwik.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -121,6 +126,44 @@ public class WhatPlanFragment extends Fragment {
     This is called when the custom plan text view is clicked.
     The function builds a pop-up which allows user to enter the custom plan details.
     */
-    private void addCustomPlan() {
+    private String addCustomPlan() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.AlertDialogTheme));
+        builder.setTitle(getString(R.string.whats_the_update));
+
+        final EditText input = new EditText(getContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(16, 8, 16, 8);
+        input.setLayoutParams(lp);
+        input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        builder.setView(input);
+
+        builder.setPositiveButton(getString(R.string.done), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (!input.getText().toString().trim().isEmpty()) {
+                    String update = input.getText().toString();
+                    customPlanTv.setText(update);
+                }
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.dismiss), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setCancelable(false);
+        builder.create().show();
+
+        if (!input.getText().toString().isEmpty()) {
+            return input.getText().toString();
+        } else {
+            return getString(R.string.custom_plan);
+        }
     }
 }

@@ -12,6 +12,7 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class EventUpdatesFragment extends Fragment {
                         LinearLayout.LayoutParams.WRAP_CONTENT);
                 lp.setMargins(16, 8, 16, 8);
                 input.setLayoutParams(lp);
+                input.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                 builder.setView(input);
 
                 builder.setPositiveButton(getString(R.string.done), new DialogInterface.OnClickListener() {
