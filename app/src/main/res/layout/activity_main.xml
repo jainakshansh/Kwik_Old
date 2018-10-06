@@ -65,6 +65,7 @@
         android:layout_width="@dimen/fab_size_material"
         android:layout_height="@dimen/fab_size_material"
         android:layout_margin="@dimen/material_margin"
+        android:contentDescription="@string/add_new_event"
         android:elevation="@dimen/fab_elevation"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
