@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "116252453538",
+    "firebase_url": "https://kwik-akshansh.firebaseio.com",
+    "project_id": "kwik-akshansh",
+    "storage_bucket": "kwik-akshansh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116252453538:android:a337d189c56f97d7",
+        "android_client_info": {
+          "package_name": "me.akshanshjain.kwik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "116252453538-njquec798innsr7c1k5mi82k3r26jb9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.akshanshjain.kwik",
+            "certificate_hash": "c396080ed4202729d9032299470bfeb0d5a48c33"
+          }
+        },
+        {
+          "client_id": "116252453538-4mfjta9viuc0eor3h4ql83cfbn9dbgb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCSG9K_RhvQfqF-R2w6C07PtirfjRMbVM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116252453538-4mfjta9viuc0eor3h4ql83cfbn9dbgb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
