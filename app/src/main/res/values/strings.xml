@@ -64,4 +64,5 @@
     <string name="event_creation_successful">Event creation successful!</string>
     <string name="_2000_hours">20:00</string>
     <string name="_1800_hours">18:00</string>
+    <string name="shared_transition">Shared Transition</string>
 </resources>

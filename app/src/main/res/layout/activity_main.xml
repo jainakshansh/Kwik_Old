@@ -81,6 +81,7 @@
         android:contentDescription="@string/account_settings"
         android:elevation="@dimen/material_margin_half"
         android:src="@drawable/ic_account_settings"
+        android:transitionName="@string/shared_transition"
         app:civ_border_color="@color/materialBlack"
         app:civ_border_width="1dp"
         app:layout_constraintBottom_toBottomOf="@id/fab_main"

@@ -25,6 +25,7 @@
         android:elevation="@dimen/material_margin"
         android:scaleType="centerCrop"
         android:src="@drawable/selfie"
+        android:transitionName="@string/shared_transition"
         app:civ_border_color="@color/colorPrimary"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="@id/background_account_settings"

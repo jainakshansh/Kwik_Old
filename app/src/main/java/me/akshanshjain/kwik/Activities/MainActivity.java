@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -120,12 +121,27 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
         getImageFromPref();
 
+        /*
+        Opening the Account Settings page.
+        */
         accountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Creating the intent to launch the required activity.
                 Intent toAccountIntent = new Intent(getApplicationContext(), AccountSettingsActivity.class);
+
+                //Getting the transition name from the string.
+                String transitionName = getString(R.string.shared_transition);
+
+                //Defining the shared view where the animation will start.
+                View viewStart = findViewById(R.id.account_settings_main);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,
+                        viewStart, transitionName);
+
                 toAccountIntent.putExtra(USER_KEY, userDataItem);
-                startActivity(toAccountIntent);
+
+                ActivityCompat.startActivity(MainActivity.this, toAccountIntent, options.toBundle());
             }
         });
 
@@ -341,6 +357,11 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
         });
     }
 
+    /*
+    Saving the details about the latest created event into Shared Preferences.
+    This helps us retrieve the values to be displayed in the Widget.
+    We use the last variable to get the latest created event.
+    */
     private void saveToSharedPref() {
         if (eventItemList != null && !eventItemList.isEmpty()) {
             /*
@@ -357,4 +378,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             editor.apply();
         }
     }
+
+
 }

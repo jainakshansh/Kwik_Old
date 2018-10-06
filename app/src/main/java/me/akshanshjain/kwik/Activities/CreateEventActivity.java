@@ -95,6 +95,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             case 1:
                 WhenPlanFragment whenPlanFragment = new WhenPlanFragment();
                 fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .replace(R.id.plan_creation_container, whenPlanFragment)
                         .commit();
                 whatPlan = data;
@@ -103,6 +104,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             case 2:
                 WherePlanFragment wherePlanFragment = new WherePlanFragment();
                 fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .replace(R.id.plan_creation_container, wherePlanFragment)
                         .commit();
                 whenPlan = data;
@@ -123,6 +125,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 whoPlanFragment.setArguments(listBundle);
 
                 fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .replace(R.id.plan_creation_container, whoPlanFragment)
                         .commit();
                 wherePlan = data;
@@ -139,6 +142,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
                 fragmentStack = 0;
                 WhatPlanFragment whatPlanFragment = new WhatPlanFragment();
                 fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                         .replace(R.id.plan_creation_container, whatPlanFragment)
                         .commit();
                 break;
@@ -168,6 +172,7 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
             overviewPlanFragment.setArguments(bundle);
 
             fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                     .replace(R.id.plan_creation_container, overviewPlanFragment)
                     .commit();
         }
