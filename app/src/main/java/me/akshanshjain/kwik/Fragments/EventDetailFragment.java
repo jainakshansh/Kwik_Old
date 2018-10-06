@@ -1,5 +1,6 @@
 package me.akshanshjain.kwik.Fragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import me.akshanshjain.kwik.Objects.EventItem;
 import me.akshanshjain.kwik.R;
@@ -24,6 +26,9 @@ public class EventDetailFragment extends Fragment {
     private TextView eventName, eventDescription;
     private TextView eventDateTime, eventLocation;
     private LinearLayout attendeesContainer;
+
+    private ImageView background;
+    private Drawable[] backgroundDrawables;
 
     private EventItem eventItem;
     private static final String EVENT_KEY = "EVENT";
@@ -65,6 +70,26 @@ public class EventDetailFragment extends Fragment {
 
         eventAttendeesList = eventItem.getEventAttendees();
         addAttendeesToContainer();
+
+        background = view.findViewById(R.id.background_event_details);
+
+        /*
+        Getting all the drawables into an array to set as dynamic background for account page.
+        */
+        backgroundDrawables = new Drawable[]{ContextCompat.getDrawable(getActivity(), R.drawable.celebration),
+                ContextCompat.getDrawable(getActivity(), R.drawable.refreshing),
+                ContextCompat.getDrawable(getActivity(), R.drawable.hang_out),
+                ContextCompat.getDrawable(getActivity(), R.drawable.park),
+                ContextCompat.getDrawable(getActivity(), R.drawable.selfie),
+                ContextCompat.getDrawable(getActivity(), R.drawable.trip)};
+
+        /*
+        Setting the background as a random drawable image.
+        */
+        Random random = new Random();
+        int bg = random.nextInt(backgroundDrawables.length);
+        background.setImageDrawable(backgroundDrawables[bg]);
+
 
         return view;
     }
