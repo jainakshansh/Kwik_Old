@@ -35,7 +35,7 @@ public class OverviewPlanFragment extends Fragment {
     private static final String WHERE_KEY = "WHERE";
     private static final String WHO_KEY = "WHO";
     private String what, when, where;
-    private String[] dateTimeSplit;
+    private String[] dateTimeSplit = new String[2];
     private ArrayList<String> selectedContacts;
 
     private FirebaseDatabase firebaseDatabase;
@@ -80,6 +80,8 @@ public class OverviewPlanFragment extends Fragment {
             dateTime = dateTimeSplit[0] + " ● " + dateTimeSplit[1];
         } else {
             dateTime = getString(R.string.decide_later);
+            dateTimeSplit[0] = getString(R.string.not_set);
+            dateTimeSplit[1] = getString(R.string.not_set);
         }
 
         whatPlan.setText(what);

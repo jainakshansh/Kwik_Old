@@ -112,8 +112,13 @@ public class KwikWidget extends AppWidgetProvider {
             e.printStackTrace();
         }
 
-        long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
-        long diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+        long diff = 0;
+        if (!TextUtils.isEmpty(date)) {
+            if (!date.equals("Not set")) {
+                long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
+                diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+            }
+        }
 
         return String.valueOf(diff);
     }

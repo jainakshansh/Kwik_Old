@@ -13,6 +13,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,8 +201,13 @@ public class EventUpdatesFragment extends Fragment {
             e.printStackTrace();
         }
 
-        long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
-        long diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+        long diff = 0;
+        if (!TextUtils.isEmpty(eventItem.getEventDate())) {
+            if (!eventItem.getEventDate().equals("Not set") && !eventItem.getEventTime().equals("Not set")) {
+                long differenceInMillis = Math.abs(eventDate.getTime() - currentDate.getTime());
+                diff = TimeUnit.HOURS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+            }
+        }
 
         return String.valueOf(diff);
     }

@@ -189,8 +189,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
             //Calling the function to get the data.
             getEventsData();
         }
-
-        eventsRecycler.scrollToPosition(eventItemList.size() - 1);
     }
 
     /*
@@ -234,6 +232,23 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
 
         //Notifying the adapter that the data set has changed and to refresh the list.
         eventsAdapter.notifyDataSetChanged();
+
+        /*
+
+        */
+        databaseReference.child("events_list").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("ADebug", "Got all data");
+                eventsRecycler.scrollToPosition(eventItemList.size() - 1);
+                saveToSharedPref();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
     }
 
     /*
@@ -326,7 +341,9 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.Ite
                 Toast.makeText(MainActivity.this, getString(R.string.error_connecting_please_check_internet_connection), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void saveToSharedPref() {
         if (eventItemList != null && !eventItemList.isEmpty()) {
             /*
             Setting the latest event in the shared preference.
