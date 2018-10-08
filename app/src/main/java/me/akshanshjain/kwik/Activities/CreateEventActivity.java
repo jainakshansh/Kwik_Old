@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -151,8 +151,13 @@ public class CreateEventActivity extends AppCompatActivity implements OnFragment
 
     @Override
     public void onContactsSelection(ArrayList<String> selectedContacts) {
-        selectedContactsList.clear();
-        selectedContactsList.addAll(selectedContacts);
+        if (selectedContactsList != null && !selectedContactsList.isEmpty()) {
+            selectedContactsList.clear();
+        }
+
+        if (selectedContacts != null && !selectedContacts.isEmpty()) {
+            selectedContactsList.addAll(selectedContacts);
+        }
 
         fragmentStack++;
 
