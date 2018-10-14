@@ -3,6 +3,10 @@
 An ad-hoc social event planner that provides individual assistance for attendees 
 of a group social event such as Night Out, a Movie, or a Dinner.
 
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com)	[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
+
+
 
 ## UI Mocks
 
