@@ -81,9 +81,9 @@
 
     <EditText
         android:id="@+id/user_phone_number_login"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/login_page_margins"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="@dimen/material_margin"
         android:layout_marginEnd="@dimen/login_page_margins"
         android:background="@drawable/edit_text_field_bg"
@@ -92,13 +92,31 @@
         android:hint="@string/enter_your_phone_number"
         android:inputType="phone"
         android:maxLength="10"
-        android:padding="16dp"
+        android:padding="@dimen/material_margin"
         android:textColor="@color/materialBlack"
         android:textColorHint="@color/materialBlack"
         app:layout_constraintBottom_toTopOf="@id/button_login"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/country_code_phone_number_login"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_full_name_login" />
+
+    <TextView
+        android:id="@+id/country_code_phone_number_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/material_margin"
+        android:background="@drawable/edit_text_field_bg"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:padding="@dimen/material_margin"
+        android:text="+91"
+        android:textColor="@color/materialBlack"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/user_phone_number_login"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/user_phone_number_login"
+        app:layout_constraintTop_toTopOf="@id/user_phone_number_login"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_login"

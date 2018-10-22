@@ -2,8 +2,6 @@ package me.akshanshjain.kwik.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +21,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import me.akshanshjain.kwik.Objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
@@ -89,13 +89,13 @@ public class LoginScreenActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(name.getText().toString())) {
+                if (TextUtils.isEmpty(name.getText().toString().trim())) {
                     name.setError(getString(R.string.required));
                 }
 
                 Toast.makeText(LoginScreenActivity.this, R.string.we_are_sending_you_an_otp, Toast.LENGTH_SHORT).show();
                 loginButton.setText(getString(R.string.resend_otp));
-                startPhoneNumberVerification(phone.getText().toString());
+                startPhoneNumberVerification(phone.getText().toString().trim());
             }
         });
     }
@@ -135,7 +135,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             Toast.makeText(LoginScreenActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
 
-                            UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString(), user.getEmail(),
+                            UserDataItem userDataItem = new UserDataItem(user.getUid(), name.getText().toString().trim(), user.getEmail(),
                                     user.getPhoneNumber(), String.valueOf(user.getPhotoUrl()));
 
                             Intent logSuccessIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -150,6 +150,9 @@ public class LoginScreenActivity extends AppCompatActivity {
                 });
     }
 
+    /*
+    Using PhoneAuthProvider to verify the phone number.
+    */
     private void startPhoneNumberVerification(String phoneNumber) {
         phoneNumber = "+91" + phoneNumber;
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -175,7 +178,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     Returns either true or false by checking if the user has entered a valid phone number.
     */
     private boolean validatePhoneNumber() {
-        String phoneNumber = phone.getText().toString();
+        String phoneNumber = phone.getText().toString().trim();
         if (TextUtils.isEmpty(phoneNumber)) {
             phone.setError(getString(R.string.invalid_phone_number));
             return false;
