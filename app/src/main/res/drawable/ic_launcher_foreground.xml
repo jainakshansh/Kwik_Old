@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="108dp"
+        android:viewportWidth="1152"
+        android:viewportHeight="1152">
+    <group android:translateX="288"
+            android:translateY="288">
+    </group>
+
