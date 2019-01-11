@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Adapters;
+package me.akshanshjain.kwik.adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Random;
 
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventsViewHolder> {

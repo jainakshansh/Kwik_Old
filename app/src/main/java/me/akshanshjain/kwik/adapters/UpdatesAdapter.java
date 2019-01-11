@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Adapters;
+package me.akshanshjain.kwik.adapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

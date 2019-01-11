@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Activities;
+package me.akshanshjain.kwik.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import me.akshanshjain.kwik.Adapters.ViewPagerAdapter;
-import me.akshanshjain.kwik.Fragments.EventDetailFragment;
-import me.akshanshjain.kwik.Fragments.EventUpdatesFragment;
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.adapters.ViewPagerAdapter;
+import me.akshanshjain.kwik.fragments.EventDetailFragment;
+import me.akshanshjain.kwik.fragments.EventUpdatesFragment;
+import me.akshanshjain.kwik.objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class EventDetailsActivity extends AppCompatActivity {

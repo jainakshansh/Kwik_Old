@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Adapters;
+package me.akshanshjain.kwik.adapters;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -9,9 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.akshanshjain.kwik.Fragments.EventDetailFragment;
-import me.akshanshjain.kwik.Fragments.EventUpdatesFragment;
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.fragments.EventDetailFragment;
+import me.akshanshjain.kwik.fragments.EventUpdatesFragment;
+import me.akshanshjain.kwik.objects.EventItem;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

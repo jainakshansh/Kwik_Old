@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.akshanshjain.kwik.Interfaces.WhoFragmentInteractionListener;
+import me.akshanshjain.kwik.interfaces.WhoFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhoPlanFragment extends Fragment {

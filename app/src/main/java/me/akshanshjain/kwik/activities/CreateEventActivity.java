@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Activities;
+package me.akshanshjain.kwik.activities;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -18,13 +18,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.akshanshjain.kwik.Fragments.OverviewPlanFragment;
-import me.akshanshjain.kwik.Fragments.WhatPlanFragment;
-import me.akshanshjain.kwik.Fragments.WhenPlanFragment;
-import me.akshanshjain.kwik.Fragments.WherePlanFragment;
-import me.akshanshjain.kwik.Fragments.WhoPlanFragment;
-import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
-import me.akshanshjain.kwik.Interfaces.WhoFragmentInteractionListener;
+import me.akshanshjain.kwik.fragments.OverviewPlanFragment;
+import me.akshanshjain.kwik.fragments.WhatPlanFragment;
+import me.akshanshjain.kwik.fragments.WhenPlanFragment;
+import me.akshanshjain.kwik.fragments.WherePlanFragment;
+import me.akshanshjain.kwik.fragments.WhoPlanFragment;
+import me.akshanshjain.kwik.interfaces.OnFragmentInteractionListener;
+import me.akshanshjain.kwik.interfaces.WhoFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class CreateEventActivity extends AppCompatActivity implements OnFragmentInteractionListener, WhoFragmentInteractionListener {

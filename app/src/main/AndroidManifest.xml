@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Activities.LoginScreenActivity"
+            android:name=".activities.LoginScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +27,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.CreateEventActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.CreateEventActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.AccountSettingsActivity" />
+        <activity android:name=".activities.AccountSettingsActivity" />
 
         <activity
-            android:name=".Activities.EventDetailsActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name=".activities.EventDetailsActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait" />
 
-        <receiver android:name=".Widget.KwikWidget">
+        <receiver android:name=".widget.KwikWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

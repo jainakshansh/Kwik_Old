@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Activities;
+package me.akshanshjain.kwik.activities;
 
 import android.Manifest;
 import android.content.Intent;

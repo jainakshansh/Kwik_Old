@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Activities;
+package me.akshanshjain.kwik.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.akshanshjain.kwik.Adapters.EventsAdapter;
-import me.akshanshjain.kwik.Objects.EventItem;
-import me.akshanshjain.kwik.Objects.UserDataItem;
+import me.akshanshjain.kwik.adapters.EventsAdapter;
+import me.akshanshjain.kwik.objects.EventItem;
+import me.akshanshjain.kwik.objects.UserDataItem;
 import me.akshanshjain.kwik.R;
 
 public class MainActivity extends AppCompatActivity implements EventsAdapter.ItemClickListener {

@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
+import me.akshanshjain.kwik.interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhatPlanFragment extends Fragment {

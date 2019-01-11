@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Activities
+package me.akshanshjain.kwik.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,18 +14,20 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import me.akshanshjain.kwik.Objects.UserDataItem
+import me.akshanshjain.kwik.R
+import me.akshanshjain.kwik.objects.UserDataItem
 import java.util.concurrent.TimeUnit
 
 class LoginScreenActivity : AppCompatActivity() {
 
-    private var firebaseAuth: FirebaseAuth? = null
-    private var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks? = null
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var verificationInProgress = false
 
     private lateinit var name: EditText
     private lateinit var phone: EditText
     private lateinit var loginButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class LoginScreenActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login_screen)
 
+
         /*
         Checking if the user has already signed in.
         If yes, direct user to MainActivity directly and finish the Login one.
@@ -50,27 +53,30 @@ class LoginScreenActivity : AppCompatActivity() {
             finish()
         }
 
+
         /*
         Initializing and referencing the views from the XML layout.
         */
         name = findViewById(R.id.user_full_name_login)
         phone = findViewById(R.id.user_phone_number_login)
-
         loginButton = findViewById(R.id.button_login)
+
 
         //Initializing Auth.
         firebaseAuth = FirebaseAuth.getInstance()
 
+
         //Initializing callbacks.
         setupCallbacks()
+
 
         /*
         Setting the listener on the login button which verifies the pair of OTP and phone number to login the user.
         */
         loginButton.setOnClickListener(View.OnClickListener {
             /*
-                Starting with the phone verification by validating the phone entry field first.
-                */
+            Starting with the phone verification by validating the phone entry field first.
+            */
             if (!validatePhoneNumber()) {
                 return@OnClickListener
             }
@@ -84,6 +90,7 @@ class LoginScreenActivity : AppCompatActivity() {
             startPhoneNumberVerification(phone.text.toString().trim { it <= ' ' })
         })
     }
+
 
     /*
     Setting up the callbacks for the phone verification.
@@ -104,11 +111,12 @@ class LoginScreenActivity : AppCompatActivity() {
         }
     }
 
+
     /*
     Authenticating the sign in with phone.
     */
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        firebaseAuth!!.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         val user = task.result!!.user
@@ -128,6 +136,7 @@ class LoginScreenActivity : AppCompatActivity() {
                 }
     }
 
+
     /*
     Using PhoneAuthProvider to verify the phone number.
     */
@@ -139,11 +148,12 @@ class LoginScreenActivity : AppCompatActivity() {
                 60,
                 TimeUnit.SECONDS,
                 this,
-                callbacks!!
+                callbacks
         )
 
         verificationInProgress = true
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -151,6 +161,7 @@ class LoginScreenActivity : AppCompatActivity() {
             startPhoneNumberVerification(phone.text.toString())
         }
     }
+
 
     /*
     Returns either true or false by checking if the user has entered a valid phone number.
@@ -167,7 +178,8 @@ class LoginScreenActivity : AppCompatActivity() {
         return true
     }
 
+
     companion object {
-        private val USER_KEY = "USER"
+        private const val USER_KEY = "USER"
     }
 }

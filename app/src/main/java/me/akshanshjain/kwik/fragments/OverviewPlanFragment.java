@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class OverviewPlanFragment extends Fragment {

@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Widget;
+package me.akshanshjain.kwik.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

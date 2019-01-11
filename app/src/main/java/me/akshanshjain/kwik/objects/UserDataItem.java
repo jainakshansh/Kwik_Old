@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Objects;
+package me.akshanshjain.kwik.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

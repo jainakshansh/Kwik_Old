@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class EventDetailFragment extends Fragment {

@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 
 import android.content.DialogInterface;
@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import me.akshanshjain.kwik.Adapters.UpdatesAdapter;
-import me.akshanshjain.kwik.Objects.EventItem;
+import me.akshanshjain.kwik.adapters.UpdatesAdapter;
+import me.akshanshjain.kwik.objects.EventItem;
 import me.akshanshjain.kwik.R;
 
 public class EventUpdatesFragment extends Fragment {

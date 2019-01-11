@@ -1,4 +1,4 @@
-package me.akshanshjain.kwik.Fragments;
+package me.akshanshjain.kwik.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import me.akshanshjain.kwik.Interfaces.OnFragmentInteractionListener;
+import me.akshanshjain.kwik.interfaces.OnFragmentInteractionListener;
 import me.akshanshjain.kwik.R;
 
 public class WhenPlanFragment extends Fragment {
